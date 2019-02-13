@@ -17,7 +17,7 @@ client.remove_command("help")
 TOKEN = 'NTQ0MDU5MTQ5MzE1NDczNDI4.D0FmIg.4JomPRJCrntpATO22uci5IHtqaA' # Bot Token
 serverName = 'Pulse Notify' # Server Name Here
 adminIDs = [209294027332386817] # Admin IDs
-profilesChannel = 543591782882213897 # Channel ID where the profiles will be sent.
+profilesChannel = 545160826542096386 # Channel ID where the profiles will be sent.
 announcementChannel = 543591979347345418 # Channel ID where the announcement will be sent.
 def isAdmin(ID, adminList):
     return ID in adminList
