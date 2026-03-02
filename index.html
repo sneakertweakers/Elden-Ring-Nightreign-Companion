@@ -38,7 +38,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
       transition: background 0.4s;
     }
@@ -365,11 +366,116 @@
     }
     #flash.on { opacity: .07; }
 
+    /* ─── Boss section ───────────────────────────────────────── */
+    .boss-section { width: 100%; }
+    .boss-toggle {
+      width: 100%;
+      padding: 13px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .boss-toggle:hover { background: var(--card2); color: var(--text); border-color: var(--accent); }
+    .boss-toggle.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; color: var(--accent); }
+    .boss-toggle .chevron { transition: transform .3s; font-style: normal; }
+    .boss-toggle.open .chevron { transform: rotate(180deg); }
+
+    .boss-grid-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 0 18px 18px;
+      display: none;
+    }
+    .boss-grid-wrap.open { display: block; }
+
+    .boss-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding-top: 14px;
+    }
+    .boss-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .boss-card:hover { border-color: var(--accent); }
+    .boss-card.final {
+      grid-column: 1 / -1;
+      border-color: rgba(239,68,68,.3);
+      background: rgba(239,68,68,.05);
+    }
+    .boss-card.final:hover { border-color: #ef4444; }
+    .boss-icon { font-size: 1.4rem; line-height: 1; }
+    .boss-name {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+      line-height: 1.25;
+    }
+    .boss-card.final .boss-name { color: #ef4444; }
+    .boss-expedition {
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .boss-weak {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .weak-holy    { background: rgba(251,191,36,.15); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+    .weak-poison  { background: rgba(52,211,153,.15);  color: #34d399; border: 1px solid rgba(52,211,153,.3); }
+    .weak-fire    { background: rgba(249,115,22,.15);  color: #f97316; border: 1px solid rgba(249,115,22,.3); }
+    .weak-lightning{ background: rgba(96,165,250,.15); color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .weak-madness { background: rgba(192,132,252,.15); color: #c084fc; border: 1px solid rgba(192,132,252,.3); }
+    .boss-tip {
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+    .boss-card.final .boss-tip { color: #a1a1aa; }
+
     /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width:520px) {
       .card { padding: 20px 16px; }
       .jumps { gap: 5px; }
       .jump-label { display: none; }
+      .boss-grid { grid-template-columns: 1fr; }
+      .boss-card.final { grid-column: 1; }
     }
   </style>
 </head>
@@ -427,6 +533,95 @@
     </div>
 
   </div><!-- /card -->
+  <!-- Boss reference -->
+  <div class="boss-section">
+    <button class="boss-toggle" id="bossToggle">
+      <span>⚔️ &nbsp;Night Lords Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="boss-grid-wrap" id="bossGridWrap">
+      <div class="boss-grid">
+
+        <!-- 1 Gladius -->
+        <div class="boss-card">
+          <div class="boss-icon">🐺</div>
+          <div class="boss-name">Gladius, Beast of Night</div>
+          <div class="boss-expedition">Everdark: Tricephalos</div>
+          <span class="boss-weak weak-holy">✦ Holy</span>
+          <div class="boss-tip">Splits into 3 wolves at 75% HP — focus the red-eyed one. Stay close to bait lunges.</div>
+        </div>
+
+        <!-- 2 Adel -->
+        <div class="boss-card">
+          <div class="boss-icon">🦷</div>
+          <div class="boss-name">Adel, Baron of Night</div>
+          <div class="boss-expedition">Everdark: Gaping Jaw</div>
+          <span class="boss-weak weak-poison">✦ Poison</span>
+          <div class="boss-tip">Stack poison and kite his charges. Watch for lightning geysers in phase 2.</div>
+        </div>
+
+        <!-- 3 Gnoster -->
+        <div class="boss-card">
+          <div class="boss-icon">🦋</div>
+          <div class="boss-name">Gnoster, Wisdom of Night</div>
+          <div class="boss-expedition">Everdark: Sentient Pest</div>
+          <span class="boss-weak weak-fire">✦ Fire</span>
+          <div class="boss-tip">Team splits — ranged on the moth, melee on the ant. Keep moving to avoid rune-drain swarms.</div>
+        </div>
+
+        <!-- 4 Maris -->
+        <div class="boss-card">
+          <div class="boss-icon">🌊</div>
+          <div class="boss-name">Maris, Fathom of Night</div>
+          <div class="boss-expedition">Everdark: Augur</div>
+          <span class="boss-weak weak-lightning">✦ Lightning</span>
+          <div class="boss-tip">Any Lightning hit cancels her Sleep cast. Destroy the floating egg midair before it lands.</div>
+        </div>
+
+        <!-- 5 Libra -->
+        <div class="boss-card">
+          <div class="boss-icon">⚖️</div>
+          <div class="boss-name">Libra, Creature of Night</div>
+          <div class="boss-expedition">Everdark: Equilibrious Beast</div>
+          <span class="boss-weak weak-madness">✦ Madness</span>
+          <div class="boss-tip">Destroy light symbols to remove orb shield before casting — reflected projectiles can down you.</div>
+        </div>
+
+        <!-- 6 Fulghor -->
+        <div class="boss-card">
+          <div class="boss-icon">⚡</div>
+          <div class="boss-name">Fulghor, Champion of Nightglow</div>
+          <div class="boss-expedition">Everdark: Darkdrift Knight</div>
+          <span class="boss-weak weak-lightning">✦ Lightning</span>
+          <div class="boss-tip">One-armed centaur that can regrow its arm mid-fight. Deal Holy damage, punish recovery windows.</div>
+        </div>
+
+        <!-- 7 Caligo -->
+        <div class="boss-card">
+          <div class="boss-icon">🌫️</div>
+          <div class="boss-name">Caligo, Miasma of Night</div>
+          <div class="boss-expedition">Everdark: Fissure in the Fog</div>
+          <span class="boss-weak weak-fire">✦ Fire</span>
+          <div class="boss-tip">Highly evasive — Fire relics are essential for consistent damage through the miasma clouds.</div>
+        </div>
+
+        <!-- 8 Heolstor — full width / final -->
+        <div class="boss-card final">
+          <div class="boss-icon">👑</div>
+          <div class="boss-name">Heolstor, the Nightlord &nbsp;— TRUE FINAL BOSS</div>
+          <div class="boss-expedition">Everdark: Night Aspect · Unlock: clear all 7 other expeditions</div>
+          <span class="boss-weak weak-holy">✦ Holy</span>
+          <div class="boss-tip">
+            Two full HP bars. Save all flasks &amp; ultimates for phase 2 — they don't refill between phases.<br>
+            Phase 2: dodge <em>through</em> attacks, never backward (elemental AoE zones linger behind you).<br>
+            At 75 / 50 / 25% HP he flies up for a one-hit-kill nuke — sprint to the arena edge immediately.
+          </div>
+        </div>
+
+      </div><!-- /boss-grid -->
+    </div><!-- /boss-grid-wrap -->
+  </div><!-- /boss-section -->
+
 </div><!-- /wrap -->
 
 <script>
@@ -746,6 +941,12 @@ document.addEventListener('keydown', e => {
 buildDividers();
 buildJumps();
 render();
+
+/* ── Boss reference toggle ──────────────────────────────────── */
+document.getElementById('bossToggle').addEventListener('click', function() {
+  this.classList.toggle('open');
+  document.getElementById('bossGridWrap').classList.toggle('open');
+});
 </script>
 </body>
 </html>
