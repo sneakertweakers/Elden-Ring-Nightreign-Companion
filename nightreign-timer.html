@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nightreign Expedition Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:          #08080e;
+      --card:        #10101a;
+      --card2:       #14141f;
+      --border:      rgba(255,255,255,0.07);
+      --text:        #e8eaf0;
+      --muted:       #5a6180;
+      --subtle:      #2a2d40;
+
+      /* phase accent – updated via .phase-* body class */
+      --accent:      #f59e0b;
+      --accent2:     #d97706;
+      --glow:        rgba(245,158,11,0.35);
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Body ───────────────────────────────────────────────── */
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.4s;
+    }
+
+    /* ambient glow behind everything */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 60%, var(--glow), transparent 70%);
+      pointer-events: none;
+      transition: background 1.2s ease;
+      z-index: 0;
+    }
+
+    /* ─── Phase colour themes ────────────────────────────────── */
+    body.p0 { --accent:#f59e0b; --accent2:#b45309; --glow:rgba(245,158,11,0.28); }
+    body.p1 { --accent:#8b5cf6; --accent2:#5b21b6; --glow:rgba(139, 92,246,0.35); }
+    body.p2 { --accent:#10b981; --accent2:#047857; --glow:rgba(16,185,129,0.28); }
+    body.p3 { --accent:#ef4444; --accent2:#991b1b; --glow:rgba(239, 68, 68,0.38); }
+    body.pboss { --accent:#ef4444; --accent2:#7f1d1d; --glow:rgba(239,68,68,0.5); }
+
+    /* ─── Stars ──────────────────────────────────────────────── */
+    #stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity:0; transform:scale(1); }
+      50%      { opacity:var(--op,.4); transform:scale(1.6); }
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      padding: 20px 16px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .header { text-align: center; }
+    .title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 0 28px var(--glow), 0 0 70px var(--glow);
+      transition: color 1.2s, text-shadow 1.2s;
+      line-height: 1;
+    }
+    .subtitle {
+      font-size: .75rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    /* ─── Card ───────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 28px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      box-shadow:
+        0 0 70px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.04);
+      position: relative;
+      overflow: hidden;
+    }
+    /* top accent stripe */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .55;
+      transition: background 1.2s;
+    }
+
+    /* ─── Phase info ─────────────────────────────────────────── */
+    .phase-info { text-align: center; }
+    .phase-tag {
+      display: inline-block;
+      padding: 3px 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 999px;
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .phase-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.55rem);
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 0 18px var(--glow);
+      transition: color 1.2s, text-shadow 1.2s;
+      letter-spacing: .04em;
+    }
+    .phase-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      margin-top: 5px;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Countdown ──────────────────────────────────────────── */
+    .countdown-wrap { text-align: center; }
+    #countdown {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(4rem, 14vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+      text-shadow: 0 0 36px var(--glow);
+      transition: text-shadow 1.2s;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .04em;
+    }
+    #countdown.boss {
+      color: var(--accent);
+      animation: boss-pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes boss-pulse {
+      0%,100% { transform:scale(1);   opacity:1; }
+      50%      { transform:scale(1.03); opacity:.85; }
+    }
+
+    /* ─── Alert banner ───────────────────────────────────────── */
+    .alert {
+      text-align: center;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      display: none;
+      animation: blink .9s ease-in-out infinite;
+    }
+    .alert.show { display: block; }
+    .alert.warn  { background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3); color:#f59e0b; }
+    .alert.danger{ background:rgba(239,68, 68,.13); border:1px solid rgba(239,68, 68,.3); color:#ef4444; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.55} }
+
+    /* ─── Progress bar ───────────────────────────────────────── */
+    .progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bar-outer {
+      position: relative;
+      height: 10px;
+      background: rgba(255,255,255,.05);
+      border-radius: 5px;
+      overflow: visible;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 10px var(--glow);
+      transition: width .55s linear, background 1.2s;
+      position: relative;
+    }
+    /* cursor dot */
+    .bar-fill::after {
+      content:'';
+      position:absolute;
+      right:-2px; top:50%;
+      transform:translateY(-50%);
+      width:4px; height:18px;
+      background:white;
+      border-radius:2px;
+      box-shadow:0 0 7px rgba(255,255,255,.9);
+      opacity:.85;
+    }
+    /* divider lines between phases */
+    .divider {
+      position: absolute;
+      top: -5px; bottom: -5px;
+      width: 2px;
+      background: var(--bg);
+      border-radius: 1px;
+      z-index: 2;
+    }
+
+    /* ─── Phase jump buttons ─────────────────────────────────── */
+    .jumps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .jump {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 9px 6px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .jump:hover {
+      background: rgba(255,255,255,.08);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .jump.active {
+      background: rgba(255,255,255,.09);
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--glow);
+      color: var(--accent);
+    }
+    .jump-icon { font-size: 1.15rem; line-height: 1; }
+    .jump-label {
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .jump-time { font-size: .75rem; font-weight: 600; color: var(--muted); }
+
+    /* ─── Control buttons ────────────────────────────────────── */
+    .controls { display: flex; gap: 10px; }
+    .btn {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 11px;
+      font-family: 'Cinzel', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: all .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 100%);
+      pointer-events:none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #08080e;
+      box-shadow: 0 4px 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.18);
+      transition: background 1.2s, box-shadow 1.2s, transform .2s;
+    }
+    .btn-primary:hover  { transform: translateY(-2px); box-shadow: 0 7px 32px var(--glow); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-secondary {
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .btn-secondary:hover { background:rgba(255,255,255,.1); color:var(--text); transform:translateY(-2px); }
+
+    /* ─── Keyboard hints ─────────────────────────────────────── */
+    .hints {
+      text-align: center;
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+    kbd {
+      display: inline-block;
+      padding: 1px 5px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: .63rem;
+    }
+
+    /* ─── Sound toggle ───────────────────────────────────────── */
+    #soundBtn {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 10;
+      padding: 7px 13px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    #soundBtn:hover { background:rgba(255,255,255,.1); color:var(--text); }
+
+    /* ─── Flash overlay ──────────────────────────────────────── */
+    #flash {
+      position: fixed; inset: 0;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+      transition: opacity .1s;
+    }
+    #flash.on { opacity: .07; }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width:520px) {
+      .card { padding: 20px 16px; }
+      .jumps { gap: 5px; }
+      .jump-label { display: none; }
+    }
+  </style>
+</head>
+<body class="p0">
+
+<div id="stars"></div>
+<div id="flash"></div>
+<button id="soundBtn">🔔 Sound: ON</button>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="title">NIGHTREIGN</div>
+    <div class="subtitle">Expedition Timer</div>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+
+    <!-- Phase info -->
+    <div class="phase-info">
+      <div class="phase-tag" id="phaseTag">Phase 1 of 4</div>
+      <div class="phase-name" id="phaseName">Day 1 — Exploration</div>
+      <div class="phase-desc" id="phaseDesc">Explore, gather loot, and prepare for the storm</div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-wrap">
+      <div id="countdown">04:25</div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert" id="alert"></div>
+
+    <!-- Progress + jumps -->
+    <div class="progress-wrap">
+      <div class="bar-outer" id="barOuter">
+        <div class="bar-fill" id="barFill" style="width:0%"></div>
+        <!-- dividers injected by JS -->
+      </div>
+      <div class="jumps" id="jumps"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn btn-primary" id="startBtn">Start — GL HF</button>
+      <button class="btn btn-secondary" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="hints">
+      <kbd>Space</kbd> start/pause &nbsp;·&nbsp;
+      <kbd>R</kbd> reset &nbsp;·&nbsp;
+      <kbd>1</kbd>–<kbd>4</kbd> jump to phase
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /wrap -->
+
+<script>
+/* ================================================================
+   NIGHTREIGN TIMER
+   Phase timings sourced from baspla/nightreign (timer.js)
+   Day 1: 265s  |  Night 1: 175s  |  Day 2: 205s  |  Night 2: 175s
+   Total: 820s  |  End: Boss Fight
+================================================================ */
+
+const PHASES = [
+  {
+    bodyClass : 'p0',
+    icon      : '☀️',
+    short     : 'Day 1',
+    name      : 'Day 1 — Exploration',
+    desc      : 'Explore, gather loot, and prepare for the storm',
+    duration  : 265,          // 4:25
+    warnAt    : 60,
+    warnMsg   : '⚡ Storm closing in — 1 minute remaining!',
+    warnType  : 'warn',
+  },
+  {
+    bodyClass : 'p1',
+    icon      : '🌩️',
+    short     : 'Night 1',
+    name      : 'Night 1 — Storm Closing',
+    desc      : 'Storm shrinking — move to the safe zone now',
+    duration  : 175,          // 2:55
+    warnAt    : 30,
+    warnMsg   : '💀 Night Boss spawning soon — get in position!',
+    warnType  : 'danger',
+  },
+  {
+    bodyClass : 'p2',
+    icon      : '🌅',
+    short     : 'Day 2',
+    name      : 'Day 2 — Final Push',
+    desc      : 'Last window to gear up — the final storm is coming',
+    duration  : 205,          // 3:25
+    warnAt    : 60,
+    warnMsg   : '⚡ Final storm approaching — 1 minute left!',
+    warnType  : 'warn',
+  },
+  {
+    bodyClass : 'p3',
+    icon      : '🔥',
+    short     : 'Night 2',
+    name      : 'Night 2 — Storm Closing',
+    desc      : 'Converge on the boss arena — the Night Lord awaits',
+    duration  : 175,          // 2:55
+    warnAt    : 30,
+    warnMsg   : '⚔️ Night Lord incoming — prepare for battle!',
+    warnType  : 'danger',
+  },
+];
+
+const TOTAL = PHASES.reduce((s, p) => s + p.duration, 0); // 820
+
+/* ── State ─────────────────────────────────────────────────── */
+let phase   = 0;
+let left    = PHASES[0].duration;
+let elapsed = 0;
+let running = false;
+let warned  = false;
+let timer   = null;
+let sound   = true;
+
+/* ── DOM ────────────────────────────────────────────────────── */
+const $cd      = document.getElementById('countdown');
+const $tag     = document.getElementById('phaseTag');
+const $name    = document.getElementById('phaseName');
+const $desc    = document.getElementById('phaseDesc');
+const $fill    = document.getElementById('barFill');
+const $bar     = document.getElementById('barOuter');
+const $jumps   = document.getElementById('jumps');
+const $start   = document.getElementById('startBtn');
+const $reset   = document.getElementById('resetBtn');
+const $alert   = document.getElementById('alert');
+const $sound   = document.getElementById('soundBtn');
+const $flash   = document.getElementById('flash');
+const $stars   = document.getElementById('stars');
+
+/* ── Stars ──────────────────────────────────────────────────── */
+(function initStars() {
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = 1 + Math.random() * 2;
+    s.style.cssText = [
+      `left:${Math.random()*100}%`,
+      `top:${Math.random()*100}%`,
+      `width:${size}px`,
+      `height:${size}px`,
+      `--d:${2+Math.random()*5}s`,
+      `--delay:-${Math.random()*5}s`,
+      `--op:${.15+Math.random()*.45}`,
+    ].join(';');
+    $stars.appendChild(s);
+  }
+})();
+
+/* ── Audio (Web Audio API) ──────────────────────────────────── */
+let ctx = null;
+function audio() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  return ctx;
+}
+function beep(freq, dur, type='sine', vol=.3) {
+  if (!sound) return;
+  try {
+    const c = audio();
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.type = type;
+    o.frequency.setValueAtTime(freq, c.currentTime);
+    g.gain.setValueAtTime(vol, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, c.currentTime + dur);
+    o.start(c.currentTime); o.stop(c.currentTime + dur);
+  } catch(_) {}
+}
+function sfxPhaseChange() {
+  beep(523,.14,'sine',.38);
+  setTimeout(()=>beep(659,.14,'sine',.38), 170);
+  setTimeout(()=>beep(784,.22,'sine',.38), 340);
+}
+function sfxWarn() {
+  beep(330,.28,'sawtooth',.22);
+  setTimeout(()=>beep(330,.28,'sawtooth',.22), 420);
+}
+function sfxBoss() {
+  beep(220,.28,'sawtooth',.38);
+  setTimeout(()=>beep(165,.28,'sawtooth',.38), 340);
+  setTimeout(()=>beep(110,.45,'sawtooth',.38), 680);
+}
+function sfxTick() { beep(880,.045,'sine',.15); }
+
+/* ── Helpers ────────────────────────────────────────────────── */
+function fmt(s) {
+  if (s < 0) s = 0;
+  return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+function flash() {
+  $flash.classList.add('on');
+  setTimeout(()=>$flash.classList.remove('on'), 200);
+}
+
+/* ── Build static UI ────────────────────────────────────────── */
+function buildDividers() {
+  let cum = 0;
+  PHASES.slice(0,-1).forEach(p => {
+    cum += p.duration;
+    const d = document.createElement('div');
+    d.className = 'divider';
+    d.style.left = `${(cum/TOTAL)*100}%`;
+    $bar.appendChild(d);
+  });
+}
+function buildJumps() {
+  PHASES.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'jump';
+    b.id = `j${i}`;
+    b.innerHTML = `
+      <span class="jump-icon">${p.icon}</span>
+      <span class="jump-label">${p.short}</span>
+      <span class="jump-time">${fmt(p.duration)}</span>
+    `;
+    b.addEventListener('click', () => jumpTo(i));
+    $jumps.appendChild(b);
+  });
+}
+
+/* ── Update UI ──────────────────────────────────────────────── */
+function render() {
+  const isBoss = phase >= PHASES.length;
+
+  if (isBoss) {
+    document.body.className = 'pboss';
+    $cd.textContent = '--:--';
+    $cd.classList.add('boss');
+    $tag.textContent  = 'Expedition Complete';
+    $name.textContent = '⚔️  Night Lord Battle';
+    $desc.textContent = 'Face the Night Lord — may grace guide thee';
+    $fill.style.width = '100%';
+    $start.textContent = 'Restart';
+    showAlert('⚔️  BOSS FIGHT — The Night Lord awaits!', 'danger');
+    highlightJump(-1);
+    return;
+  }
+
+  const p = PHASES[phase];
+  document.body.className = p.bodyClass;
+  $cd.textContent = fmt(left);
+  $cd.classList.remove('boss');
+  $tag.textContent  = `Phase ${phase+1} of ${PHASES.length}`;
+  $name.textContent = p.name;
+  $desc.textContent = p.desc;
+  $fill.style.width = `${Math.min((elapsed/TOTAL)*100, 100)}%`;
+  $start.textContent = running ? 'Pause' : (elapsed === 0 ? 'Start — GL HF' : 'Resume');
+
+  if (running && left <= p.warnAt) {
+    showAlert(p.warnMsg, p.warnType);
+  } else {
+    hideAlert();
+  }
+  highlightJump(phase);
+}
+
+function showAlert(msg, type) {
+  $alert.textContent = msg;
+  $alert.className = `alert show ${type}`;
+}
+function hideAlert() {
+  $alert.className = 'alert';
+}
+function highlightJump(idx) {
+  PHASES.forEach((_,i) => {
+    const b = document.getElementById(`j${i}`);
+    if (b) b.classList.toggle('active', i === idx);
+  });
+}
+
+/* ── Timer logic ────────────────────────────────────────────── */
+function tick() {
+  if (!running) return;
+  left--;
+  elapsed++;
+
+  // Warn threshold
+  if (left === PHASES[phase].warnAt && !warned) {
+    warned = true;
+    sfxWarn();
+  }
+  // Final-seconds ticks on storm phases
+  if ((phase === 1 || phase === 3) && left <= 5 && left > 0) {
+    sfxTick();
+  }
+
+  if (left <= 0) { nextPhase(); return; }
+
+  render();
+  timer = setTimeout(tick, 1000);
+}
+
+function nextPhase() {
+  phase++;
+  warned = false;
+  if (phase >= PHASES.length) {
+    running = false;
+    sfxBoss();
+    flash();
+    render();
+    return;
+  }
+  left = PHASES[phase].duration;
+  sfxPhaseChange();
+  flash();
+  render();
+  timer = setTimeout(tick, 1000);
+}
+
+function startPause() {
+  if (phase >= PHASES.length) { doReset(); return; }
+  if (!running) {
+    running = true;
+    try { audio().resume(); } catch(_) {}
+    render();
+    timer = setTimeout(tick, 1000);
+  } else {
+    running = false;
+    clearTimeout(timer);
+    render();
+  }
+}
+
+function doReset() {
+  running = false;
+  clearTimeout(timer);
+  phase   = 0;
+  left    = PHASES[0].duration;
+  elapsed = 0;
+  warned  = false;
+  render();
+  hideAlert();
+}
+
+function jumpTo(idx) {
+  if (idx < 0 || idx >= PHASES.length) return;
+  clearTimeout(timer);
+  let e = 0;
+  for (let i = 0; i < idx; i++) e += PHASES[i].duration;
+  phase   = idx;
+  left    = PHASES[idx].duration;
+  elapsed = e;
+  warned  = false;
+  if (running) timer = setTimeout(tick, 1000);
+  render();
+}
+
+/* ── Events ─────────────────────────────────────────────────── */
+$start.addEventListener('click', startPause);
+$reset.addEventListener('click', doReset);
+$sound.addEventListener('click', () => {
+  sound = !sound;
+  $sound.textContent = sound ? '🔔 Sound: ON' : '🔕 Sound: OFF';
+});
+document.addEventListener('keydown', e => {
+  if (e.target !== document.body) return;
+  if (e.code === 'Space') { e.preventDefault(); startPause(); }
+  if (e.key.toLowerCase() === 'r') doReset();
+  if (e.key >= '1' && e.key <= '4') jumpTo(+e.key - 1);
+});
+
+/* ── Init ───────────────────────────────────────────────────── */
+buildDividers();
+buildJumps();
+render();
+</script>
+</body>
+</html>
