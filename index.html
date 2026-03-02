@@ -469,6 +469,236 @@
     }
     .boss-card.final .boss-tip { color: #a1a1aa; }
 
+    /* DLC separator inside boss grid */
+    .boss-dlc-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .boss-dlc-header span {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .boss-dlc-header::before, .boss-dlc-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── Shared info-section style ──────────────────────────── */
+    .info-section { width: 100%; }
+    .info-toggle {
+      width: 100%;
+      padding: 13px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .info-toggle:hover { background: var(--card2); color: var(--text); border-color: var(--accent); }
+    .info-toggle.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; color: var(--accent); }
+    .info-toggle .chevron { transition: transform .3s; font-style: normal; }
+    .info-toggle.open .chevron { transform: rotate(180deg); }
+
+    .info-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 0 18px 18px;
+      display: none;
+    }
+    .info-wrap.open { display: block; }
+
+    /* ─── Relic effects ──────────────────────────────────────── */
+    .relic-system {
+      font-size: .75rem;
+      color: var(--muted);
+      line-height: 1.55;
+      padding: 14px 0 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .relic-system strong { color: var(--text); }
+    .relic-colors {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .rcol {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .67rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+      border: 1px solid;
+    }
+    .rcol-red    { background: rgba(239,68,68,.1);   color: #f87171; border-color: rgba(239,68,68,.25); }
+    .rcol-green  { background: rgba(52,211,153,.1);  color: #34d399; border-color: rgba(52,211,153,.25); }
+    .rcol-blue   { background: rgba(96,165,250,.1);  color: #60a5fa; border-color: rgba(96,165,250,.25); }
+    .rcol-yellow { background: rgba(251,191,36,.1);  color: #fbbf24; border-color: rgba(251,191,36,.25); }
+
+    .effect-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .effect-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .effect-label {
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .effect-value {
+      font-size: .8rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .effect-note {
+      font-size: .67rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Boss relics ────────────────────────────────────────── */
+    .relic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .relic-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .relic-name {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+    }
+    .relic-source {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .relic-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      width: fit-content;
+      margin: 2px 0;
+    }
+    .slot-red    { background: rgba(239,68,68,.12);   color: #f87171; border-color: rgba(239,68,68,.3); }
+    .slot-green  { background: rgba(52,211,153,.12);  color: #34d399; border-color: rgba(52,211,153,.3); }
+    .slot-blue   { background: rgba(96,165,250,.12);  color: #60a5fa; border-color: rgba(96,165,250,.3); }
+    .slot-yellow { background: rgba(251,191,36,.12);  color: #fbbf24; border-color: rgba(251,191,36,.3); }
+    .relic-effects-list {
+      font-size: .69rem;
+      color: var(--muted);
+      line-height: 1.55;
+      list-style: none;
+      padding: 0;
+    }
+    .relic-effects-list li::before { content: '· '; color: var(--accent); }
+
+    /* ─── Invasion buffs ─────────────────────────────────────── */
+    .inv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .inv-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 12px;
+    }
+    .inv-name {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--accent);
+      grid-column: 1;
+    }
+    .inv-event {
+      font-size: .68rem;
+      color: var(--text);
+      grid-column: 1;
+    }
+    .inv-lords {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+      grid-column: 1;
+    }
+    .inv-reward {
+      grid-column: 1 / -1;
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.45;
+      border-top: 1px solid var(--border);
+      padding-top: 6px;
+      margin-top: 2px;
+    }
+    .inv-reward strong { color: var(--text); }
+    .inv-badge {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
     /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width:520px) {
       .card { padding: 20px 16px; }
@@ -476,6 +706,8 @@
       .jump-label { display: none; }
       .boss-grid { grid-template-columns: 1fr; }
       .boss-card.final { grid-column: 1; }
+      .effect-grid { grid-template-columns: 1fr; }
+      .relic-grid  { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -618,9 +850,320 @@
           </div>
         </div>
 
+        <!-- DLC separator -->
+        <div class="boss-dlc-header"><span>DLC — The Forsaken Hollows</span></div>
+
+        <!-- 9 Harmonia / Balancers -->
+        <div class="boss-card">
+          <div class="boss-icon">⚔️</div>
+          <div class="boss-name">Weapon Bequeathed Harmonia</div>
+          <div class="boss-expedition">Everdark: Balancers · Unlock: beat Tricephalos + 1 other, unlock Scholar &amp; Undertaker</div>
+          <span class="boss-weak" style="background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)">✦ Sleep</span>
+          <div class="boss-tip">7 valkyrie-style enemies. Sleep status hits fast and lasts long — crit sleeping enemies. Most attacks are parryable; a single parry staggers. Failing to kill all Balancers before Night ends costs your Healing Flasks.</div>
+        </div>
+
+        <!-- 10 Dreglord -->
+        <div class="boss-card">
+          <div class="boss-icon">🧟</div>
+          <div class="boss-name">Dreglord — Traitorous Straghess</div>
+          <div class="boss-expedition">Everdark: Forsaken Hollows · Unlock: beat Balancers</div>
+          <span class="boss-weak weak-holy">✦ Holy / Fire / Bleed</span>
+          <div class="boss-tip">Two HP bars (Phase 2 = Pure Impulse Straghess). Phase 1: Scarlet Rot spam — stock Preserving Boluses. Avoid Lightning (resistant). Bleed chunks HP fastest. Stagger pillar-leap attacks with Ultimate Arts. Save 3 flasks for phase 2.</div>
+        </div>
+
       </div><!-- /boss-grid -->
     </div><!-- /boss-grid-wrap -->
   </div><!-- /boss-section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RELIC EFFECTS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="relicToggle">
+      <span>🔮 &nbsp;Relic Effects Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="relicWrap">
+
+      <div class="relic-system">
+        <strong>How Relics Work:</strong> Equip up to 3 Relics per Chalice (9 effects total). Effects persist between expeditions. Relic size determines effect count — <strong>Delicate</strong> = 1, <strong>Polished</strong> = 2, <strong>Grand</strong> = 3. Each Nightfarer has 3 colour-coded slots — only matching colours can slot in.
+        <div class="relic-colors">
+          <span class="rcol rcol-red">🔴 Burning (Red)</span>
+          <span class="rcol rcol-green">🟢 Tranquil (Green)</span>
+          <span class="rcol rcol-blue">🔵 Drizzly (Blue)</span>
+          <span class="rcol rcol-yellow">🟡 Luminous (Yellow)</span>
+        </div>
+      </div>
+
+      <div class="effect-grid">
+
+        <div class="effect-card">
+          <div class="effect-label">⚔️ Physical ATK Up</div>
+          <div class="effect-value">+3% → +10%</div>
+          <div class="effect-note">Flat percent bonus to all physical damage dealt.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🔥 Elemental ATK Up</div>
+          <div class="effect-value">+10.5% → +12%</div>
+          <div class="effect-note">Fire / Magic / Lightning / Holy — each element has its own version.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚡ 3+ Same Weapon Type</div>
+          <div class="effect-value">~+10% ATK</div>
+          <div class="effect-note">Carry 3+ weapons of one type (e.g. Greatswords). Stacks with a different weapon-type bonus for ~+21% total.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🎯 First Hit Bonus</div>
+          <div class="effect-value">+13% ATK</div>
+          <div class="effect-note">Improved Initial Standard Attack — applies only to the first R1 in a combo chain.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💢 Hit-Back Rage</div>
+          <div class="effect-value">+15% ATK / 10 s</div>
+          <div class="effect-note">After taking damage, gain a 15% damage buff for 10 seconds. Duration refreshes on additional hits. Blocked hits don't trigger it.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">😴 Near Sleep / 😵 Near Madness</div>
+          <div class="effect-value">+12% → +22% / 20 s</div>
+          <div class="effect-note">When any nearby enemy or ally is afflicted with Sleep or Madness, gain a damage buff for 20 seconds.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🛡️ Max HP Up</div>
+          <div class="effect-value">+10%</div>
+          <div class="effect-note">Increases maximum HP for the expedition.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💧 Max FP Up</div>
+          <div class="effect-value">+15%</div>
+          <div class="effect-note">More FP for spells and skills.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🏃 Max Stamina Up</div>
+          <div class="effect-value">+12%</div>
+          <div class="effect-note">Longer stamina bar for rolls, attacks, and blocks.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🩹 Flask Heal Up</div>
+          <div class="effect-value">+13% → +18%</div>
+          <div class="effect-note">Each sip from your Flask of Crimson Tears restores more HP.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🧪 Status Resist</div>
+          <div class="effect-value">+52 → +65</div>
+          <div class="effect-note">Flat increase to all status resistances (Poison, Bleed, Frost, etc.).</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚡ Stamina on Hit</div>
+          <div class="effect-value">+1 / hit</div>
+          <div class="effect-note">Recover a small amount of stamina with every successful attack landed.</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💠 FP Cost Reduction</div>
+          <div class="effect-value">−8% → −15%</div>
+          <div class="effect-note">After using your Character Skill, reduce FP costs for 40 s (higher tier is global).</div>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🔮 Spell Damage Up</div>
+          <div class="effect-value">+5.5% → +8%</div>
+          <div class="effect-note">Also extends spell buff duration by +45% → +60%.</div>
+        </div>
+
+      </div><!-- /effect-grid -->
+    </div><!-- /relicWrap -->
+  </div><!-- /relic section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       BOSS (LEGENDARY) RELICS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="bossRelicToggle">
+      <span>🌑 &nbsp;Boss Relics (Night of…)</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="bossRelicWrap">
+      <div class="relic-grid">
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Beast</div>
+          <div class="relic-source">Gladius — Tricephalos</div>
+          <span class="relic-slot slot-green">🟢 Green</span>
+          <ul class="relic-effects-list">
+            <li>Stamina recovered with each successful hit (+1)</li>
+            <li>Starting armament deals Fire damage</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Baron</div>
+          <div class="relic-source">Adel — Gaping Jaw</div>
+          <ul class="relic-effects-list">
+            <li>Critical Hits improved +1 (~20% more crit damage)</li>
+            <li>Art gauge fills on critical hit</li>
+            <li>Critical hit boosts stamina recovery speed</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Wise</div>
+          <div class="relic-source">Gnoster — Sentient Pest</div>
+          <ul class="relic-effects-list">
+            <li>Max FP increased</li>
+            <li>Starting weapon inflicts Poison</li>
+            <li>ATK power up when Poison/Rot is nearby</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Fathom</div>
+          <div class="relic-source">Maris — Augur</div>
+          <ul class="relic-effects-list">
+            <li>Max HP increased</li>
+            <li>Flask use heals nearby allies too</li>
+            <li>Items confer effects to all nearby allies</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Demon</div>
+          <div class="relic-source">Libra — Equilibrious Beast</div>
+          <span class="relic-slot slot-red">🔴 Red</span>
+          <ul class="relic-effects-list">
+            <li>20% rune discount at in-expedition shops</li>
+            <li>Gesture "Crossed Legs" builds Madness</li>
+            <li>Madness continuously recovers FP</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Champion</div>
+          <div class="relic-source">Fulghor — Darkdrift Knight</div>
+          <span class="relic-slot slot-green">🟢 Green</span>
+          <ul class="relic-effects-list">
+            <li>Max Stamina increased</li>
+            <li>Guard counter boosted by current HP</li>
+            <li>HP restored on thrusting counterattack</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Miasma</div>
+          <div class="relic-source">Caligo — Fissure in the Fog</div>
+          <ul class="relic-effects-list">
+            <li>Being near Frostbite conceals you</li>
+            <li>Armament skill → Chilling Mist at expedition start</li>
+            <li>ATK power up vs Frostbite-afflicted enemies</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Lord</div>
+          <div class="relic-source">Heolstor — Night Aspect</div>
+          <span class="relic-slot slot-blue">🔵 Blue</span>
+          <ul class="relic-effects-list">
+            <li>Weapon swap triggers an affinity attack</li>
+            <li>Added affinity attacks deal +10% damage</li>
+            <li>ATK power up when switching weapons</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of Dregs</div>
+          <div class="relic-source">Dreglord — Forsaken Hollows DLC</div>
+          <span class="relic-slot slot-red">🔴 Red · DLC</span>
+          <ul class="relic-effects-list">
+            <li>Status Ailment Gauges slowly increase Attack Power</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Will of the Balancers</div>
+          <div class="relic-source">Harmonia — Balancers DLC</div>
+          <span class="relic-slot slot-blue">🔵 Blue · DLC</span>
+          <ul class="relic-effects-list">
+            <li>Reward for defeating Weapon Bequeathed Harmonia</li>
+            <li>Equippable by all Nightfarers</li>
+          </ul>
+        </div>
+
+      </div><!-- /relic-grid -->
+    </div><!-- /bossRelicWrap -->
+  </div><!-- /boss relic section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       INVASION / RAID EVENT BUFFS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="invToggle">
+      <span>🌀 &nbsp;Invasion / Raid Event Buffs</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="invWrap">
+      <div class="inv-grid">
+
+        <div class="inv-card">
+          <div class="inv-badge">🐛</div>
+          <div class="inv-name">Integration of Intelligence</div>
+          <div class="inv-event">Event: Locusts appear — follow swarms, defeat Gnoster variant</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster</div>
+          <div class="inv-reward"><strong>Buff:</strong> Attacks have a rare chance to harvest Runes from enemies on hit.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">🫧</div>
+          <div class="inv-name">Unifying Fate</div>
+          <div class="inv-event">Event: Giant Bubbles forming — step into bubbles, defeat lesser Augur</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster, Caligo, or Heolstor</div>
+          <div class="inv-reward"><strong>Buff:</strong> Flasks of Crimson Tears also restore FP in addition to HP.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">🕷️</div>
+          <div class="inv-name">Favor of the Night</div>
+          <div class="inv-event">Event: Purple orb in sky — kill all Fingercreepers &amp; variants</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster, Libra, or Harmonia (DLC)</div>
+          <div class="inv-reward"><strong>Buff:</strong> Ultimate Art Gauge charges significantly faster for the rest of the expedition.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">👁️</div>
+          <div class="inv-name">Traces of Grace-Given Lord</div>
+          <div class="inv-event">Event: Fell Omen appears on map — defeat it before it kills you</div>
+          <div class="inv-lords">Triggers when Nightlord is: Caligo, Fulghor, or Heolstor</div>
+          <div class="inv-reward"><strong>Buff:</strong> Attack power increases each time you interact with a newly found Site of Grace.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">😈</div>
+          <div class="inv-name">Demon's Plating</div>
+          <div class="inv-event">Event: "A demon casts its curse" — curse halves max HP; pay 15 k / 35 k Runes to lift it (one player pays for all)</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gladius, Maris, or Fulghor</div>
+          <div class="inv-reward"><strong>Buff:</strong> All players gain Demon's Plating — a defensive buff lasting the entire expedition. Also grants a free wish with no downside.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">⚔️</div>
+          <div class="inv-name">Rise from Near-Death (DLC)</div>
+          <div class="inv-event">Event: Balancers raid — 7 valkyries teleport your team; each kill restores 1 Flask, failure costs all Flasks for the Night</div>
+          <div class="inv-lords">Triggers when Nightlord is: Balancers / Harmonia (DLC only)</div>
+          <div class="inv-reward"><strong>Buff:</strong> Rare chance to automatically rise from near-death (like Wending Grace). <strong>Attack power is permanently boosted</strong> for the rest of the run after rising. One of the strongest buffs in the game.</div>
+        </div>
+
+      </div><!-- /inv-grid -->
+    </div><!-- /invWrap -->
+  </div><!-- /invasion section -->
 
 </div><!-- /wrap -->
 
@@ -942,10 +1485,17 @@ buildDividers();
 buildJumps();
 render();
 
-/* ── Boss reference toggle ──────────────────────────────────── */
-document.getElementById('bossToggle').addEventListener('click', function() {
-  this.classList.toggle('open');
-  document.getElementById('bossGridWrap').classList.toggle('open');
+/* ── Collapsible section toggles ────────────────────────────── */
+[
+  ['bossToggle',      'bossGridWrap'],
+  ['relicToggle',     'relicWrap'],
+  ['bossRelicToggle', 'bossRelicWrap'],
+  ['invToggle',       'invWrap'],
+].forEach(([btnId, wrapId]) => {
+  document.getElementById(btnId).addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById(wrapId).classList.toggle('open');
+  });
 });
 </script>
 </body>
