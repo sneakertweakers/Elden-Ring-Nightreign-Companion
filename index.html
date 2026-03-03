@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nightreign Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:          #08080e;
+      --card:        #10101a;
+      --card2:       #14141f;
+      --border:      rgba(255,255,255,0.07);
+      --text:        #e8eaf0;
+      --muted:       #5a6180;
+      --subtle:      #2a2d40;
+
+      /* phase accent – updated via .phase-* body class */
+      --accent:      #f59e0b;
+      --accent2:     #d97706;
+      --glow:        rgba(245,158,11,0.35);
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── Body ───────────────────────────────────────────────── */
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      transition: background 0.4s;
+    }
+
+    /* ambient glow behind everything */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 60%, var(--glow), transparent 70%);
+      pointer-events: none;
+      transition: background 1.2s ease;
+      z-index: 0;
+    }
+
+    /* ─── Phase colour themes ────────────────────────────────── */
+    body.p0 { --accent:#f59e0b; --accent2:#b45309; --glow:rgba(245,158,11,0.28); }
+    body.p1 { --accent:#8b5cf6; --accent2:#5b21b6; --glow:rgba(139, 92,246,0.35); }
+    body.p2 { --accent:#10b981; --accent2:#047857; --glow:rgba(16,185,129,0.28); }
+    body.p3 { --accent:#ef4444; --accent2:#991b1b; --glow:rgba(239, 68, 68,0.38); }
+    body.pboss { --accent:#ef4444; --accent2:#7f1d1d; --glow:rgba(239,68,68,0.5); }
+
+    /* ─── Stars ──────────────────────────────────────────────── */
+    #stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity:0; transform:scale(1); }
+      50%      { opacity:var(--op,.4); transform:scale(1.6); }
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      padding: 20px 16px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .header { text-align: center; }
+    .title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 0 28px var(--glow), 0 0 70px var(--glow);
+      transition: color 1.2s, text-shadow 1.2s;
+      line-height: 1;
+    }
+    .subtitle {
+      font-size: .75rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    /* ─── Card ───────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 28px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      box-shadow:
+        0 0 70px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.04);
+      position: relative;
+      overflow: hidden;
+    }
+    /* top accent stripe */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .55;
+      transition: background 1.2s;
+    }
+
+    /* ─── Phase info ─────────────────────────────────────────── */
+    .phase-info { text-align: center; }
+    .phase-tag {
+      display: inline-block;
+      padding: 3px 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 999px;
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .phase-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.55rem);
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 0 18px var(--glow);
+      transition: color 1.2s, text-shadow 1.2s;
+      letter-spacing: .04em;
+    }
+    .phase-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      margin-top: 5px;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Countdown ──────────────────────────────────────────── */
+    .countdown-wrap { text-align: center; }
+    #countdown {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(4rem, 14vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+      text-shadow: 0 0 36px var(--glow);
+      transition: text-shadow 1.2s;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .04em;
+    }
+    #countdown.boss {
+      color: var(--accent);
+      animation: boss-pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes boss-pulse {
+      0%,100% { transform:scale(1);   opacity:1; }
+      50%      { transform:scale(1.03); opacity:.85; }
+    }
+
+    /* ─── Alert banner ───────────────────────────────────────── */
+    .alert {
+      text-align: center;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      display: none;
+      animation: blink .9s ease-in-out infinite;
+    }
+    .alert.show { display: block; }
+    .alert.warn  { background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3); color:#f59e0b; }
+    .alert.danger{ background:rgba(239,68, 68,.13); border:1px solid rgba(239,68, 68,.3); color:#ef4444; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.55} }
+
+    /* ─── Progress bar ───────────────────────────────────────── */
+    .progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bar-outer {
+      position: relative;
+      height: 10px;
+      background: rgba(255,255,255,.05);
+      border-radius: 5px;
+      overflow: visible;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 10px var(--glow);
+      transition: width .55s linear, background 1.2s;
+      position: relative;
+    }
+    /* cursor dot */
+    .bar-fill::after {
+      content:'';
+      position:absolute;
+      right:-2px; top:50%;
+      transform:translateY(-50%);
+      width:4px; height:18px;
+      background:white;
+      border-radius:2px;
+      box-shadow:0 0 7px rgba(255,255,255,.9);
+      opacity:.85;
+    }
+    /* divider lines between phases */
+    .divider {
+      position: absolute;
+      top: -5px; bottom: -5px;
+      width: 2px;
+      background: var(--bg);
+      border-radius: 1px;
+      z-index: 2;
+    }
+
+    /* ─── Phase jump buttons ─────────────────────────────────── */
+    .jumps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .jump {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 9px 6px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .jump:hover {
+      background: rgba(255,255,255,.08);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .jump.active {
+      background: rgba(255,255,255,.09);
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--glow);
+      color: var(--accent);
+    }
+    .jump-icon { font-size: 1.15rem; line-height: 1; }
+    .jump-label {
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .jump-time { font-size: .75rem; font-weight: 600; color: var(--muted); }
+
+    /* ─── Control buttons ────────────────────────────────────── */
+    .controls { display: flex; gap: 10px; }
+    .btn {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 11px;
+      font-family: 'Cinzel', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: all .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 100%);
+      pointer-events:none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #08080e;
+      box-shadow: 0 4px 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.18);
+      transition: background 1.2s, box-shadow 1.2s, transform .2s;
+    }
+    .btn-primary:hover  { transform: translateY(-2px); box-shadow: 0 7px 32px var(--glow); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-secondary {
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .btn-secondary:hover { background:rgba(255,255,255,.1); color:var(--text); transform:translateY(-2px); }
+
+    /* ─── Keyboard hints ─────────────────────────────────────── */
+    .hints {
+      text-align: center;
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+    kbd {
+      display: inline-block;
+      padding: 1px 5px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: .63rem;
+    }
+
+    /* ─── Sound toggle ───────────────────────────────────────── */
+    #soundBtn {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 10;
+      padding: 7px 13px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    #soundBtn:hover { background:rgba(255,255,255,.1); color:var(--text); }
+
+    /* ─── Flash overlay ──────────────────────────────────────── */
+    #flash {
+      position: fixed; inset: 0;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+      transition: opacity .1s;
+    }
+    #flash.on { opacity: .07; }
+
+    /* ─── Boss section ───────────────────────────────────────── */
+    .boss-section { width: 100%; }
+    .boss-toggle {
+      width: 100%;
+      padding: 13px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .boss-toggle:hover { background: var(--card2); color: var(--text); border-color: var(--accent); }
+    .boss-toggle.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; color: var(--accent); }
+    .boss-toggle .chevron { transition: transform .3s; font-style: normal; }
+    .boss-toggle.open .chevron { transform: rotate(180deg); }
+
+    .boss-grid-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 0 18px 18px;
+      display: none;
+    }
+    .boss-grid-wrap.open { display: block; }
+
+    .boss-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding-top: 14px;
+    }
+    .boss-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .boss-card:hover { border-color: var(--accent); }
+    .boss-card.final {
+      grid-column: 1 / -1;
+      border-color: rgba(239,68,68,.3);
+      background: rgba(239,68,68,.05);
+    }
+    .boss-card.final:hover { border-color: #ef4444; }
+    .boss-icon { font-size: 1.4rem; line-height: 1; }
+    .boss-name {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+      line-height: 1.25;
+    }
+    .boss-card.final .boss-name { color: #ef4444; }
+    .boss-expedition {
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .boss-weak {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .weak-holy    { background: rgba(251,191,36,.15); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+    .weak-poison  { background: rgba(52,211,153,.15);  color: #34d399; border: 1px solid rgba(52,211,153,.3); }
+    .weak-fire    { background: rgba(249,115,22,.15);  color: #f97316; border: 1px solid rgba(249,115,22,.3); }
+    .weak-lightning{ background: rgba(96,165,250,.15); color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .weak-madness { background: rgba(192,132,252,.15); color: #c084fc; border: 1px solid rgba(192,132,252,.3); }
+    .boss-tip {
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+    .boss-card.final .boss-tip { color: #a1a1aa; }
+
+    /* DLC separator inside boss grid */
+    .boss-dlc-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .boss-dlc-header span {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .boss-dlc-header::before, .boss-dlc-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── Shared info-section style ──────────────────────────── */
+    .info-section { width: 100%; }
+    .info-toggle {
+      width: 100%;
+      padding: 13px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .info-toggle:hover { background: var(--card2); color: var(--text); border-color: var(--accent); }
+    .info-toggle.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; color: var(--accent); }
+    .info-toggle .chevron { transition: transform .3s; font-style: normal; }
+    .info-toggle.open .chevron { transform: rotate(180deg); }
+
+    .info-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 0 18px 18px;
+      display: none;
+    }
+    .info-wrap.open { display: block; }
+
+    /* ─── Relic effects ──────────────────────────────────────── */
+    .relic-system {
+      font-size: .75rem;
+      color: var(--muted);
+      line-height: 1.55;
+      padding: 14px 0 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .relic-system strong { color: var(--text); }
+    .relic-colors {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .rcol {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .67rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 99px;
+      border: 1px solid;
+    }
+    .rcol-red    { background: rgba(239,68,68,.1);   color: #f87171; border-color: rgba(239,68,68,.25); }
+    .rcol-green  { background: rgba(52,211,153,.1);  color: #34d399; border-color: rgba(52,211,153,.25); }
+    .rcol-blue   { background: rgba(96,165,250,.1);  color: #60a5fa; border-color: rgba(96,165,250,.25); }
+    .rcol-yellow { background: rgba(251,191,36,.1);  color: #fbbf24; border-color: rgba(251,191,36,.25); }
+
+    .effect-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .effect-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .effect-label {
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .effect-value {
+      font-size: .8rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .effect-note {
+      font-size: .67rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Stack badges ───────────────────────────────────────── */
+    .stack-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      margin-top: 3px;
+      width: fit-content;
+    }
+    .stack-yes  { background: rgba(52,211,153,.12); color: #34d399; border-color: rgba(52,211,153,.3); }
+    .stack-no   { background: rgba(239,68,68,.12);  color: #f87171; border-color: rgba(239,68,68,.3); }
+    .stack-cap  { background: rgba(251,191,36,.12); color: #fbbf24; border-color: rgba(251,191,36,.3); }
+
+    /* ─── Evergoal table ─────────────────────────────────────── */
+    .evergoal-section {
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .evergoal-section h4 {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .evergoal-note {
+      font-size: .68rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .evergoal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .evergoal-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .evergoal-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: var(--text);
+    }
+    .evergoal-table tr:last-child td { border-bottom: none; }
+    .evergoal-table .eg-count { color: var(--accent); font-weight: 700; }
+    .evergoal-table .eg-bonus { color: #34d399; font-weight: 600; }
+    .evergoal-table .eg-total { color: var(--muted); }
+    .evergoal-table .eg-highlight { background: rgba(245,158,11,.06); }
+
+    /* ─── Weapon passives ────────────────────────────────────── */
+    .wpn-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .wpn-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .wpn-name {
+      font-family: 'Cinzel', serif;
+      font-size: .71rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .wpn-desc {
+      font-size: .67rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .wpn-note {
+      font-size: .63rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .wpn-type {
+      display: inline-flex;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      width: fit-content;
+      margin-top: 2px;
+    }
+    .wpn-offensive { background: rgba(239,68,68,.1); color: #f87171; border-color: rgba(239,68,68,.25); }
+    .wpn-defensive { background: rgba(96,165,250,.1); color: #60a5fa; border-color: rgba(96,165,250,.25); }
+    .wpn-utility   { background: rgba(52,211,153,.1); color: #34d399; border-color: rgba(52,211,153,.25); }
+    .wpn-spectral  { background: rgba(167,139,250,.1); color: #a78bfa; border-color: rgba(167,139,250,.25); }
+    .stacking-rules {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .stacking-rules h4 {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .stack-rule-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stack-rule-list li {
+      font-size: .69rem;
+      color: var(--muted);
+      line-height: 1.45;
+      padding-left: 16px;
+      position: relative;
+    }
+    .stack-rule-list li::before {
+      position: absolute;
+      left: 0;
+    }
+    .stack-rule-list li.yes::before { content: '✔'; color: #34d399; }
+    .stack-rule-list li.no::before  { content: '✘'; color: #f87171; }
+    .stack-rule-list li.cap::before { content: '⚠'; color: #fbbf24; }
+    .stack-rule-list strong { color: var(--text); }
+
+    /* ─── Invasion spell tags ────────────────────────────────── */
+    .inv-spells {
+      grid-column: 1 / -1;
+      font-size: .67rem;
+      color: var(--muted);
+      line-height: 1.45;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .spell-tag {
+      display: inline-flex;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      background: rgba(139,92,246,.12);
+      color: #a78bfa;
+      border: 1px solid rgba(139,92,246,.28);
+    }
+    .inv-spells-label {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+    }
+
+    /* ─── Effect category sub-headers ────────────────────────── */
+    .effect-category {
+      grid-column: 1 / -1;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 0 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2px;
+    }
+
+    /* ─── Boss relics ────────────────────────────────────────── */
+    .relic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .relic-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .relic-name {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .02em;
+    }
+    .relic-source {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .relic-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      width: fit-content;
+      margin: 2px 0;
+    }
+    .slot-red    { background: rgba(239,68,68,.12);   color: #f87171; border-color: rgba(239,68,68,.3); }
+    .slot-green  { background: rgba(52,211,153,.12);  color: #34d399; border-color: rgba(52,211,153,.3); }
+    .slot-blue   { background: rgba(96,165,250,.12);  color: #60a5fa; border-color: rgba(96,165,250,.3); }
+    .slot-yellow { background: rgba(251,191,36,.12);  color: #fbbf24; border-color: rgba(251,191,36,.3); }
+    .relic-effects-list {
+      font-size: .69rem;
+      color: var(--muted);
+      line-height: 1.55;
+      list-style: none;
+      padding: 0;
+    }
+    .relic-effects-list li::before { content: '· '; color: var(--accent); }
+
+    /* ─── Invasion buffs ─────────────────────────────────────── */
+    .inv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .inv-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 12px;
+    }
+    .inv-name {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--accent);
+      grid-column: 1;
+    }
+    .inv-event {
+      font-size: .68rem;
+      color: var(--text);
+      grid-column: 1;
+    }
+    .inv-lords {
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .05em;
+      grid-column: 1;
+    }
+    .inv-reward {
+      grid-column: 1 / -1;
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.45;
+      border-top: 1px solid var(--border);
+      padding-top: 6px;
+      margin-top: 2px;
+    }
+    .inv-reward strong { color: var(--text); }
+    .inv-badge {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    /* ─── Search bar ─────────────────────────────────────────── */
+    .search-bar {
+      position: relative;
+      width: 100%;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 42px 12px 44px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .95rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .search-bar input::placeholder { color: var(--muted); }
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.12);
+    }
+    .search-bar .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+      opacity: .5;
+    }
+    .search-bar .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: .75rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      cursor: pointer;
+      display: none;
+      transition: all .15s;
+    }
+    .search-bar .search-clear.visible { display: block; }
+    .search-bar .search-clear:hover { background: rgba(255,255,255,.12); color: var(--text); }
+    .search-result-count {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-align: center;
+      margin-top: -10px;
+      min-height: 14px;
+      transition: opacity .2s;
+    }
+
+    /* ─── Weapon passive availability badges ─────────────────── */
+    .wpn-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      margin: 2px 3px 2px 0;
+      width: fit-content;
+    }
+    .avail-both    { background: rgba(52,211,153,.12);  color: #34d399; border-color: rgba(52,211,153,.3); }
+    .avail-offhand { background: rgba(251,191,36,.12);  color: #fbbf24; border-color: rgba(251,191,36,.3); }
+    .avail-held    { background: rgba(239,68,68,.12);   color: #f87171; border-color: rgba(239,68,68,.3); }
+
+    /* ─── Generic weapon passives table ──────────────────────── */
+    .wpn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .wpn-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .wpn-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .wpn-table tr:last-child td { border-bottom: none; }
+    .wpn-table .col-name { color: var(--text); font-weight: 600; }
+    .wpn-table .col-val  { color: var(--accent); font-weight: 600; white-space: nowrap; }
+    .wpn-table .col-note { color: var(--muted); font-size: .63rem; }
+    .wpn-table .col-stack-yes { color: #34d399; font-weight: 700; }
+    .wpn-table .col-stack-no  { color: #f87171; font-weight: 700; }
+    .wpn-section-header {
+      grid-column: 1 / -1;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 0 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    /* ─── Dormant powers grid ────────────────────────────────── */
+    .dormant-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .dormant-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dormant-name {
+      font-family: 'Cinzel', serif;
+      font-size: .71rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .dormant-val {
+      font-size: .73rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .dormant-note {
+      font-size: .63rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Relic categories table ─────────────────────────────── */
+    .cat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .cat-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .cat-table tr:last-child td { border-bottom: none; }
+    .cat-table .col-num { color: var(--muted); font-weight: 700; width: 28px; }
+    .cat-table .col-cat { color: var(--text); font-weight: 600; }
+    .cat-table .col-examples { color: var(--muted); font-size: .63rem; }
+    .cat-exception { background: rgba(245,158,11,.07) !important; }
+    .cat-exception td { border-bottom-color: rgba(245,158,11,.15) !important; }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width:520px) {
+      .card { padding: 20px 16px; }
+      .jumps { gap: 5px; }
+      .jump-label { display: none; }
+      .boss-grid { grid-template-columns: 1fr; }
+      .boss-card.final { grid-column: 1; }
+      .effect-grid { grid-template-columns: 1fr; }
+      .relic-grid  { grid-template-columns: 1fr; }
+      .wpn-grid    { grid-template-columns: 1fr; }
+      .dormant-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="p0">
+
+<div id="stars"></div>
+<div id="flash"></div>
+<button id="soundBtn">🔔 Sound: ON</button>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="title">NIGHTREIGN</div>
+    <div class="subtitle">Expedition Timer</div>
+  </div>
+
+  <!-- Main card -->
+  <div class="card">
+
+    <!-- Phase info -->
+    <div class="phase-info">
+      <div class="phase-tag" id="phaseTag">Phase 1 of 4</div>
+      <div class="phase-name" id="phaseName">Day 1 — Exploration</div>
+      <div class="phase-desc" id="phaseDesc">Explore, gather loot, and prepare for the storm</div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-wrap">
+      <div id="countdown">04:25</div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert" id="alert"></div>
+
+    <!-- Progress + jumps -->
+    <div class="progress-wrap">
+      <div class="bar-outer" id="barOuter">
+        <div class="bar-fill" id="barFill" style="width:0%"></div>
+        <!-- dividers injected by JS -->
+      </div>
+      <div class="jumps" id="jumps"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn btn-primary" id="startBtn">Start — GL HF</button>
+      <button class="btn btn-secondary" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="hints">
+      <kbd>Space</kbd> start/pause &nbsp;·&nbsp;
+      <kbd>R</kbd> reset &nbsp;·&nbsp;
+      <kbd>1</kbd>–<kbd>4</kbd> jump to phase
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- Search bar -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
+    <button class="search-clear" id="searchClear">✕ Clear</button>
+  </div>
+  <div class="search-result-count" id="searchCount"></div>
+
+  <!-- Boss reference -->
+  <div class="boss-section">
+    <button class="boss-toggle" id="bossToggle">
+      <span>⚔️ &nbsp;Night Lords Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="boss-grid-wrap" id="bossGridWrap">
+      <div class="boss-grid">
+
+        <!-- 1 Gladius -->
+        <div class="boss-card">
+          <div class="boss-icon">🐺</div>
+          <div class="boss-name">Gladius, Beast of Night</div>
+          <div class="boss-expedition">Everdark: Tricephalos</div>
+          <span class="boss-weak weak-holy">✦ Holy</span>
+          <div class="boss-tip">Splits into 3 wolves at 75% HP — focus the red-eyed one. Stay close to bait lunges.</div>
+        </div>
+
+        <!-- 2 Adel -->
+        <div class="boss-card">
+          <div class="boss-icon">🦷</div>
+          <div class="boss-name">Adel, Baron of Night</div>
+          <div class="boss-expedition">Everdark: Gaping Jaw</div>
+          <span class="boss-weak weak-poison">✦ Poison</span>
+          <div class="boss-tip">Stack poison and kite his charges. Watch for lightning geysers in phase 2.</div>
+        </div>
+
+        <!-- 3 Gnoster -->
+        <div class="boss-card">
+          <div class="boss-icon">🦋</div>
+          <div class="boss-name">Gnoster, Wisdom of Night</div>
+          <div class="boss-expedition">Everdark: Sentient Pest</div>
+          <span class="boss-weak weak-fire">✦ Fire</span>
+          <div class="boss-tip">Team splits — ranged on the moth, melee on the ant. Keep moving to avoid rune-drain swarms.</div>
+        </div>
+
+        <!-- 4 Maris -->
+        <div class="boss-card">
+          <div class="boss-icon">🌊</div>
+          <div class="boss-name">Maris, Fathom of Night</div>
+          <div class="boss-expedition">Everdark: Augur</div>
+          <span class="boss-weak weak-lightning">✦ Lightning</span>
+          <div class="boss-tip">Any Lightning hit cancels her Sleep cast. Destroy the floating egg midair before it lands.</div>
+        </div>
+
+        <!-- 5 Libra -->
+        <div class="boss-card">
+          <div class="boss-icon">⚖️</div>
+          <div class="boss-name">Libra, Creature of Night</div>
+          <div class="boss-expedition">Everdark: Equilibrious Beast</div>
+          <span class="boss-weak weak-madness">✦ Madness</span>
+          <div class="boss-tip">Destroy light symbols to remove orb shield before casting — reflected projectiles can down you.</div>
+        </div>
+
+        <!-- 6 Fulghor -->
+        <div class="boss-card">
+          <div class="boss-icon">⚡</div>
+          <div class="boss-name">Fulghor, Champion of Nightglow</div>
+          <div class="boss-expedition">Everdark: Darkdrift Knight</div>
+          <span class="boss-weak weak-lightning">✦ Lightning</span>
+          <div class="boss-tip">One-armed centaur that can regrow its arm mid-fight. Deal Holy damage, punish recovery windows.</div>
+        </div>
+
+        <!-- 7 Caligo -->
+        <div class="boss-card">
+          <div class="boss-icon">🌫️</div>
+          <div class="boss-name">Caligo, Miasma of Night</div>
+          <div class="boss-expedition">Everdark: Fissure in the Fog</div>
+          <span class="boss-weak weak-fire">✦ Fire</span>
+          <div class="boss-tip">Highly evasive — Fire relics are essential for consistent damage through the miasma clouds.</div>
+        </div>
+
+        <!-- 8 Heolstor — full width / final -->
+        <div class="boss-card final">
+          <div class="boss-icon">👑</div>
+          <div class="boss-name">Heolstor, the Nightlord &nbsp;— TRUE FINAL BOSS</div>
+          <div class="boss-expedition">Everdark: Night Aspect · Unlock: clear all 7 other expeditions</div>
+          <span class="boss-weak weak-holy">✦ Holy</span>
+          <div class="boss-tip">
+            Two full HP bars. Save all flasks &amp; ultimates for phase 2 — they don't refill between phases.<br>
+            Phase 2: dodge <em>through</em> attacks, never backward (elemental AoE zones linger behind you).<br>
+            At 75 / 50 / 25% HP he flies up for a one-hit-kill nuke — sprint to the arena edge immediately.
+          </div>
+        </div>
+
+        <!-- DLC separator -->
+        <div class="boss-dlc-header"><span>DLC — The Forsaken Hollows</span></div>
+
+        <!-- 9 Harmonia / Balancers -->
+        <div class="boss-card">
+          <div class="boss-icon">⚔️</div>
+          <div class="boss-name">Weapon Bequeathed Harmonia</div>
+          <div class="boss-expedition">Everdark: Balancers · Unlock: beat Tricephalos + 1 other, unlock Scholar &amp; Undertaker</div>
+          <span class="boss-weak" style="background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)">✦ Sleep</span>
+          <div class="boss-tip">7 valkyrie-style enemies. Sleep status hits fast and lasts long — crit sleeping enemies. Most attacks are parryable; a single parry staggers. Failing to kill all Balancers before Night ends costs your Healing Flasks.</div>
+        </div>
+
+        <!-- 10 Dreglord -->
+        <div class="boss-card">
+          <div class="boss-icon">🧟</div>
+          <div class="boss-name">Dreglord — Traitorous Straghess</div>
+          <div class="boss-expedition">Everdark: Forsaken Hollows · Unlock: beat Balancers</div>
+          <span class="boss-weak weak-holy">✦ Holy / Fire / Bleed</span>
+          <div class="boss-tip">Two HP bars (Phase 2 = Pure Impulse Straghess). Phase 1: Scarlet Rot spam — stock Preserving Boluses. Avoid Lightning (resistant). Bleed chunks HP fastest. Stagger pillar-leap attacks with Ultimate Arts. Save 3 flasks for phase 2.</div>
+        </div>
+
+      </div><!-- /boss-grid -->
+    </div><!-- /boss-grid-wrap -->
+  </div><!-- /boss-section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RELIC EFFECTS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="relicToggle">
+      <span>🔮 &nbsp;Relic Effects Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="relicWrap">
+
+      <div class="relic-system">
+        <strong>How Relics Work:</strong> Relics roll 2–3 effects but <strong>cannot</strong> roll 2+ effects from the same category (Category 19 is the only exception — see Relic Categories section). Each Nightfarer has 3 colour-coded slots.
+        <div class="relic-colors">
+          <span class="rcol rcol-red">🔴 Red</span>
+          <span class="rcol rcol-green">🟢 Green</span>
+          <span class="rcol rcol-blue">🔵 Blue</span>
+          <span class="rcol rcol-yellow">🟡 Yellow</span>
+        </div>
+      </div>
+
+      <div class="effect-grid">
+
+        <!-- ── ATTACK ─────────────────────────────── -->
+        <div class="effect-category">⚔️ Attack Power Effects</div>
+
+        <div class="effect-card">
+          <div class="effect-label">Physical ATK Up</div>
+          <div class="effect-value">+3% / +6.5% / (tiered)</div>
+          <div class="effect-note">Flat percent bonus to all physical damage. Multiple copies add together.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🔥 Fire ATK Up</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-note">Boosts Fire damage from weapons and incantations. Each element (Fire, Magic, Lightning, Holy) is tracked separately.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive per element)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">✨ Magic ATK Up</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-note">Boosts Sorcery and Magic-infused weapon damage only.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚡ Lightning ATK Up</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-note">Boosts Lightning damage from weapons and incantations.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">✦ Holy ATK Up</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-note">Boosts Holy damage from weapons and incantations.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🗡️ Improved [Weapon Type] ATK</div>
+          <div class="effect-value">+6.5% to that weapon type's damage</div>
+          <div class="effect-note">Per-weapon-type version. Covers all 23 weapon types (Greatswords, Katanas, etc.). Applies to weapon skills but NOT projectiles from skills.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive, YES)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🗡️ 3+ Same Weapon Type</div>
+          <div class="effect-value">+10% ATK with 3+ of that type in inventory</div>
+          <div class="effect-note">Carry 3+ weapons of one type. Two different type bonuses can co-exist simultaneously. Cannot stack same-type bonus twice.</div>
+          <span class="stack-badge stack-no">✘ One bonus per weapon type (NO)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🎯 Improved Initial Standard Attack</div>
+          <div class="effect-value">+13% to first light attack in a combo</div>
+          <div class="effect-note">Applies only to the very first R1/light attack in a combo chain. Resets if you stop attacking.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🔄 Improved Charge Attacks</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-note">Applies only to fully charged heavy attacks. Excellent for strength/colossal weapon users.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">↑ Improved Jump Attacks</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-note">Improves all airborne plunge attacks (jumping R1 and R2).</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🛡️ Improved Guard Counters</div>
+          <div class="effect-value">×1.10 / ×1.15 / ×1.20</div>
+          <div class="effect-note">R2 immediately after blocking an attack. Pairs with Night of the Champion boss relic.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🗡️ Improved Critical Hits</div>
+          <div class="effect-value">×1.12 / ×1.18 / ×1.24</div>
+          <div class="effect-note">Boosts backstab and riposte damage. The unique +1 version (×1.20) stacks with this base version — they are separate effects.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (base + unique +1 are separate)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🌀 Improved Skill ATK</div>
+          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-note">Boosts damage from activated Weapon Arts (L2). Does not affect passive weapon effects.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🔮 Improved Sorceries &amp; Incantations</div>
+          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-note">Boosts all sorcery and incantation damage. Also extends active spell buff duration (+30% with a separate Relic Effect).</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🎯 Improved Chain Finishers</div>
+          <div class="effect-value">×1.10 / ×1.15 / ×1.20 on last combo hit</div>
+          <div class="effect-note">Boosts only the final hit in a combo chain. Rewards completing full attack sequences.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🏹 Improved Ranged Attacks</div>
+          <div class="effect-value">×1.07 / ×1.10 / ×1.14</div>
+          <div class="effect-note">Boosts damage from bows and crossbows. Separate from weapon-type ATK Up for bows.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <!-- ── STATUS BUILDUP ──────────────────────── -->
+        <div class="effect-category">🩸 Status Buildup Effects</div>
+
+        <div class="effect-card">
+          <div class="effect-label">🩸 Blood Loss / Poison / Sleep / Rot / Frost Buildup</div>
+          <div class="effect-value">+18 / +23 / +30 buildup per hit</div>
+          <div class="effect-note">Separate effects for each status. Accelerates proc frequency. Bleed procs scale with max HP (~15%). Frost debuffs enemy damage. Each status is its own relic effect.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive buildup)</span>
+        </div>
+
+        <!-- ── SURVIVABILITY ───────────────────────── -->
+        <div class="effect-category">🛡️ Survivability Effects</div>
+
+        <div class="effect-card">
+          <div class="effect-label">❤️ Max HP Up / 💧 Max FP Up / 🏃 Max Stamina Up</div>
+          <div class="effect-value">+10% (Delicate) / +15% (Grand)</div>
+          <div class="effect-note">Three separate effects — HP, FP, and Stamina — each with their own relic effect entry. Each stacks additively with copies of itself.</div>
+          <span class="stack-badge stack-yes">✔ HP/FP/Stamina each stack (additive %)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🛡️ Physical / Elemental DMG Negation Up</div>
+          <div class="effect-value">+10% per relic effect</div>
+          <div class="effect-note">Separate effects for Physical, Fire, Holy, Lightning, Magic negation. Each stacks additively.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive, per type)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🩹 Improved Flask HP Restoration</div>
+          <div class="effect-value">Increased HP per flask sip</div>
+          <div class="effect-note">Does not add extra flasks — just makes each sip restore more HP.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🧪 Status Resistance Up</div>
+          <div class="effect-value">+57 (Delicate) / +75 (Grand) to ALL resistances</div>
+          <div class="effect-note">A single relic effect raises ALL status resistances simultaneously — Poison, Bleed, Frost, Sleep, Madness, Death Blight, Rot.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive flat)</span>
+        </div>
+
+        <!-- ── RESOURCE ────────────────────────────── -->
+        <div class="effect-category">⚡ Resource &amp; Utility Effects</div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚡ Stamina on Attacks / 🔋 FP on Attacks</div>
+          <div class="effect-value">+2 / +3 Stamina per hit &nbsp;·&nbsp; +1/+2/+3 FP per hit</div>
+          <div class="effect-note">Two separate effects. Stamina restores with each landing attack. FP restores on successive attacks. Both stack with copies.</div>
+          <span class="stack-badge stack-yes">✔ Both stack (additive per-hit)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💠 Reduced Skill FP Cost</div>
+          <div class="effect-value">×0.88 / ×0.82 / ×0.76 FP cost</div>
+          <div class="effect-note">Reduces FP cost of weapon arts and skills. Stacks additively — two copies multiply.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💰 Rune Acquisition Up</div>
+          <div class="effect-value">+10% runes from kills (self) · +3.5% runes for self+allies</div>
+          <div class="effect-note">Two variants: personal (+10%) and team-wide (+3.5%). Standard discount −10% and Huge Rune Discount −20% stack with each other.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💚 HP Restore on Kill</div>
+          <div class="effect-value">+20 / +30 / +40 HP per kill</div>
+          <div class="effect-note">Triggers on enemy death regardless of cause (direct or AoE). Not affected by Flask Heal Up. Also a version that restores nearby ally HP (+20 HP).</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive per-kill)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">💚 HP Restore on Critical</div>
+          <div class="effect-value">+10% max HP on backstab / riposte</div>
+          <div class="effect-note">Triggers on every critical hit. Pairs with Critical Hit Boost and Night of the Baron.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🩺 Flask Also Heals Allies</div>
+          <div class="effect-value">50% of flask heal shared to nearby allies</div>
+          <div class="effect-note">Each time you use a Flask of Crimson Tears, nearby allies also receive a heal.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🎯 Art Gauge Effects</div>
+          <div class="effect-value">+5% from kills · +5% from critical hits</div>
+          <div class="effect-note">Two separate effects. One fills art gauge on each kill, one on each critical hit. Plus passive gauge charge speed: +5%/+7.5%/+10% (stacks YES).</div>
+          <span class="stack-badge stack-no">✘ Kill/crit gauge: NO stack · Passive: YES</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⏱️ Character Skill Cooldown Reduction</div>
+          <div class="effect-value">−5% / −7.5% / −10% cooldown</div>
+          <div class="effect-note">Three tiers each with their own relic effect (+1/+2/+3). All three tiers stack with each other.</div>
+          <span class="stack-badge stack-yes">✔ All tiers stack (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">📜 Sorcery &amp; Incantation Duration</div>
+          <div class="effect-value">+30% active buff duration</div>
+          <div class="effect-note">Extends how long spell buffs (e.g., Golden Vow, Flame, Grant Me Strength) remain active.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <!-- ── STARTING ─────────────────────────────── -->
+        <div class="effect-category">🎒 Starting Effects (per expedition)</div>
+
+        <div class="effect-card">
+          <div class="effect-label">🗡️ Imbue Starting Weapon</div>
+          <div class="effect-value">Infuse with Fire / Holy / Lightning / Magic / Bleed / Frost / Poison</div>
+          <div class="effect-note">Changes your starting weapon's damage type at expedition start. Each element is a separate relic effect.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">📦 Starting Items</div>
+          <div class="effect-value">Begin with specific consumables (greases, pots, darts, branches, pouches…)</div>
+          <div class="effect-note">19 item variants. All stack (YES) except Stonesword Key (NO). Max item slots is 8 — Small Pouch won't stack past 8 slots.</div>
+          <span class="stack-badge stack-yes">✔ Most stack (YES); Stonesword Key: NO</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚔️ Change Starting Weapon Skill</div>
+          <div class="effect-value">Swap to: Eruption, Blood Blade, Chilling Mist, Determination, Endure, Flaming Strike, Glintblade Phalanx, Gravitas, Hoarfrost Stomp, Lightning Slash, Poison Moth Flight, Poisonous Mist, Prayerful Strike, Quickstep, Rain of Arrows, Sacred Blade, Seppuku, Storm Stomp, Thunderbolt, White Shadow's Lure</div>
+          <div class="effect-note">Only applies to compatible weapon types. 20 different skill options available as separate relic effects.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
+        </div>
+
+      </div><!-- /effect-grid -->
+
+      <!-- ── EVERGOAL SCALING ──────────────────────── -->
+      <div class="evergoal-section">
+        <h4>🏕️ Evergoal ATK Scaling (Battlefield Experience)</h4>
+        <p class="evergoal-note">
+          Completing Evergoals grants a stacking <strong>Battlefield Experience</strong> ATK buff for the rest of the expedition. The bonus is <strong>multiplicative</strong> with relic ATK, invasion buffs, and weapon passives.
+        </p>
+        <table class="evergoal-table">
+          <thead>
+            <tr>
+              <th>Evergoals Cleared</th>
+              <th>Bonus per Layer</th>
+              <th>Est. Total</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="eg-count">0</td><td>—</td><td class="eg-total">+0%</td><td>Baseline</td></tr>
+            <tr><td class="eg-count">1</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+2%</td><td>First camp</td></tr>
+            <tr><td class="eg-count">2</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+4%</td><td></td></tr>
+            <tr><td class="eg-count">3</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+6%</td><td></td></tr>
+            <tr><td class="eg-count">4</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+8%</td><td></td></tr>
+            <tr><td class="eg-count">5</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+10%</td><td>Strong midpoint</td></tr>
+            <tr><td class="eg-count">6</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+12%</td><td></td></tr>
+            <tr class="eg-highlight"><td class="eg-count">7</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+14%</td><td>Max in full run — ~= Grand Physical ATK relic</td></tr>
+          </tbody>
+        </table>
+        <p class="evergoal-note" style="margin-top:8px;">
+          ⚠ Per-Evergoal values are community-estimated (~±1%). Stacks <strong>multiplicatively</strong> with all relic ATK, Low HP ATK, invasion buffs, and weapon passives.
+        </p>
+      </div><!-- /evergoal-section -->
+
+    </div><!-- /relicWrap -->
+  </div><!-- /relic section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       BOSS (LEGENDARY) RELICS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="bossRelicToggle">
+      <span>🌑 &nbsp;Boss Relics (Night of…)</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="bossRelicWrap">
+      <div class="relic-grid">
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Beast</div>
+          <div class="relic-source">Gladius — Tricephalos</div>
+          <span class="relic-slot slot-green">🟢 Green</span>
+          <ul class="relic-effects-list">
+            <li>Stamina recovered with each successful hit (+1)</li>
+            <li>Starting armament deals Fire damage</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Baron</div>
+          <div class="relic-source">Adel — Gaping Jaw</div>
+          <ul class="relic-effects-list">
+            <li>Critical Hits improved +1 (~20% more crit damage)</li>
+            <li>Art gauge fills on critical hit</li>
+            <li>Critical hit boosts stamina recovery speed</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Wise</div>
+          <div class="relic-source">Gnoster — Sentient Pest</div>
+          <ul class="relic-effects-list">
+            <li>Max FP increased</li>
+            <li>Starting weapon inflicts Poison</li>
+            <li>ATK power up when Poison/Rot is nearby</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Fathom</div>
+          <div class="relic-source">Maris — Augur</div>
+          <ul class="relic-effects-list">
+            <li>Max HP increased</li>
+            <li>Flask use heals nearby allies too</li>
+            <li>Items confer effects to all nearby allies</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Demon</div>
+          <div class="relic-source">Libra — Equilibrious Beast</div>
+          <span class="relic-slot slot-red">🔴 Red</span>
+          <ul class="relic-effects-list">
+            <li>20% rune discount at in-expedition shops</li>
+            <li>Gesture "Crossed Legs" builds Madness</li>
+            <li>Madness continuously recovers FP</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Champion</div>
+          <div class="relic-source">Fulghor — Darkdrift Knight</div>
+          <span class="relic-slot slot-green">🟢 Green</span>
+          <ul class="relic-effects-list">
+            <li>Max Stamina increased</li>
+            <li>Guard counter boosted by current HP</li>
+            <li>HP restored on thrusting counterattack</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Miasma</div>
+          <div class="relic-source">Caligo — Fissure in the Fog</div>
+          <ul class="relic-effects-list">
+            <li>Being near Frostbite conceals you</li>
+            <li>Armament skill → Chilling Mist at expedition start</li>
+            <li>ATK power up vs Frostbite-afflicted enemies</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of the Lord</div>
+          <div class="relic-source">Heolstor — Night Aspect</div>
+          <span class="relic-slot slot-blue">🔵 Blue</span>
+          <ul class="relic-effects-list">
+            <li>Weapon swap triggers an affinity attack</li>
+            <li>Added affinity attacks deal +10% damage</li>
+            <li>ATK power up when switching weapons</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Night of Dregs</div>
+          <div class="relic-source">Dreglord — Forsaken Hollows DLC</div>
+          <span class="relic-slot slot-red">🔴 Red · DLC</span>
+          <ul class="relic-effects-list">
+            <li>Status Ailment Gauges slowly increase Attack Power</li>
+          </ul>
+        </div>
+
+        <div class="relic-card">
+          <div class="relic-name">Will of the Balancers</div>
+          <div class="relic-source">Harmonia — Balancers DLC</div>
+          <span class="relic-slot slot-blue">🔵 Blue · DLC</span>
+          <ul class="relic-effects-list">
+            <li>Reward for defeating Weapon Bequeathed Harmonia</li>
+            <li>Equippable by all Nightfarers</li>
+          </ul>
+        </div>
+
+      </div><!-- /relic-grid -->
+    </div><!-- /bossRelicWrap -->
+  </div><!-- /boss relic section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       GENERIC WEAPON PASSIVES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="wpnPassiveToggle">
+      <span>🗡️ &nbsp;Weapon Passives Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="wpnPassiveWrap">
+
+      <div class="relic-system">
+        <strong>What are Weapon Passives?</strong> Passives that appear on weapons — separate from Relic Effects.
+        Most offensive and stat passives stack with different tiers. Most proc / miscellaneous passives do <strong>NOT</strong> stack.
+        Tiers shown as <strong>+1 / +2 / +3</strong>.
+      </div>
+
+      <!-- DEFENSIVE -->
+      <div class="wpn-section-header">🛡️ Defensive</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>+1 / +2 / +3</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Improved Magic/Fire/Lightning/Holy Dmg Negation</td><td class="col-val">+12% / +16% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Physical Dmg Negation</td><td class="col-val">+12% / +16% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Dmg Negation at Low HP (&lt;20%)</td><td class="col-val">+29% / +38% / +48%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Dmg Negation at Full HP (100%)</td><td class="col-val">+24% / +32% / +40%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Taking Damage Boosts Dmg Negation</td><td class="col-val">+21% / +28% / +36% for 10s</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Dmg Negation Up While Casting Spells</td><td class="col-val">+18% / +24% / +30%</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Dmg Negation Up While Charging Attacks</td><td class="col-val">+24% / +32% / +40%</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Successive Attacks Negate Damage</td><td class="col-val">+38% / +48% / +60% for 30s</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Successful Guarding Ups Dmg Negation</td><td class="col-val">+14% / +19% / +24%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Successful Guarding Ups Poise</td><td class="col-val">×0.88 / ×0.82 / ×0.76 poise dmg taken</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guarding Ability (stamina dmg taken)</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Status Resist (Poison/Bleed/Sleep/etc.)</td><td class="col-val">+57 / +75 / +112</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Less Likely to Be Targeted</td><td class="col-val">−300 / −450 / −600 target priority</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
+
+      <!-- OFFENSIVE -->
+      <div class="wpn-section-header">⚔️ Offensive</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>+1 / +2 / +3</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Attack Up When Wielding Two Armaments (paired L1)</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power When Two-Handing</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Low HP</td><td class="col-val">×1.07 → ×1.21 (5 tiers)</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Full HP (100%)</td><td class="col-val">×1.07 / ×1.105 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Chain Attack Finishers (last hit)</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charge Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Skill Attack Power</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guard Counters</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Jump Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Critical Hits</td><td class="col-val">×1.12 / ×1.18 / ×1.24</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Ranged Weapon Attacks</td><td class="col-val">×1.07 / ×1.10 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Projectile Damage Drop-Off Reduced</td><td class="col-val">−30% / −40% / −50%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Magic/Fire/Holy/Lightning Attack Power</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Add Magic/Fire/Holy/Lightning to Weapon</td><td class="col-val">−25/26/30/35 phys, +25/26/30/35 elemental</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Attacks Inflict Poison/Bleed/Sleep/Rot/Frost</td><td class="col-val">+18 / +23 / +30 buildup</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Improved Sorceries / Incantations</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charged Sorceries / Incantations</td><td class="col-val">×1.09 / ×1.13 / ×1.18</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Spell Casting Speed</td><td class="col-val">+30 / +60 vdex</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Reduced Skill FP Cost</td><td class="col-val">×0.88 / ×0.82 / ×0.76</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Reduced Spell FP Cost</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Multiple Periodical Glintblades</td><td class="col-val">5 blades / 18s · 60 magic atk each</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Many Periodical Glintblades</td><td class="col-val">9 blades / 18s · 48 magic atk each</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two-Handing)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two Weapons, paired L1)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guard Breaking</td><td class="col-val">×1.30 / ×1.45 / ×1.60 stamina damage</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
+
+      <!-- REGEN -->
+      <div class="wpn-section-header">💚 Regen</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Value</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Continuous HP Recovery</td><td class="col-val">+1 HP/s</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">HP Restoration upon Attacks</td><td class="col-val">+4 / +6 / +8 HP per hit</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">FP Restoration upon Attacks</td><td class="col-val">+1 / +2 / +3 FP per hit</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Defeating Enemies Restores HP</td><td class="col-val">+20 / +30 / +40 HP</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Defeating Enemies Restores FP</td><td class="col-val">+4% / +6% / +8% max FP</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Taking Damage Restores FP</td><td class="col-val">+2 / +4 / +6 FP</td><td class="col-stack-no">NO</td></tr>
+        </tbody>
+      </table>
+
+      <!-- STAT / GRIEF -->
+      <div class="wpn-section-header">📊 Stat — "Grief" Passives</div>
+      <div class="relic-system" style="margin-bottom:10px;">
+        Each Grief passive boosts two stats by <strong>+3/+6/+9</strong>. Tiers stack only with <em>different</em> tiers — two "+1" copies of the same Grief <strong>do NOT stack</strong>.
+      </div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Stats Boosted</th><th>+1/+2/+3</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Wylder's Grief</td><td class="col-note">STR + DEX</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Guardian's Grief</td><td class="col-note">VIG + END</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Ironeye's Grief</td><td class="col-note">END + DEX</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Duchess' Grief</td><td class="col-note">DEX + INT</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Raider's Grief</td><td class="col-note">VIG + STR</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Revenant's Grief</td><td class="col-note">FTH + ARC</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Recluse's Grief</td><td class="col-note">MND + INT</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Executor's Grief</td><td class="col-note">DEX + ARC</td><td class="col-val">+3 / +6 / +9</td></tr>
+        </tbody>
+      </table>
+
+      <!-- EXPLORATION -->
+      <div class="wpn-section-header">🗺️ Exploration</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Value</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Improved Item Discovery</td><td class="col-val">+20 / +30 / +40 discovery</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
+
+    </div><!-- /wpnPassiveWrap -->
+  </div><!-- /weapon passives section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       DORMANT POWERS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="dormantToggle">
+      <span>🏛️ &nbsp;Dormant Powers Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="dormantWrap">
+
+      <div class="relic-system">
+        <strong>What are Dormant Powers?</strong> Passives found in the world or tied to the character — separate from Weapon Passives and Relic Effects. Some are found at map locations, some are unlocked through character progression. Where not noted, assume one tier only.
+      </div>
+
+      <!-- ATTRIBUTES -->
+      <div class="effect-category">📊 Attributes</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max HP</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max FP</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max Stamina</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Poise</div>
+          <div class="dormant-val">+25% / +38%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Stamina Recovery</div>
+          <div class="dormant-val">+4 / +6</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+      </div>
+
+      <!-- DEFENSIVE -->
+      <div class="effect-category">🛡️ Defensive</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">All Resistances Up</div>
+          <div class="dormant-val">+57 / +75 to all statuses</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Affinity Dmg Negation</div>
+          <div class="dormant-val">+12% / +15% / +18%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Physical Dmg Negation</div>
+          <div class="dormant-val">+12% / +15% / +18%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Dodging</div>
+          <div class="dormant-val">TBA</div>
+          <div class="dormant-note">Community data pending.</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Creates Holy Ground at Low HP</div>
+          <div class="dormant-val">Generates protective Holy aura below 20% HP</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Wending Grace</div>
+          <div class="dormant-val">Rise from defeat once (Item)</div>
+          <div class="dormant-note">Unique — consumed on use.</div>
+          <span class="stack-badge stack-no">✘ NO (unique item)</span>
+        </div>
+      </div>
+
+      <!-- OFFENSIVE -->
+      <div class="effect-category">⚔️ Offensive</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Dragons</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Those Who Live in Death</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Lifeforms Born of Falling Stars</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Physical Attack Power</div>
+          <div class="dormant-val">Stacking physical ATK bonus</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Affinity Attack Power</div>
+          <div class="dormant-val">Stacking elemental ATK bonus</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Roar &amp; Breath Attacks</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Throwing Pots</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Thrusting Counterattack</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Stance-Breaking</div>
+          <div class="dormant-val">Increased poise damage</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Sorceries &amp; Incantations</div>
+          <div class="dormant-val">+7%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Dragonwound upon Dragon Communion</div>
+          <div class="dormant-val">Inflicts dragonwound debuff on nearby enemies</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Flame of Frenzy While Walking</div>
+          <div class="dormant-val">Proc AoE Frenzy flames while moving</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Guard Counters Activate Holy Attacks</div>
+          <div class="dormant-val">Guard counters trigger extra Holy explosion</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Guard Counters Activate Summoning Attack</div>
+          <div class="dormant-val">Guard counters summon an attack spirit</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Ice Storm Surge Sprint</div>
+          <div class="dormant-val">Ice storm proc while sprinting</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Lightning upon Dodging</div>
+          <div class="dormant-val">Lightning burst on dodge</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Periodical Giant Glintblade</div>
+          <div class="dormant-val">Large magic blade fires periodically</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Successful Parries Activate Golden Retaliation</div>
+          <div class="dormant-val">Holy burst on successful parry</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Sudden Enemy Death upon Attacks</div>
+          <div class="dormant-val">Rare instant-kill chance on hit — TBA</div>
+          <span class="stack-badge stack-no">✘ NO (minimal effect)</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Violent Deluge of Star Rain While Walking</div>
+          <div class="dormant-val">Star rain proc while moving</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Enemy Dmg After Critical Hit</div>
+          <div class="dormant-val">−15% enemy defense for 20s after riposte/backstab</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+      </div>
+
+      <!-- STATUS EFFECT -->
+      <div class="effect-category">🩸 Status Effect</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Blood Loss in Vicinity Increases ATK</div>
+          <div class="dormant-val">+20% ATK when Bleed procs nearby</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Inflict Blood Loss at Critical Hits</div>
+          <div class="dormant-val">Applies Bleed on backstab/riposte</div>
+          <div class="dormant-note">Despite the name, it applies on critical hits — not "at low HP."</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Poison &amp; Rot Trigger Continuous HP Recovery</div>
+          <div class="dormant-val">+7 HP/s while Poison or Rot is applied nearby</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+      </div>
+
+      <!-- UTILITY -->
+      <div class="effect-category">⚡ Utility</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Flask HP Restoration</div>
+          <div class="dormant-val">More HP per flask sip</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Perfuming Arts</div>
+          <div class="dormant-val">+20% perfume/aromatic effectiveness</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Ultimate Art Gauge Charge Speed</div>
+          <div class="dormant-val">+6% faster gauge charge in combat</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Rune Acquisition</div>
+          <div class="dormant-val">+10% runes from kills</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">More Runes From Defeated Enemies</div>
+          <div class="dormant-val">+10% runes (separate from above)</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Sorcery &amp; Incantation Duration</div>
+          <div class="dormant-val">+30% active buff duration</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Reduced FP Consumption</div>
+          <div class="dormant-val">−% FP cost on spells/skills</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Character Skill Cooldown Reduction</div>
+          <div class="dormant-val">−10% cooldown</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Critical Hit FP Restoration</div>
+          <div class="dormant-val">+10% max FP on critical hit</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Critical Hit HP Restoration</div>
+          <div class="dormant-val">+10% max HP on critical hit</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">FP Recovery upon Successful Guards</div>
+          <div class="dormant-val">+2 FP per guard</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">HP Recovery upon Successful Guards</div>
+          <div class="dormant-val">+10 HP per guard</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">FP Restoration upon Successive Attacks</div>
+          <div class="dormant-val">Restore FP during combo chains</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">HP Restoration upon Successive Attacks</div>
+          <div class="dormant-val">+3 HP per hit in combo</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Gradual Restoration by Flask</div>
+          <div class="dormant-val">Flask HP restores gradually over time (not instant)</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Area of Darkness Conceals Caster While Walking</div>
+          <div class="dormant-val">Invisibility while moving through dark areas</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Rune of the Strong</div>
+          <div class="dormant-val">Gain Runes (special RUNES type)</div>
+          <div class="dormant-note">Not a conventional passive — directly grants runes.</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+      </div>
+
+    </div><!-- /dormantWrap -->
+  </div><!-- /dormant powers section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       LEGENDARY WEAPON PASSIVES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="legendaryToggle">
+      <span>👑 &nbsp;Legendary Weapon Passives</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="legendaryWrap">
+
+      <div class="relic-system">
+        <strong>Legendary Weapon Passives</strong> are unique effects tied to specific named weapons. Unlike generic weapon passives, each is unique — you cannot duplicate them. Critically, they vary in <em>how</em> they're active:
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only (not sheathed)</span>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+        </div>
+      </div>
+
+      <!-- Works Offhand + Sheathed -->
+      <div class="wpn-section-header">Works anywhere in loadout — Offhand &amp; Sheathed</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Blasphemous Blade / Devourer's Scepter</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">+HP on each enemy kill. Passive triggers from anywhere in your inventory.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Marais Executioner's Sword</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">×1.008 ATK per kill — stacks multiplicatively each kill for the run.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Grafted Blade Greatsword (Vengeance)</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Stacking buff per kill: all stats increase (+HP, +FP, +Stamina, +ATK, +Negation all ×0.5–1.005x per kill).</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Mohgwyn's Sacred Spear</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Blood Loss in vicinity increases ATK. Works with any Bleed source nearby — yours or allies'.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Hand of Malenia</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Attacks after taking damage partially restore HP. Requires taking a hit to trigger.</div>
+        </div>
+      </div>
+
+      <!-- Works Offhand but NOT Sheathed -->
+      <div class="wpn-section-header">Works when attacking with offhand — NOT when sheathed</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Eclipse Shotel (Despair)</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Chance to instantly kill enemies on hit. Rare proc — more effective against weakened foes.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Dark Moon Greatsword</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">−15% enemy magic damage negation for 20s on attack. Can weapon-swap after triggering to maintain buff while using another weapon.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Maliketh's Black Blade</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Destined Death DoT on hit — deals (MaxHP×0.01)+2 damage every 0.1s for 0.8s per hit.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Carian Regal Scepter</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Casting spells deflects incoming projectiles and retaliates with Glintblades.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Winged Greathorn</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Occasionally reduces enemy damage negation on hit. Can weapon-swap after triggering to keep buff.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Bastard's Stars</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Occasionally generates a star cloud on attacks that lingers and deals periodic magic damage.</div>
+        </div>
+      </div>
+
+      <!-- Held only -->
+      <div class="wpn-section-header">Must be actively held in hand to function</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Ruins Greatsword (Destruction)</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Gravitational shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Sword of Night and Flame</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">+67 magic or fire ATK for 30s when activating the weapon skill.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Dragon King's Cragblade</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Thundercloud jump attack on jump R2.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Grafted Dragon</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Flame burst on critical hits.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Lion Greatbow (General)</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Bundle of arrows fires on strong attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Giant's Red Braid</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Flame pillars erupt on weapon skill activation.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Axe of Godrick</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Earth-shaking shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Golden Order Greatsword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Charged attack heals ailments and dispels debuffs on hit.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Bolt of Gransax</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">+67 Lightning ATK for 30s on charged skill activation.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Sacred Relic Sword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Waves of Holy light fire from charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Morgott's Cursed Sword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Cursed flame burst on critical hits.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Marika's Hammer</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Holy shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Starscourge Greatsword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Gravity pull on consecutive attacks (requires dual-wielding two copies). Pulls enemies toward you.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Axe of Godfrey (First Lord)</div>
+          <span class="wpn-avail avail-offhand">⚠ Can weapon swap after!</span>
+          <div class="wpn-desc">×1.2 ATK for 15s after charged heavy attack. Activate, then swap to another weapon — the buff persists.</div>
+        </div>
+      </div>
+
+    </div><!-- /legendaryWrap -->
+  </div><!-- /legendary passives section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RELIC CATEGORIES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="relicCatToggle">
+      <span>📋 &nbsp;Relic Categories (Rolling Rules)</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="relicCatWrap">
+
+      <div class="relic-system">
+        <strong>The core rule:</strong> A relic <em>cannot</em> roll 2+ effects from the <em>same category</em>.
+        <strong>Category 19 (Miscellaneous Stackable) is the only exception</strong> — it can appear multiple times on the same relic.
+        Use this table to plan which effect combinations are possible on a single relic.
+      </div>
+
+      <table class="cat-table">
+        <thead><tr><th>#</th><th>Category</th><th>Example Effects</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">1</td><td class="col-cat">Attack Power</td><td class="col-examples">Physical ATK Up, elemental ATK Up, weapon-type ATK Up, 3+ weapon type bonus, guard counter boost, evergaol bonuses</td></tr>
+          <tr><td class="col-num">2</td><td class="col-cat">Starting Armament Infusion</td><td class="col-examples">Imbue starting weapon with Fire / Holy / Lightning / Magic / Bleed / Frost / Poison</td></tr>
+          <tr><td class="col-num">3</td><td class="col-cat">Compatible Armament's Skill</td><td class="col-examples">Swap weapon skill (Eruption, Blood Blade, Hoarfrost Stomp, Quickstep, Seppuku, etc.)</td></tr>
+          <tr><td class="col-num">4</td><td class="col-cat">Sorcery &amp; Incantation</td><td class="col-examples">Improved specific spell schools (Gravity, Fire, Holy, Dragon, etc.)</td></tr>
+          <tr><td class="col-num">5</td><td class="col-cat">Character (Nightfarer-specific)</td><td class="col-examples">All Duchess / Executor / Guardian / Ironeye / Raider / Recluse / Revenant / Wylder specific effects</td></tr>
+          <tr><td class="col-num">6</td><td class="col-cat">Vigor</td><td class="col-examples">Vigor +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">7</td><td class="col-cat">Mind</td><td class="col-examples">Mind +1 / +2 / +3; Max FP increased per Sorcerer's Rise unlocked</td></tr>
+          <tr><td class="col-num">8</td><td class="col-cat">Endurance</td><td class="col-examples">Endurance +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">9</td><td class="col-cat">Strength</td><td class="col-examples">Strength +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">10</td><td class="col-cat">Dexterity</td><td class="col-examples">Dexterity +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">11</td><td class="col-cat">Intelligence</td><td class="col-examples">Intelligence +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">12</td><td class="col-cat">Faith</td><td class="col-examples">Faith +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">13</td><td class="col-cat">Arcane</td><td class="col-examples">Arcane +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">14</td><td class="col-cat">Cooldown Reduction</td><td class="col-examples">Char. Skill Cooldown Reduction +1/+2/+3 (−5%/−7.5%/−10%)</td></tr>
+          <tr><td class="col-num">15</td><td class="col-cat">Ultimate Art Gauge</td><td class="col-examples">Art Gauge +1/+2/+3 (fills 5%/7.5%/10% faster in combat)</td></tr>
+          <tr><td class="col-num">16</td><td class="col-cat">Poise</td><td class="col-examples">Poise +1/+2/+3</td></tr>
+          <tr><td class="col-num">17</td><td class="col-cat">HP Restoration</td><td class="col-examples">HP from weapon-type attacks, HP from guarding, HP from counterattack, HP from boluses, post-damage HP recovery</td></tr>
+          <tr><td class="col-num">18</td><td class="col-cat">FP Restoration</td><td class="col-examples">FP from weapon-type attacks, FP on successive attacks, FP per 5% max FP gained</td></tr>
+          <tr class="cat-exception"><td class="col-num">19</td><td class="col-cat" style="color:var(--accent);font-weight:700;">⭐ Miscellaneous Stackable (EXCEPTION)</td><td class="col-examples">Max HP/FP/Stamina Up, status resistances, rune acquisition, flask healing, art gauge passives, rune discount, Frostbite concealment, Madness FP recovery, item effects to allies, many utility effects</td></tr>
+          <tr><td class="col-num">20</td><td class="col-cat">Unique Relic Effects</td><td class="col-examples">Character-specific uniques, Gesture "Crossed Legs" Builds Madness, special one-offs</td></tr>
+        </tbody>
+      </table>
+
+      <p class="evergoal-note" style="margin-top:12px;">
+        ⭐ <strong>Category 19</strong> is the ONLY category where a single relic can roll the same category twice or three times.
+        This means e.g. a relic could have Max HP Up + Max FP Up + Status Resistance all together (all Cat. 19).
+        All other categories are mutually exclusive on a single relic.
+      </p>
+
+    </div><!-- /relicCatWrap -->
+  </div><!-- /relic categories section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       INVASION / RAID EVENT BUFFS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="invToggle">
+      <span>🌀 &nbsp;Invasion / Raid Event Buffs</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="invWrap">
+      <div class="inv-grid">
+
+        <div class="inv-card">
+          <div class="inv-badge">🐛</div>
+          <div class="inv-name">Integration of Intelligence</div>
+          <div class="inv-event">Event: Locust swarms appear on map — follow them and defeat the Gnoster variant at the end</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster</div>
+          <div class="inv-spells-label">Invader spells / abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Pest Thread</span>
+            <span class="spell-tag">Swarm of Flies</span>
+            <span class="spell-tag">Kindred of Rot's Exultation Aura</span>
+            <span class="spell-tag">Rotten Breath (Incantation)</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Attacks have a rare chance to harvest Runes directly from enemies on hit (passive Rune drain). Excellent with high-hit-count weapons.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">🫧</div>
+          <div class="inv-name">Unifying Fate</div>
+          <div class="inv-event">Event: Giant Bubbles forming across the map — step inside bubbles, then defeat the lesser Augur that spawns</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster, Caligo, or Heolstor</div>
+          <div class="inv-spells-label">Invader spells / abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Bubble Shower</span>
+            <span class="spell-tag">Thops's Barrier (Magic Shield)</span>
+            <span class="spell-tag">Crystal Barrage</span>
+            <span class="spell-tag">Carian Slicer</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Flasks of Crimson Tears also restore FP in addition to HP on each use — effectively combines your two resource potions for the rest of the run.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">🕷️</div>
+          <div class="inv-name">Favor of the Night</div>
+          <div class="inv-event">Event: Purple/dark orb visible in the sky — locate and kill all Fingercreepers &amp; their variants in the area</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gnoster, Libra, or Harmonia (DLC)</div>
+          <div class="inv-spells-label">Invader abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Ensnaring Grasp (grab)</span>
+            <span class="spell-tag">Finger Slam AoE</span>
+            <span class="spell-tag">Madness Aura</span>
+            <span class="spell-tag">Curse Stacking</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Ultimate Art Gauge fills significantly faster for the entire expedition. Lets you use Ultimate Arts in boss phases much more frequently — essentially cuts gauge charge time by ~40%.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">👁️</div>
+          <div class="inv-name">Traces of Grace-Given Lord</div>
+          <div class="inv-event">Event: A Fell Omen appears on the map — defeat it before it reaches and kills players</div>
+          <div class="inv-lords">Triggers when Nightlord is: Caligo, Fulghor, or Heolstor</div>
+          <div class="inv-spells-label">Invader spells / abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Omen Bairn (Holy explosion)</span>
+            <span class="spell-tag">Cursed-Blood Slice</span>
+            <span class="spell-tag">Fell Omen Shackle</span>
+            <span class="spell-tag">Scarlet Aeonia burst</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Attack power increases each time you interact with a newly found Site of Grace. The bonus compounds — clearing more of the map pays off with more ATK stacks heading into the Night boss.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">😈</div>
+          <div class="inv-name">Demon's Plating</div>
+          <div class="inv-event">Event: "A demon casts its curse" message — all players' max HP is halved. Pay Runes to lift the curse: ~15,000 (Night 1) / ~35,000 (Night 2). One player's payment covers the whole team.</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gladius, Maris, or Fulghor</div>
+          <div class="inv-spells-label">Curse / passive traits:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Max HP Halved (curse)</span>
+            <span class="spell-tag">No combat required — pay or endure</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> After paying: all players receive Demon's Plating — a defensive shell reducing incoming damage for the entire expedition. Also counts as a free Wish (no item or boss requirement). One of the safest buffs — just bank Runes before Night.</div>
+        </div>
+
+        <div class="inv-card">
+          <div class="inv-badge">⚔️</div>
+          <div class="inv-name">Rise from Near-Death (DLC)</div>
+          <div class="inv-event">Event: Balancers raid — 7 valkyrie-type warriors teleport your team to an arena. Each kill refills 1 Flask; failing to kill all 7 costs every Flask you have for the rest of the Night.</div>
+          <div class="inv-lords">Triggers when Nightlord is: Balancers / Harmonia (DLC only)</div>
+          <div class="inv-spells-label">Balancer valkyrie spells / abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Golden Vow (self-buff)</span>
+            <span class="spell-tag">Radahn's Spear Barrage</span>
+            <span class="spell-tag">Erdtree Barrier (block)</span>
+            <span class="spell-tag">Scarlet Aeonia Dive</span>
+            <span class="spell-tag">Wrath of Gold (AoE)</span>
+            <span class="spell-tag">Dual Greatsword Combo</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Rare chance to automatically rise from near-death (works like Wending Grace / Bloodboon). <strong>Each time you rise, ATK power is permanently boosted</strong> for the run. Stacks if you trigger it multiple times. One of the strongest buffs in the game — worth losing Flasks for.</div>
+        </div>
+
+      </div><!-- /inv-grid -->
+    </div><!-- /invWrap -->
+  </div><!-- /invasion section -->
+
+</div><!-- /wrap -->
+
+<script>
+/* ================================================================
+   NIGHTREIGN TIMER
+   Phase timings sourced from baspla/nightreign (timer.js)
+   Day 1: 265s  |  Night 1: 175s  |  Day 2: 205s  |  Night 2: 175s
+   Total: 820s  |  End: Boss Fight
+================================================================ */
+
+const PHASES = [
+  {
+    bodyClass : 'p0',
+    icon      : '☀️',
+    short     : 'Day 1',
+    name      : 'Day 1 — Exploration',
+    desc      : 'Explore, gather loot, and prepare for the storm',
+    duration  : 265,          // 4:25
+    warnAt    : 60,
+    warnMsg   : '⚡ Storm closing in — 1 minute remaining!',
+    warnType  : 'warn',
+  },
+  {
+    bodyClass : 'p1',
+    icon      : '🌩️',
+    short     : 'Night 1',
+    name      : 'Night 1 — Storm Closing',
+    desc      : 'Storm shrinking — move to the safe zone now',
+    duration  : 175,          // 2:55
+    warnAt    : 30,
+    warnMsg   : '💀 Night Boss spawning soon — get in position!',
+    warnType  : 'danger',
+  },
+  {
+    bodyClass : 'p2',
+    icon      : '🌅',
+    short     : 'Day 2',
+    name      : 'Day 2 — Final Push',
+    desc      : 'Last window to gear up — the final storm is coming',
+    duration  : 205,          // 3:25
+    warnAt    : 60,
+    warnMsg   : '⚡ Final storm approaching — 1 minute left!',
+    warnType  : 'warn',
+  },
+  {
+    bodyClass : 'p3',
+    icon      : '🔥',
+    short     : 'Night 2',
+    name      : 'Night 2 — Storm Closing',
+    desc      : 'Converge on the boss arena — the Night Lord awaits',
+    duration  : 175,          // 2:55
+    warnAt    : 30,
+    warnMsg   : '⚔️ Night Lord incoming — prepare for battle!',
+    warnType  : 'danger',
+  },
+];
+
+const TOTAL = PHASES.reduce((s, p) => s + p.duration, 0); // 820
+
+/* ── State ─────────────────────────────────────────────────── */
+let phase   = 0;
+let left    = PHASES[0].duration;
+let elapsed = 0;
+let running = false;
+let warned  = false;
+let timer   = null;
+let sound   = true;
+
+/* ── DOM ────────────────────────────────────────────────────── */
+const $cd      = document.getElementById('countdown');
+const $tag     = document.getElementById('phaseTag');
+const $name    = document.getElementById('phaseName');
+const $desc    = document.getElementById('phaseDesc');
+const $fill    = document.getElementById('barFill');
+const $bar     = document.getElementById('barOuter');
+const $jumps   = document.getElementById('jumps');
+const $start   = document.getElementById('startBtn');
+const $reset   = document.getElementById('resetBtn');
+const $alert   = document.getElementById('alert');
+const $sound   = document.getElementById('soundBtn');
+const $flash   = document.getElementById('flash');
+const $stars   = document.getElementById('stars');
+
+/* ── Stars ──────────────────────────────────────────────────── */
+(function initStars() {
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = 1 + Math.random() * 2;
+    s.style.cssText = [
+      `left:${Math.random()*100}%`,
+      `top:${Math.random()*100}%`,
+      `width:${size}px`,
+      `height:${size}px`,
+      `--d:${2+Math.random()*5}s`,
+      `--delay:-${Math.random()*5}s`,
+      `--op:${.15+Math.random()*.45}`,
+    ].join(';');
+    $stars.appendChild(s);
+  }
+})();
+
+/* ── Audio (Web Audio API) ──────────────────────────────────── */
+let ctx = null;
+function audio() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  return ctx;
+}
+function beep(freq, dur, type='sine', vol=.3) {
+  if (!sound) return;
+  try {
+    const c = audio();
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.connect(g); g.connect(c.destination);
+    o.type = type;
+    o.frequency.setValueAtTime(freq, c.currentTime);
+    g.gain.setValueAtTime(vol, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, c.currentTime + dur);
+    o.start(c.currentTime); o.stop(c.currentTime + dur);
+  } catch(_) {}
+}
+function sfxPhaseChange() {
+  beep(523,.14,'sine',.38);
+  setTimeout(()=>beep(659,.14,'sine',.38), 170);
+  setTimeout(()=>beep(784,.22,'sine',.38), 340);
+}
+function sfxWarn() {
+  beep(330,.28,'sawtooth',.22);
+  setTimeout(()=>beep(330,.28,'sawtooth',.22), 420);
+}
+function sfxBoss() {
+  beep(220,.28,'sawtooth',.38);
+  setTimeout(()=>beep(165,.28,'sawtooth',.38), 340);
+  setTimeout(()=>beep(110,.45,'sawtooth',.38), 680);
+}
+function sfxTick() { beep(880,.045,'sine',.15); }
+
+/* ── Helpers ────────────────────────────────────────────────── */
+function fmt(s) {
+  if (s < 0) s = 0;
+  return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+function flash() {
+  $flash.classList.add('on');
+  setTimeout(()=>$flash.classList.remove('on'), 200);
+}
+
+/* ── Build static UI ────────────────────────────────────────── */
+function buildDividers() {
+  let cum = 0;
+  PHASES.slice(0,-1).forEach(p => {
+    cum += p.duration;
+    const d = document.createElement('div');
+    d.className = 'divider';
+    d.style.left = `${(cum/TOTAL)*100}%`;
+    $bar.appendChild(d);
+  });
+}
+function buildJumps() {
+  PHASES.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'jump';
+    b.id = `j${i}`;
+    b.innerHTML = `
+      <span class="jump-icon">${p.icon}</span>
+      <span class="jump-label">${p.short}</span>
+      <span class="jump-time">${fmt(p.duration)}</span>
+    `;
+    b.addEventListener('click', () => jumpTo(i));
+    $jumps.appendChild(b);
+  });
+}
+
+/* ── Update UI ──────────────────────────────────────────────── */
+function render() {
+  const isBoss = phase >= PHASES.length;
+
+  if (isBoss) {
+    document.body.className = 'pboss';
+    $cd.textContent = '--:--';
+    $cd.classList.add('boss');
+    $tag.textContent  = 'Expedition Complete';
+    $name.textContent = '⚔️  Night Lord Battle';
+    $desc.textContent = 'Face the Night Lord — may grace guide thee';
+    $fill.style.width = '100%';
+    $start.textContent = 'Restart';
+    showAlert('⚔️  BOSS FIGHT — The Night Lord awaits!', 'danger');
+    highlightJump(-1);
+    return;
+  }
+
+  const p = PHASES[phase];
+  document.body.className = p.bodyClass;
+  $cd.textContent = fmt(left);
+  $cd.classList.remove('boss');
+  $tag.textContent  = `Phase ${phase+1} of ${PHASES.length}`;
+  $name.textContent = p.name;
+  $desc.textContent = p.desc;
+  $fill.style.width = `${Math.min((elapsed/TOTAL)*100, 100)}%`;
+  $start.textContent = running ? 'Pause' : (elapsed === 0 ? 'Start — GL HF' : 'Resume');
+
+  if (running && left <= p.warnAt) {
+    showAlert(p.warnMsg, p.warnType);
+  } else {
+    hideAlert();
+  }
+  highlightJump(phase);
+}
+
+function showAlert(msg, type) {
+  $alert.textContent = msg;
+  $alert.className = `alert show ${type}`;
+}
+function hideAlert() {
+  $alert.className = 'alert';
+}
+function highlightJump(idx) {
+  PHASES.forEach((_,i) => {
+    const b = document.getElementById(`j${i}`);
+    if (b) b.classList.toggle('active', i === idx);
+  });
+}
+
+/* ── Timer logic ────────────────────────────────────────────── */
+function tick() {
+  if (!running) return;
+  left--;
+  elapsed++;
+
+  // Warn threshold
+  if (left === PHASES[phase].warnAt && !warned) {
+    warned = true;
+    sfxWarn();
+  }
+  // Final-seconds ticks on storm phases
+  if ((phase === 1 || phase === 3) && left <= 5 && left > 0) {
+    sfxTick();
+  }
+
+  if (left <= 0) { nextPhase(); return; }
+
+  render();
+  timer = setTimeout(tick, 1000);
+}
+
+function nextPhase() {
+  phase++;
+  warned = false;
+  if (phase >= PHASES.length) {
+    running = false;
+    sfxBoss();
+    flash();
+    render();
+    return;
+  }
+  left = PHASES[phase].duration;
+  sfxPhaseChange();
+  flash();
+  render();
+  timer = setTimeout(tick, 1000);
+}
+
+function startPause() {
+  if (phase >= PHASES.length) { doReset(); return; }
+  if (!running) {
+    running = true;
+    try { audio().resume(); } catch(_) {}
+    render();
+    timer = setTimeout(tick, 1000);
+  } else {
+    running = false;
+    clearTimeout(timer);
+    render();
+  }
+}
+
+function doReset() {
+  running = false;
+  clearTimeout(timer);
+  phase   = 0;
+  left    = PHASES[0].duration;
+  elapsed = 0;
+  warned  = false;
+  render();
+  hideAlert();
+}
+
+function jumpTo(idx) {
+  if (idx < 0 || idx >= PHASES.length) return;
+  clearTimeout(timer);
+  let e = 0;
+  for (let i = 0; i < idx; i++) e += PHASES[i].duration;
+  phase   = idx;
+  left    = PHASES[idx].duration;
+  elapsed = e;
+  warned  = false;
+  if (running) timer = setTimeout(tick, 1000);
+  render();
+}
+
+/* ── Events ─────────────────────────────────────────────────── */
+$start.addEventListener('click', startPause);
+$reset.addEventListener('click', doReset);
+$sound.addEventListener('click', () => {
+  sound = !sound;
+  $sound.textContent = sound ? '🔔 Sound: ON' : '🔕 Sound: OFF';
+});
+document.addEventListener('keydown', e => {
+  if (e.target !== document.body) return;
+  if (e.code === 'Space') { e.preventDefault(); startPause(); }
+  if (e.key.toLowerCase() === 'r') doReset();
+  if (e.key >= '1' && e.key <= '4') jumpTo(+e.key - 1);
+});
+
+/* ── Init ───────────────────────────────────────────────────── */
+buildDividers();
+buildJumps();
+render();
+
+/* ── Collapsible section toggles ────────────────────────────── */
+const SECTIONS = [
+  ['bossToggle',       'bossGridWrap'],
+  ['relicToggle',      'relicWrap'],
+  ['bossRelicToggle',  'bossRelicWrap'],
+  ['wpnPassiveToggle', 'wpnPassiveWrap'],
+  ['dormantToggle',    'dormantWrap'],
+  ['legendaryToggle',  'legendaryWrap'],
+  ['relicCatToggle',   'relicCatWrap'],
+  ['invToggle',        'invWrap'],
+];
+SECTIONS.forEach(([btnId, wrapId]) => {
+  document.getElementById(btnId).addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById(wrapId).classList.toggle('open');
+  });
+});
+
+/* ── Search ─────────────────────────────────────────────────── */
+(function initSearch() {
+  const $input  = document.getElementById('searchInput');
+  const $clear  = document.getElementById('searchClear');
+  const $count  = document.getElementById('searchCount');
+
+  // Map each section to its searchable item selector and the table row selector
+  const SECTION_ITEMS = [
+    { btn: 'bossToggle',      wrap: 'bossGridWrap',  sel: '.boss-card' },
+    { btn: 'relicToggle',     wrap: 'relicWrap',     sel: '.effect-card' },
+    { btn: 'bossRelicToggle', wrap: 'bossRelicWrap', sel: '.relic-card' },
+    { btn: 'wpnPassiveToggle',wrap: 'wpnPassiveWrap',sel: 'tr[data-searchable]' },
+    { btn: 'dormantToggle',   wrap: 'dormantWrap',   sel: '.dormant-card' },
+    { btn: 'legendaryToggle', wrap: 'legendaryWrap', sel: '.wpn-card' },
+    { btn: 'relicCatToggle',  wrap: 'relicCatWrap',  sel: 'tr[data-searchable]' },
+    { btn: 'invToggle',       wrap: 'invWrap',       sel: '.inv-card' },
+  ];
+
+  // Mark table rows as searchable
+  document.querySelectorAll('.wpn-table tbody tr, .cat-table tbody tr').forEach(tr => {
+    tr.setAttribute('data-searchable', '1');
+  });
+
+  // Snapshot: which sections were open before search started
+  let preSearchOpen = null;
+
+  function setSection(btnId, wrapId, open) {
+    const btn  = document.getElementById(btnId);
+    const wrap = document.getElementById(wrapId);
+    if (!btn || !wrap) return;
+    btn.classList.toggle('open', open);
+    wrap.classList.toggle('open', open);
+  }
+
+  function doSearch(q) {
+    if (!q) {
+      // Restore pre-search state
+      if (preSearchOpen) {
+        SECTIONS.forEach(([btnId, wrapId]) => {
+          setSection(btnId, wrapId, preSearchOpen[btnId] || false);
+        });
+        preSearchOpen = null;
+      }
+      // Restore all items visible
+      document.querySelectorAll(
+        '.boss-card, .effect-card, .relic-card, .dormant-card, .wpn-card, .inv-card, tr[data-searchable]'
+      ).forEach(el => el.style.display = '');
+      // Restore effect-category and wpn-section-header visibility
+      document.querySelectorAll('.effect-category, .wpn-section-header').forEach(el => el.style.display = '');
+      $count.textContent = '';
+      $clear.classList.remove('visible');
+      return;
+    }
+
+    $clear.classList.add('visible');
+
+    // Snapshot open state once
+    if (!preSearchOpen) {
+      preSearchOpen = {};
+      SECTIONS.forEach(([btnId]) => {
+        const btn = document.getElementById(btnId);
+        preSearchOpen[btnId] = btn ? btn.classList.contains('open') : false;
+      });
+    }
+
+    const lq = q.toLowerCase();
+    let total = 0;
+
+    SECTION_ITEMS.forEach(({ btn, wrap, sel }) => {
+      const wrapEl = document.getElementById(wrap);
+      if (!wrapEl) return;
+      const items = wrapEl.querySelectorAll(sel);
+      let sectionMatches = 0;
+      items.forEach(item => {
+        const match = item.textContent.toLowerCase().includes(lq);
+        item.style.display = match ? '' : 'none';
+        if (match) sectionMatches++;
+      });
+      total += sectionMatches;
+      setSection(btn, wrap, sectionMatches > 0);
+    });
+
+    // Handle category sub-headers (effect-category, wpn-section-header):
+    // Show them if at least one sibling card/row after them is visible
+    document.querySelectorAll('.effect-category').forEach(cat => {
+      let next = cat.nextElementSibling;
+      let hasVisible = false;
+      while (next && !next.classList.contains('effect-category')) {
+        if (next.classList.contains('effect-card') && next.style.display !== 'none') hasVisible = true;
+        next = next.nextElementSibling;
+      }
+      cat.style.display = hasVisible ? '' : 'none';
+    });
+
+    $count.textContent = total === 0 ? 'No results' : `${total} result${total === 1 ? '' : 's'} found`;
+  }
+
+  $input.addEventListener('input', () => doSearch($input.value.trim()));
+  $clear.addEventListener('click', () => {
+    $input.value = '';
+    doSearch('');
+    $input.focus();
+  });
+})();
+</script>
+</body>
+</html>
