@@ -1380,6 +1380,70 @@
       .wpn-grid    { grid-template-columns: 1fr; }
       .dormant-grid { grid-template-columns: 1fr; }
     }
+
+    /* ─── Day badge ──────────────────────────────────────────── */
+    .day-badge {
+      display: inline-block; padding: 4px 14px; border-radius: 99px;
+      font-family: 'Cinzel', serif; font-size: .72rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      background: var(--accent); color: #08080e; margin-bottom: 6px;
+      transition: background 1.2s;
+    }
+    .day-badge.day2-active { background: var(--accent2); }
+
+    /* ─── Circle status ──────────────────────────────────────── */
+    .circle-status { font-size: .8rem; font-weight: 600; letter-spacing: .05em; color: var(--muted); margin: 3px 0 5px; }
+    .circle-status.static   { color: #34d399; }
+    .circle-status.shrinking { color: #f87171; animation: blink .9s ease-in-out infinite; }
+
+    /* ─── Day total sub-label ────────────────────────────────── */
+    .day-total { font-size: .67rem; color: var(--muted); letter-spacing: .1em; text-align: center; margin-top: 4px; }
+
+    /* ─── Storm exposure ─────────────────────────────────────── */
+    .storm-exposure { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.18); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .storm-exposure.day2-storm { border-color: rgba(239,68,68,.38); background: rgba(239,68,68,.11); }
+    .storm-exp-label { font-size: .69rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #f87171; }
+    .storm-exposure.day2-storm .storm-exp-label::after { content: ' — ⚠️ HIGHER DAMAGE ON DAY 2'; color: #fbbf24; font-weight: 600; }
+    .storm-exp-controls { display: flex; align-items: center; gap: 10px; }
+    .storm-toggle-btn {
+      flex: 1; padding: 9px 12px; border-radius: 9px; cursor: pointer;
+      background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.28);
+      color: #f87171; font-family: 'Cinzel', serif; font-size: .7rem;
+      font-weight: 700; letter-spacing: .07em; transition: all .2s;
+    }
+    .storm-toggle-btn:hover { background: rgba(239,68,68,.22); }
+    .storm-toggle-btn.in-storm { background: rgba(239,68,68,.32); border-color: #ef4444; color: #fff; animation: blink .9s ease-in-out infinite; }
+    .storm-exp-timer { font-family: 'Cinzel', serif; font-size: 1.55rem; font-weight: 700; color: #f87171; min-width: 56px; text-align: right; font-variant-numeric: tabular-nums; }
+    .storm-exp-timer.urgent { color: #ef4444; animation: boss-pulse .55s ease-in-out infinite; }
+    .storm-exp-note { font-size: .62rem; color: var(--muted); line-height: 1.45; }
+
+    /* ─── Boss pause overlays ────────────────────────────────── */
+    .boss-pause-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.82); backdrop-filter: blur(8px); z-index: 300; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .boss-pause-overlay.show { display: flex; }
+    .boss-pause-modal { background: var(--card); border: 1px solid var(--accent); border-radius: 20px; padding: 34px 26px; max-width: 460px; width: 100%; text-align: center; box-shadow: 0 0 60px var(--glow), 0 20px 60px rgba(0,0,0,.8); position: relative; }
+    .boss-pause-modal::before { content:''; position:absolute; inset:0 0 auto; height:1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .boss-pause-icon { font-size: 3rem; margin-bottom: 12px; line-height:1; }
+    .boss-pause-title { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; text-shadow: 0 0 20px var(--glow); }
+    .boss-pause-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .boss-pause-desc strong { color: var(--text); }
+
+    /* ─── Summary / Victory overlay ──────────────────────────── */
+    .summary-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.88); backdrop-filter: blur(10px); z-index: 400; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .summary-overlay.show { display: flex; }
+    .summary-modal { background: var(--card); border: 1px solid rgba(251,191,36,.5); border-radius: 20px; padding: 36px 26px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 0 80px rgba(251,191,36,.25), 0 20px 60px rgba(0,0,0,.9); }
+    .summary-trophy { font-size: 3.5rem; margin-bottom: 10px; line-height:1; }
+    .summary-title { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 900; color: #fbbf24; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+    .summary-stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 22px; }
+    .summary-stat { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; color: var(--muted); padding: 7px 14px; background: rgba(255,255,255,.04); border-radius: 8px; }
+    .summary-stat strong { color: var(--text); font-weight: 700; }
+
+    /* ─── Mobile fixes ───────────────────────────────────────── */
+    @media (max-width: 520px) {
+      .fixed-btns { top: auto; bottom: 12px; right: 12px; flex-direction: row-reverse; }
+      .fixed-btns button { font-size: .6rem; padding: 5px 8px; }
+      .pin-dismiss { width: 32px; height: 32px; font-size: 1.1rem; border-radius: 8px; }
+      .storm-exp-timer { font-size: 1.25rem; }
+    }
   </style>
 </head>
 <body class="p0">
@@ -1391,15 +1455,56 @@
   <button id="themeBtn" title="Click: cycle theme · Double-click/Right-click: auto (follows timer)">🎨 Theme: Dawn</button>
 </div>
 
-<!-- Day 2 popup overlay -->
-<div class="day2-overlay" id="day2Overlay">
-  <div class="day2-modal">
-    <div class="day2-modal-icon">☀️</div>
-    <div class="day2-modal-title">Day 2 Has Begun!</div>
-    <div class="day2-modal-desc">
-      When you see the <strong>Day 2 screen</strong> in-game — the map opens back up — click below to start the Day 2 timer.
+<!-- Day 1 Boss pause overlay -->
+<div class="boss-pause-overlay" id="day1BossOverlay">
+  <div class="boss-pause-modal">
+    <div class="boss-pause-icon">💀</div>
+    <div class="boss-pause-title">Night Boss!</div>
+    <div class="boss-pause-desc">
+      The Day 1 circle has converged on the Spirit Tree.<br>
+      <strong>Fight the Night Boss</strong> — click below when the boss is defeated to begin Day 2.
     </div>
-    <button class="btn btn-primary" id="day2StartBtn" style="width:100%;max-width:280px;margin:0 auto;display:block;">▶ Start Day 2 Timer</button>
+    <button class="btn btn-primary" id="day1BossBtn" style="width:100%;max-width:280px;margin:0 auto;display:block;">☀️ Day 2 Begins →</button>
+  </div>
+</div>
+
+<!-- Day 2 Boss / Night Lord overlay -->
+<div class="boss-pause-overlay" id="day2BossOverlay">
+  <div class="boss-pause-modal" style="border-color:rgba(239,68,68,.6);">
+    <div class="boss-pause-icon">👑</div>
+    <div class="boss-pause-title" style="color:#ef4444;text-shadow:0 0 20px rgba(239,68,68,.5);">Night Lord!</div>
+    <div class="boss-pause-desc">
+      The Day 2 circle has fully converged. <strong>Face the Night Lord!</strong><br>
+      Use all flasks, ultimates, and relics. May grace guide thee.
+    </div>
+    <button class="btn btn-primary" id="day2BossBtn" style="width:100%;max-width:280px;margin:0 auto;display:block;background:linear-gradient(135deg,#ef4444,#7f1d1d);">🏆 Night Lord Slain!</button>
+  </div>
+</div>
+
+<!-- Storm death overlay -->
+<div class="boss-pause-overlay" id="deadOverlay" style="background:rgba(0,0,0,.92);">
+  <div class="boss-pause-modal" style="border-color:rgba(239,68,68,.5);">
+    <div class="boss-pause-icon">💀</div>
+    <div class="boss-pause-title" style="color:#ef4444;">Consumed by the Storm</div>
+    <div class="boss-pause-desc">
+      You spent 2 minutes in the Night's Tide.<br>
+      <strong>You have fallen.</strong> Your allies must continue without you.
+    </div>
+    <button class="btn btn-secondary" id="deadRestartBtn" style="width:100%;max-width:280px;margin:0 auto;display:block;">← Continue tracking</button>
+  </div>
+</div>
+
+<!-- Victory / Match Summary overlay -->
+<div class="summary-overlay" id="summaryOverlay">
+  <div class="summary-modal">
+    <div class="summary-trophy">🏆</div>
+    <div class="summary-title">Expedition Complete!</div>
+    <div class="summary-stats">
+      <div class="summary-stat"><span>Total real time</span><strong id="summaryTime">--:--</strong></div>
+      <div class="summary-stat"><span>Day 1</span><strong id="summaryDay1">14:00 ✓</strong></div>
+      <div class="summary-stat"><span>Day 2</span><strong id="summaryDay2">14:00 ✓</strong></div>
+    </div>
+    <button class="btn btn-primary" id="summaryRestartBtn" style="width:100%;max-width:260px;margin:0 auto;display:block;">⚔️ New Expedition</button>
   </div>
 </div>
 
@@ -1432,22 +1537,25 @@
   <!-- Main card -->
   <div class="card">
 
-    <!-- Phase info -->
+    <!-- Day + Phase header -->
     <div class="phase-info">
+      <span class="day-badge" id="dayBadge">DAY 1</span>
       <div class="phase-tag" id="phaseTag">Phase 1 of 4</div>
-      <div class="phase-name" id="phaseName">Day 1 — Exploration</div>
-      <div class="phase-desc" id="phaseDesc">Explore, gather loot, and prepare for the storm</div>
+      <div class="phase-name" id="phaseName">Exploration</div>
+      <div class="circle-status static" id="circleStatus">🟢 Static — Full Map</div>
+      <div class="phase-desc" id="phaseDesc">Loot, evergoals, push objectives</div>
     </div>
 
     <!-- Countdown -->
     <div class="countdown-wrap">
-      <div id="countdown">04:25</div>
+      <div id="countdown">04:30</div>
+      <div class="day-total" id="dayTotal">14:00 per day</div>
     </div>
 
     <!-- Alert -->
     <div class="alert" id="alert"></div>
 
-    <!-- Progress + jumps -->
+    <!-- Progress + phase jumps -->
     <div class="progress-wrap">
       <div class="bar-outer" id="barOuter">
         <div class="bar-fill" id="barFill" style="width:0%"></div>
@@ -1456,16 +1564,26 @@
       <div class="jumps" id="jumps"></div>
     </div>
 
+    <!-- Storm exposure tracker -->
+    <div class="storm-exposure" id="stormExposureWrap">
+      <div class="storm-exp-label">☠️ Storm Exposure Tracker</div>
+      <div class="storm-exp-controls">
+        <button id="stormToggle" class="storm-toggle-btn">☠️ Enter Storm</button>
+        <div class="storm-exp-timer" id="stormTimerDisplay">2:00</div>
+      </div>
+      <div class="storm-exp-note">Tap when you enter / exit the Night's Tide. 120 seconds in the storm = death. Timer resets on re-entry.</div>
+    </div>
+
     <!-- Controls -->
     <div class="controls">
-      <button class="btn btn-primary" id="startBtn">Start — GL HF</button>
+      <button class="btn btn-primary" id="startBtn">Start Expedition — GL HF</button>
       <button class="btn btn-secondary" id="resetBtn">Reset</button>
     </div>
 
     <div class="hints">
       <kbd>Space</kbd> start/pause &nbsp;·&nbsp;
       <kbd>R</kbd> reset &nbsp;·&nbsp;
-      <kbd>1</kbd>–<kbd>9</kbd> jump to phase
+      <kbd>1</kbd>–<kbd>4</kbd> jump to phase
     </div>
 
   </div><!-- /card -->
@@ -1735,9 +1853,9 @@
 
         <div class="effect-card">
           <div class="effect-label">Physical ATK Up</div>
-          <div class="effect-value">+2% / +3% / +4% (three tiers)</div>
-          <div class="effect-note">Flat percent bonus to all physical damage. Three tiers: +2% (base), +3% (mid), +4% (grand). Multiple copies add together.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+          <div class="effect-value">Delicate: +2% · Polished: +3% · Grand: +4%</div>
+          <div class="effect-note">Flat % bonus to all physical damage. Tier names (Delicate / Polished / Grand) always map to exact fixed values — these are not approximations. Multiple copies of different tiers add together: e.g., Delicate + Grand = +6%.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive per tier)</span>
         </div>
 
         <div class="effect-card">
@@ -2025,30 +2143,45 @@
     <div class="info-wrap" id="bossRelicWrap">
       <div class="relic-grid">
 
+        <!-- Night of the Beast: Gladius (Reg) / Tricephalos (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Beast</div>
-          <div class="relic-source">Gladius — Tricephalos</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Gladius, Beast of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Tricephalos','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Gladius, Beast of Night — Regular Expedition</div>
           <span class="relic-slot slot-green">🟢 Green</span>
           <ul class="relic-effects-list">
-            <li>Stamina recovered with each successful hit (+1)</li>
+            <li>Stamina recovered with each successful hit</li>
             <li>Starting armament deals Fire damage</li>
           </ul>
         </div>
 
+        <!-- Night of the Baron: Adel (Reg) / Gaping Jaw (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Baron</div>
-          <div class="relic-source">Adel — Gaping Jaw</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Adel, Baron of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Gaping Jaw','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Adel, Baron of Night — Regular Expedition</div>
           <span class="relic-slot slot-yellow">🟡 Yellow</span>
           <ul class="relic-effects-list">
-            <li>Critical Hits improved +1 (~20% more crit damage)</li>
+            <li>Critical Hits improved (+1 tier, ~20% more crit damage)</li>
             <li>Art gauge fills on critical hit</li>
             <li>Critical hit boosts stamina recovery speed</li>
           </ul>
         </div>
 
+        <!-- Night of the Wise: Gnoster (Reg) / Sentient Pest (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Wise</div>
-          <div class="relic-source">Gnoster — Sentient Pest</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Gnoster, Wisdom of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Sentient Pest','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Gnoster, Wisdom of Night — Regular Expedition</div>
           <span class="relic-slot slot-blue">🔵 Blue</span>
           <ul class="relic-effects-list">
             <li>Max FP increased</li>
@@ -2057,9 +2190,14 @@
           </ul>
         </div>
 
+        <!-- Night of the Fathom: Maris (Reg) / Augur (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Fathom</div>
-          <div class="relic-source">Maris — Augur</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Maris, Fathom of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Augur','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Maris, Fathom of Night — Regular Expedition</div>
           <span class="relic-slot slot-red">🔴 Red</span>
           <ul class="relic-effects-list">
             <li>Max HP increased</li>
@@ -2068,9 +2206,14 @@
           </ul>
         </div>
 
+        <!-- Night of the Demon: Libra (Reg) / Equilibrious Beast (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Demon</div>
-          <div class="relic-source">Libra — Equilibrious Beast</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Libra, Creature of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Equilibrious Beast','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Libra, Creature of Night — Regular Expedition</div>
           <span class="relic-slot slot-red">🔴 Red</span>
           <ul class="relic-effects-list">
             <li>20% rune discount at in-expedition shops</li>
@@ -2079,9 +2222,14 @@
           </ul>
         </div>
 
+        <!-- Night of the Champion: Fulghor (Reg) / Darkdrift Knight (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Champion</div>
-          <div class="relic-source">Fulghor — Darkdrift Knight</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Fulghor, Champion of Nightglow','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Darkdrift Knight','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Fulghor, Champion of Nightglow — Regular Expedition</div>
           <span class="relic-slot slot-green">🟢 Green</span>
           <ul class="relic-effects-list">
             <li>Max Stamina increased</li>
@@ -2090,9 +2238,14 @@
           </ul>
         </div>
 
+        <!-- Night of the Miasma: Caligo (Reg) / Fissure in the Fog (ED) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Miasma</div>
-          <div class="relic-source">Caligo — Fissure in the Fog</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Caligo, Miasma of Night','Regular Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Fissure in the Fog','Everdark Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Caligo, Miasma of Night — Regular Expedition</div>
           <span class="relic-slot slot-yellow">🟡 Yellow</span>
           <ul class="relic-effects-list">
             <li>Being near Frostbite conceals you</li>
@@ -2101,9 +2254,10 @@
           </ul>
         </div>
 
+        <!-- Night of the Lord: Heolstor only (no everdark) -->
         <div class="relic-card">
           <div class="relic-name">Night of the Lord</div>
-          <div class="relic-source">Heolstor — Night Aspect</div>
+          <div class="relic-source">Heolstor, the Nightlord — Final Boss (No Everdark)</div>
           <span class="relic-slot slot-blue">🔵 Blue</span>
           <ul class="relic-effects-list">
             <li>Weapon swap triggers an affinity attack</li>
@@ -2112,22 +2266,28 @@
           </ul>
         </div>
 
+        <!-- Night of Dregs: Dreglord DLC (no everdark) -->
         <div class="relic-card">
           <div class="relic-name">Night of Dregs</div>
-          <div class="relic-source">Dreglord — Forsaken Hollows DLC</div>
+          <div class="relic-source">Dreglord — Forsaken Hollows DLC (No Everdark)</div>
           <span class="relic-slot slot-red">🔴 Red · DLC</span>
           <ul class="relic-effects-list">
             <li>Status Ailment Gauges slowly increase Attack Power</li>
           </ul>
         </div>
 
+        <!-- Will of the Balancers: Harmonia (Reg) / Balancers (ED) -->
         <div class="relic-card">
           <div class="relic-name">Will of the Balancers</div>
-          <div class="relic-source">Harmonia — Balancers DLC</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'Weapon Bequeathed Harmonia','Regular DLC Expedition')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'Balancers','Everdark DLC Variant')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Weapon Bequeathed Harmonia — Regular DLC Expedition</div>
           <span class="relic-slot slot-blue">🔵 Blue · DLC</span>
           <ul class="relic-effects-list">
-            <li>Reward for defeating Weapon Bequeathed Harmonia</li>
             <li>Equippable by all Nightfarers</li>
+            <li>Reward for defeating Harmonia or the Balancers</li>
           </ul>
         </div>
 
@@ -2779,158 +2939,83 @@
 
 <script>
 /* ================================================================
-   NIGHTREIGN TIMER
-   Structured as: Day 1 (3 sub-phases, 265s total)
-                  Night 1 — Interim Boss (175s)
-                  [Day 2 popup]
-                  Day 2 (3 sub-phases, 205s total)
-                  Night 2 — Final Boss + Night Lord (2 sub-phases, 175s total)
-   Grand Total: 820s
+   NIGHTREIGN TIMER  —  14-minute day cycle
+   Phase 1  Exploration    4:30  static circle, full map
+   Phase 2  First Shrink   3:00  contracting
+   Phase 3  Intermission   3:30  static at mid-size
+   Phase 4  Final Shrink   3:00  converging on Spirit Tree
+   Total: 14:00 (840s) per day × 2 days
 ================================================================ */
 
-const PHASES = [
-  /* ── Day 1 ──────────────────────────────── */
+const DAY_PHASES = [
   {
-    group     : 'day1',
-    bodyClass : 'p0',
-    icon      : '🌅',
-    short     : 'D1 Explore',
-    name      : 'Day 1 — Exploration',
-    desc      : 'Storm is still — explore, loot evergoals, and open the map',
-    duration  : 295,          // 4:55 — storm starts moving after this
-    warnAt    : 60,
-    warnMsg   : '⚡ Storm starts moving soon — wrap up and head to centre!',
-    warnType  : 'warn',
+    id: 'explore', icon: '🌅', short: 'Explore', name: 'Exploration',
+    circleLabel: '🟢 Static — Full Map', circleStatic: true,
+    desc: 'Circle is fixed — loot, clear evergoals, and push objectives',
+    duration: 270,
+    warnAt: 30, warnMsg: '⚡ Exploration ending — start heading toward the centre!', warnType: 'warn',
   },
   {
-    group     : 'day1',
-    bodyClass : 'p0',
-    icon      : '🌀',
-    short     : 'D1 Storm',
-    name      : 'Day 1 — Storm Closing',
-    desc      : 'Storm is closing in — push toward the Erdtree fragment',
-    duration  : 120,          // 2:00
-    warnAt    : 30,
-    warnMsg   : '🌳 Head to the Erdtree now — storm is tight!',
-    warnType  : 'warn',
+    id: 'shrink1', icon: '🌀', short: 'First Shrink', name: 'First Shrink',
+    circleLabel: '🔴 Contracting', circleStatic: false,
+    desc: 'Circle is closing in — push toward the Spirit Tree fragment',
+    duration: 180,
+    warnAt: 30, warnMsg: '🌀 Storm almost done shrinking — get inside the circle!', warnType: 'warn',
   },
   {
-    group     : 'day1',
-    bodyClass : 'p1',
-    icon      : '🌳',
-    short     : 'Run to Tree',
-    name      : 'Day 1 — Run to Tree',
-    desc      : 'Sprint to the Erdtree fragment — interim boss fight incoming!',
-    duration  : 60,           // 1:00
-    warnAt    : 15,
-    warnMsg   : '⚔️ Boss fight imminent — get in position!',
-    warnType  : 'danger',
-  },
-  /* ── Night 1 (Interim Boss) ──────────────── */
-  {
-    group     : 'night1',
-    bodyClass : 'pboss',
-    icon      : '💀',
-    short     : 'Night 1 Boss',
-    name      : 'Night 1 — Interim Boss',
-    desc      : 'Fight the interim boss at the Erdtree — save flasks for Day 2',
-    duration  : 210,          // 3:30
-    warnAt    : 0,
-    warnMsg   : '',
-    warnType  : 'warn',
-  },
-  /* ── Day 2 (starts after popup) ─────────── */
-  {
-    group     : 'day2',
-    bodyClass : 'p2',
-    icon      : '☀️',
-    short     : 'D2 Explore',
-    name      : 'Day 2 — Exploration',
-    desc      : 'Full map open again — upgrade gear fast before the storm',
-    duration  : 120,          // 2:00
-    warnAt    : 30,
-    warnMsg   : '⚡ Storm closing — move toward the Erdtree!',
-    warnType  : 'warn',
+    id: 'intermission', icon: '🌄', short: 'Intermission', name: 'Intermission',
+    circleLabel: '🟡 Static — Mid-size', circleStatic: true,
+    desc: 'Circle paused at mid-size — finish objectives, heal, conserve flasks',
+    duration: 210,
+    warnAt: 30, warnMsg: '⏳ Intermission ending — position for the final shrink!', warnType: 'warn',
   },
   {
-    group     : 'day2',
-    bodyClass : 'p2',
-    icon      : '🌀',
-    short     : 'D2 Storm',
-    name      : 'Day 2 — Storm Closing',
-    desc      : 'Final storm closing in — push to the Erdtree now',
-    duration  : 90,           // 1:30
-    warnAt    : 30,
-    warnMsg   : '🌳 Run to the tree — Night Lord approaches!',
-    warnType  : 'danger',
-  },
-  {
-    group     : 'day2',
-    bodyClass : 'p3',
-    icon      : '🌳',
-    short     : 'Run to Tree',
-    name      : 'Day 2 — Run to Tree',
-    desc      : 'Final sprint to the Erdtree — the Night Lord awakens',
-    duration  : 45,           // 0:45
-    warnAt    : 15,
-    warnMsg   : '⚔️ Night Lord IMMINENT — prepare everything!',
-    warnType  : 'danger',
-  },
-  /* ── Night 2 (Final Boss + Night Lord) ─── */
-  {
-    group     : 'night2',
-    bodyClass : 'pboss',
-    icon      : '🔥',
-    short     : 'Final Boss',
-    name      : 'Night 2 — Final Boss',
-    desc      : 'Second interim boss — save ultimates and flasks for the Night Lord',
-    duration  : 120,          // 2:00
-    warnAt    : 0,
-    warnMsg   : '',
-    warnType  : 'warn',
-  },
-  {
-    group     : 'night2',
-    bodyClass : 'pboss',
-    icon      : '👑',
-    short     : 'Night Lord',
-    name      : 'Night 2 — Night Lord!',
-    desc      : 'THE NIGHT LORD AWAKENS — use everything you have!',
-    duration  : 120,          // 2:00
-    warnAt    : 0,
-    warnMsg   : '',
-    warnType  : 'danger',
+    id: 'shrink2', icon: '🌳', short: 'Final Shrink', name: 'Final Shrink',
+    circleLabel: '🔴 Converging on Spirit Tree', circleStatic: false,
+    desc: 'Circle converging on Spirit Tree — move there NOW',
+    duration: 180,
+    warnAt: 15, warnMsg: '⚔️ BOSS IMMINENT — get to the Spirit Tree!', warnType: 'danger',
   },
 ];
-
-// Phase index at which to show the Day 2 popup (after Night 1 boss)
-const DAY2_POPUP_AFTER = 3;
-
-const TOTAL = PHASES.reduce((s, p) => s + p.duration, 0); // 820
+const DAY_TOTAL = 840; // 14:00
 
 /* ── State ─────────────────────────────────────────────────── */
-let phase   = 0;
-let left    = PHASES[0].duration;
-let elapsed = 0;
-let running = false;
-let warned  = false;
-let timer   = null;
-let sound   = true;
+// gameState: 'pre_start' | 'running' | 'day1_boss' | 'day2_boss' | 'complete'
+let gameState  = 'pre_start';
+let dayNum     = 1;
+let phaseIdx   = 0;
+let phaseLeft  = DAY_PHASES[0].duration;
+let dayElapsed = 0;
+let warned     = false;
+let running    = false;
+let ticker     = null;
+let sound      = true;
+let expStartMs = 0;
+// Storm exposure
+let stormActive = false;
+let stormLeft   = 120;
+let stormTicker = null;
 
 /* ── DOM ────────────────────────────────────────────────────── */
-const $cd      = document.getElementById('countdown');
-const $tag     = document.getElementById('phaseTag');
-const $name    = document.getElementById('phaseName');
-const $desc    = document.getElementById('phaseDesc');
-const $fill    = document.getElementById('barFill');
-const $bar     = document.getElementById('barOuter');
-const $jumps   = document.getElementById('jumps');
-const $start   = document.getElementById('startBtn');
-const $reset   = document.getElementById('resetBtn');
-const $alert   = document.getElementById('alert');
-const $sound   = document.getElementById('soundBtn');
-const $flash   = document.getElementById('flash');
-const $stars   = document.getElementById('stars');
+const $cd       = document.getElementById('countdown');
+const $tag      = document.getElementById('phaseTag');
+const $name     = document.getElementById('phaseName');
+const $desc     = document.getElementById('phaseDesc');
+const $fill     = document.getElementById('barFill');
+const $bar      = document.getElementById('barOuter');
+const $jumps    = document.getElementById('jumps');
+const $start    = document.getElementById('startBtn');
+const $reset    = document.getElementById('resetBtn');
+const $alert    = document.getElementById('alert');
+const $sound    = document.getElementById('soundBtn');
+const $flash    = document.getElementById('flash');
+const $stars    = document.getElementById('stars');
+const $dayBadge = document.getElementById('dayBadge');
+const $circleSt = document.getElementById('circleStatus');
+const $dayTotal = document.getElementById('dayTotal');
+const $stormWrap= document.getElementById('stormExposureWrap');
+const $stormBtn = document.getElementById('stormToggle');
+const $stormDsp = document.getElementById('stormTimerDisplay');
 
 /* ── Stars ──────────────────────────────────────────────────── */
 (function initStars() {
@@ -2986,6 +3071,10 @@ function sfxBoss() {
   setTimeout(()=>beep(110,.45,'sawtooth',.38), 680);
 }
 function sfxTick() { beep(880,.045,'sine',.15); }
+function sfxDead() {
+  beep(110,.5,'sawtooth',.4);
+  setTimeout(()=>beep(90,.6,'sawtooth',.35), 600);
+}
 
 /* ── Helpers ────────────────────────────────────────────────── */
 function fmt(s) {
@@ -2996,20 +3085,25 @@ function flash() {
   $flash.classList.add('on');
   setTimeout(()=>$flash.classList.remove('on'), 200);
 }
+function showAlert(msg, type) {
+  $alert.textContent = msg;
+  $alert.className = `alert show ${type}`;
+}
+function hideAlert() { $alert.className = 'alert'; }
 
 /* ── Build static UI ────────────────────────────────────────── */
 function buildDividers() {
   let cum = 0;
-  PHASES.slice(0,-1).forEach(p => {
+  DAY_PHASES.slice(0, -1).forEach(p => {
     cum += p.duration;
     const d = document.createElement('div');
     d.className = 'divider';
-    d.style.left = `${(cum/TOTAL)*100}%`;
+    d.style.left = `${(cum / DAY_TOTAL) * 100}%`;
     $bar.appendChild(d);
   });
 }
 function buildJumps() {
-  PHASES.forEach((p, i) => {
+  DAY_PHASES.forEach((p, i) => {
     const b = document.createElement('button');
     b.className = 'jump';
     b.id = `j${i}`;
@@ -3022,150 +3116,247 @@ function buildJumps() {
     $jumps.appendChild(b);
   });
 }
-
-/* ── Update UI ──────────────────────────────────────────────── */
-function render() {
-  const isBoss = phase >= PHASES.length;
-
-  if (isBoss) {
-    document.body.className = 'pboss';
-    $cd.textContent = '--:--';
-    $cd.classList.add('boss');
-    $tag.textContent  = 'Expedition Complete';
-    $name.textContent = '⚔️  Night Lord Battle';
-    $desc.textContent = 'Face the Night Lord — may grace guide thee';
-    $fill.style.width = '100%';
-    $start.textContent = 'Restart';
-    showAlert('⚔️  BOSS FIGHT — The Night Lord awaits!', 'danger');
-    highlightJump(-1);
-    return;
-  }
-
-  const p = PHASES[phase];
-  document.body.className = p.bodyClass;
-  $cd.textContent = fmt(left);
-  $cd.classList.remove('boss');
-  $tag.textContent  = `Phase ${phase+1} of ${PHASES.length}`;
-  $name.textContent = p.name;
-  $desc.textContent = p.desc;
-  $fill.style.width = `${Math.min((elapsed/TOTAL)*100, 100)}%`;
-  $start.textContent = running ? 'Pause' : (elapsed === 0 ? 'Start — GL HF' : 'Resume');
-
-  if (running && p.warnAt > 0 && left <= p.warnAt) {
-    showAlert(p.warnMsg, p.warnType);
-  } else {
-    hideAlert();
-  }
-  highlightJump(phase);
-}
-
-function showAlert(msg, type) {
-  $alert.textContent = msg;
-  $alert.className = `alert show ${type}`;
-}
-function hideAlert() {
-  $alert.className = 'alert';
-}
 function highlightJump(idx) {
-  PHASES.forEach((_,i) => {
+  DAY_PHASES.forEach((_, i) => {
     const b = document.getElementById(`j${i}`);
     if (b) b.classList.toggle('active', i === idx);
   });
 }
 
+/* ── Render ─────────────────────────────────────────────────── */
+function render() {
+  const p = DAY_PHASES[phaseIdx];
+  const isDay2 = dayNum === 2;
+
+  // Body class / theme
+  if (gameState === 'pre_start') {
+    document.body.className = 'p0';
+  } else if (gameState === 'running') {
+    document.body.className = isDay2 ? (phaseIdx < 2 ? 'p2' : 'p3') : (phaseIdx < 2 ? 'p0' : 'p1');
+  } else if (gameState === 'day1_boss' || gameState === 'day2_boss' || gameState === 'complete') {
+    document.body.className = 'pboss';
+  }
+
+  // Day badge
+  $dayBadge.textContent = `DAY ${dayNum}`;
+  $dayBadge.className = `day-badge${isDay2 ? ' day2-active' : ''}`;
+
+  // Phase info
+  $tag.textContent  = `Phase ${phaseIdx + 1} of ${DAY_PHASES.length}`;
+  $name.textContent = p.name;
+  $desc.textContent = p.desc;
+
+  // Circle status
+  $circleSt.textContent = p.circleLabel;
+  $circleSt.className = `circle-status ${p.circleStatic ? 'static' : 'shrinking'}`;
+
+  // Countdown
+  $cd.textContent = fmt(phaseLeft);
+  $cd.classList.remove('boss');
+
+  // Day progress bar (resets per day)
+  $fill.style.width = `${Math.min((dayElapsed / DAY_TOTAL) * 100, 100)}%`;
+
+  // Day total label
+  $dayTotal.textContent = `${fmt(dayElapsed)} elapsed / 14:00`;
+
+  // Start button label
+  if (gameState === 'pre_start') {
+    $start.textContent = 'Start Expedition — GL HF';
+  } else if (running) {
+    $start.textContent = 'Pause';
+  } else {
+    $start.textContent = 'Resume';
+  }
+
+  // Alert (keep showing if warn threshold already passed)
+  if (running && p.warnAt > 0 && phaseLeft <= p.warnAt) {
+    showAlert(p.warnMsg, p.warnType);
+  } else if (!running) {
+    // keep current alert visible while paused
+  } else {
+    hideAlert();
+  }
+
+  highlightJump(phaseIdx);
+}
+
+/* ── Storm exposure ─────────────────────────────────────────── */
+function renderStorm() {
+  $stormDsp.textContent = fmt(stormLeft);
+  $stormDsp.className = `storm-exp-timer${stormLeft <= 30 ? ' urgent' : ''}`;
+  $stormBtn.className  = `storm-toggle-btn${stormActive ? ' in-storm' : ''}`;
+  $stormBtn.textContent = stormActive ? '✅ Exit Storm' : '☠️ Enter Storm';
+  $stormWrap.className = `storm-exposure${dayNum === 2 ? ' day2-storm' : ''}`;
+}
+function stormTick() {
+  if (!stormActive) return;
+  stormLeft--;
+  if (stormLeft <= 0) {
+    stopStorm();
+    document.getElementById('deadOverlay').classList.add('show');
+    sfxDead();
+    return;
+  }
+  renderStorm();
+  stormTicker = setTimeout(stormTick, 1000);
+}
+function stopStorm() {
+  stormActive = false;
+  clearTimeout(stormTicker);
+  stormTicker = null;
+}
+function toggleStorm() {
+  if (stormActive) {
+    stopStorm();
+    stormLeft = 120;
+    renderStorm();
+  } else {
+    stormActive = true;
+    stormLeft = 120;
+    renderStorm();
+    stormTicker = setTimeout(stormTick, 1000);
+  }
+}
+
 /* ── Timer logic ────────────────────────────────────────────── */
 function tick() {
   if (!running) return;
-  left--;
-  elapsed++;
+  phaseLeft--;
+  dayElapsed++;
+
+  const p = DAY_PHASES[phaseIdx];
 
   // Warn threshold
-  if (left === PHASES[phase].warnAt && !warned) {
+  if (phaseLeft === p.warnAt && !warned) {
     warned = true;
     sfxWarn();
+    showAlert(p.warnMsg, p.warnType);
   }
-  // Final-seconds ticks on storm phases
-  if ((phase === 1 || phase === 3) && left <= 5 && left > 0) {
+
+  // Final-seconds ticks on shrink phases
+  if ((phaseIdx === 1 || phaseIdx === 3) && phaseLeft <= 5 && phaseLeft > 0) {
     sfxTick();
   }
 
-  if (left <= 0) { nextPhase(); return; }
+  if (phaseLeft <= 0) {
+    nextPhase();
+    return;
+  }
 
   render();
-  timer = setTimeout(tick, 1000);
+  ticker = setTimeout(tick, 1000);
 }
 
 function nextPhase() {
-  phase++;
   warned = false;
-
-  // After Night 1 boss completes → show Day 2 popup, pause timer
-  if (phase === DAY2_POPUP_AFTER + 1) {
-    running = false;
+  if (phaseIdx < DAY_PHASES.length - 1) {
+    phaseIdx++;
+    phaseLeft = DAY_PHASES[phaseIdx].duration;
     sfxPhaseChange();
     flash();
-    left = PHASES[phase].duration;
     render();
-    showDay2Popup();
+    ticker = setTimeout(tick, 1000);
     return;
   }
 
-  if (phase >= PHASES.length) {
-    running = false;
-    sfxBoss();
-    flash();
+  // End of all 4 phases for this day
+  running = false;
+  sfxBoss();
+  flash();
+
+  if (dayNum === 1) {
+    gameState = 'day1_boss';
     render();
-    return;
+    document.getElementById('day1BossOverlay').classList.add('show');
+  } else {
+    // Day 2 complete — show night lord overlay first
+    gameState = 'day2_boss';
+    render();
+    document.getElementById('day2BossOverlay').classList.add('show');
   }
-  left = PHASES[phase].duration;
+}
+
+function startDay2() {
+  document.getElementById('day1BossOverlay').classList.remove('show');
+  dayNum     = 2;
+  phaseIdx   = 0;
+  phaseLeft  = DAY_PHASES[0].duration;
+  dayElapsed = 0;
+  warned     = false;
+  gameState  = 'running';
+  running    = true;
+  stopStorm();
+  stormLeft  = 120;
+  renderStorm();
+  try { audio().resume(); } catch(_) {}
+  render();
+  ticker = setTimeout(tick, 1000);
+}
+
+function claimVictory() {
+  gameState = 'complete';
+  running   = false;
+  stopStorm();
+  const realSecs = Math.round((Date.now() - expStartMs) / 1000);
+  document.getElementById('summaryTime').textContent = fmt(realSecs);
+  document.getElementById('summaryDay1').textContent = '14:00 ✓';
+  document.getElementById('summaryDay2').textContent = '14:00 ✓';
+  document.getElementById('summaryOverlay').classList.add('show');
   sfxPhaseChange();
   flash();
-  render();
-  timer = setTimeout(tick, 1000);
-}
-
-function showDay2Popup() {
-  document.getElementById('day2Overlay').classList.add('show');
-}
-function hideDay2Popup() {
-  document.getElementById('day2Overlay').classList.remove('show');
 }
 
 function startPause() {
-  if (phase >= PHASES.length) { doReset(); return; }
+  if (gameState === 'day1_boss' || gameState === 'day2_boss') return;
+  if (gameState === 'complete') { doReset(); return; }
   if (!running) {
+    if (gameState === 'pre_start') {
+      gameState  = 'running';
+      expStartMs = Date.now();
+    }
     running = true;
     try { audio().resume(); } catch(_) {}
     render();
-    timer = setTimeout(tick, 1000);
+    ticker = setTimeout(tick, 1000);
   } else {
     running = false;
-    clearTimeout(timer);
+    clearTimeout(ticker);
     render();
   }
 }
 
 function doReset() {
-  running = false;
-  clearTimeout(timer);
-  phase   = 0;
-  left    = PHASES[0].duration;
-  elapsed = 0;
-  warned  = false;
-  render();
+  running    = false;
+  clearTimeout(ticker);
+  stopStorm();
+  gameState  = 'pre_start';
+  dayNum     = 1;
+  phaseIdx   = 0;
+  phaseLeft  = DAY_PHASES[0].duration;
+  dayElapsed = 0;
+  warned     = false;
+  expStartMs = 0;
+  stormLeft  = 120;
+  document.getElementById('day1BossOverlay').classList.remove('show');
+  document.getElementById('day2BossOverlay').classList.remove('show');
+  document.getElementById('deadOverlay').classList.remove('show');
+  document.getElementById('summaryOverlay').classList.remove('show');
   hideAlert();
+  renderStorm();
+  render();
 }
 
 function jumpTo(idx) {
-  if (idx < 0 || idx >= PHASES.length) return;
-  clearTimeout(timer);
+  if (idx < 0 || idx >= DAY_PHASES.length) return;
+  clearTimeout(ticker);
   let e = 0;
-  for (let i = 0; i < idx; i++) e += PHASES[i].duration;
-  phase   = idx;
-  left    = PHASES[idx].duration;
-  elapsed = e;
-  warned  = false;
-  if (running) timer = setTimeout(tick, 1000);
+  for (let i = 0; i < idx; i++) e += DAY_PHASES[i].duration;
+  phaseIdx   = idx;
+  phaseLeft  = DAY_PHASES[idx].duration;
+  dayElapsed = e;
+  warned     = false;
+  if (running) ticker = setTimeout(tick, 1000);
   render();
 }
 
@@ -3177,11 +3368,11 @@ const THEMES = [
   { cls: 'p3',    label: 'Dusk',   emoji: '🌆' },
   { cls: 'pboss', label: 'Boss',   emoji: '🔥' },
 ];
-let manualTheme = null; // null = follow timer
+let manualTheme = null;
 let manualThemeIdx = 0;
 const $themeBtn = document.getElementById('themeBtn');
 
-// After each render(), re-apply manual theme if active
+// Wrap render so manual theme is always re-applied after timer sets body class
 const _origRender = render;
 render = function() {
   _origRender();
@@ -3200,8 +3391,6 @@ $themeBtn.addEventListener('click', () => {
   document.body.className = t.cls;
   $themeBtn.textContent = `${t.emoji} Theme: ${t.label}`;
 });
-
-// Double-click or right-click resets to timer-driven theme
 $themeBtn.addEventListener('dblclick', () => {
   manualTheme = null;
   render();
@@ -3221,24 +3410,41 @@ $sound.addEventListener('click', () => {
   sound = !sound;
   $sound.textContent = sound ? '🔔 Sound: ON' : '🔕 Sound: OFF';
 });
-document.getElementById('day2StartBtn').addEventListener('click', () => {
-  hideDay2Popup();
-  // phase is already set to DAY2_POPUP_AFTER+1 (the first Day 2 phase)
-  running = true;
-  try { audio().resume(); } catch(_) {}
-  render();
-  timer = setTimeout(tick, 1000);
+
+// Day 1 boss defeated → start Day 2
+document.getElementById('day1BossBtn').addEventListener('click', startDay2);
+
+// Night Lord slain → victory
+document.getElementById('day2BossBtn').addEventListener('click', () => {
+  document.getElementById('day2BossOverlay').classList.remove('show');
+  claimVictory();
 });
+
+// Dead overlay — dismiss (continue tracking)
+document.getElementById('deadRestartBtn').addEventListener('click', () => {
+  document.getElementById('deadOverlay').classList.remove('show');
+  stormLeft = 120;
+  renderStorm();
+});
+
+// Summary — new expedition
+document.getElementById('summaryRestartBtn').addEventListener('click', doReset);
+
+// Storm exposure toggle
+$stormBtn.addEventListener('click', toggleStorm);
+
+// Keyboard shortcuts
 document.addEventListener('keydown', e => {
-  if (e.target !== document.body) return;
+  if (e.target !== document.body && e.target.tagName !== 'BODY') return;
   if (e.code === 'Space') { e.preventDefault(); startPause(); }
   if (e.key.toLowerCase() === 'r') doReset();
-  if (e.key >= '1' && e.key <= '9') jumpTo(+e.key - 1);
+  if (e.key >= '1' && e.key <= '4') jumpTo(+e.key - 1);
 });
 
 /* ── Init ───────────────────────────────────────────────────── */
 buildDividers();
 buildJumps();
+renderStorm();
 render();
 
 /* ================================================================
@@ -3496,6 +3702,15 @@ function pinBoss(id) {
 
   // Scroll pin panel into view
   document.getElementById('pinPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* Relic card everdark source toggle */
+function relicToggle(btn, bossName, expeditionLabel) {
+  const card = btn.closest('.relic-card');
+  card.querySelectorAll('.boss-ver-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const src = card.querySelector('.js-relic-src');
+  if (src) src.textContent = `${bossName} — ${expeditionLabel}`;
 }
 
 function unpin() {
