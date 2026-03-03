@@ -898,6 +898,189 @@
       line-height: 1;
     }
 
+    /* ─── Search bar ─────────────────────────────────────────── */
+    .search-bar {
+      position: relative;
+      width: 100%;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 42px 12px 44px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .95rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .search-bar input::placeholder { color: var(--muted); }
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.12);
+    }
+    .search-bar .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+      opacity: .5;
+    }
+    .search-bar .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: .75rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      cursor: pointer;
+      display: none;
+      transition: all .15s;
+    }
+    .search-bar .search-clear.visible { display: block; }
+    .search-bar .search-clear:hover { background: rgba(255,255,255,.12); color: var(--text); }
+    .search-result-count {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-align: center;
+      margin-top: -10px;
+      min-height: 14px;
+      transition: opacity .2s;
+    }
+
+    /* ─── Weapon passive availability badges ─────────────────── */
+    .wpn-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 99px;
+      border: 1px solid;
+      margin: 2px 3px 2px 0;
+      width: fit-content;
+    }
+    .avail-both    { background: rgba(52,211,153,.12);  color: #34d399; border-color: rgba(52,211,153,.3); }
+    .avail-offhand { background: rgba(251,191,36,.12);  color: #fbbf24; border-color: rgba(251,191,36,.3); }
+    .avail-held    { background: rgba(239,68,68,.12);   color: #f87171; border-color: rgba(239,68,68,.3); }
+
+    /* ─── Generic weapon passives table ──────────────────────── */
+    .wpn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .wpn-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .wpn-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .wpn-table tr:last-child td { border-bottom: none; }
+    .wpn-table .col-name { color: var(--text); font-weight: 600; }
+    .wpn-table .col-val  { color: var(--accent); font-weight: 600; white-space: nowrap; }
+    .wpn-table .col-note { color: var(--muted); font-size: .63rem; }
+    .wpn-table .col-stack-yes { color: #34d399; font-weight: 700; }
+    .wpn-table .col-stack-no  { color: #f87171; font-weight: 700; }
+    .wpn-section-header {
+      grid-column: 1 / -1;
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 0 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    /* ─── Dormant powers grid ────────────────────────────────── */
+    .dormant-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+    }
+    .dormant-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dormant-name {
+      font-family: 'Cinzel', serif;
+      font-size: .71rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+    .dormant-val {
+      font-size: .73rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .dormant-note {
+      font-size: .63rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Relic categories table ─────────────────────────────── */
+    .cat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .cat-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .cat-table tr:last-child td { border-bottom: none; }
+    .cat-table .col-num { color: var(--muted); font-weight: 700; width: 28px; }
+    .cat-table .col-cat { color: var(--text); font-weight: 600; }
+    .cat-table .col-examples { color: var(--muted); font-size: .63rem; }
+    .cat-exception { background: rgba(245,158,11,.07) !important; }
+    .cat-exception td { border-bottom-color: rgba(245,158,11,.15) !important; }
+
     /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width:520px) {
       .card { padding: 20px 16px; }
@@ -908,6 +1091,7 @@
       .effect-grid { grid-template-columns: 1fr; }
       .relic-grid  { grid-template-columns: 1fr; }
       .wpn-grid    { grid-template-columns: 1fr; }
+      .dormant-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -965,6 +1149,15 @@
     </div>
 
   </div><!-- /card -->
+
+  <!-- Search bar -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
+    <button class="search-clear" id="searchClear">✕ Clear</button>
+  </div>
+  <div class="search-result-count" id="searchCount"></div>
+
   <!-- Boss reference -->
   <div class="boss-section">
     <button class="boss-toggle" id="bossToggle">
@@ -1086,136 +1279,129 @@
     <div class="info-wrap" id="relicWrap">
 
       <div class="relic-system">
-        <strong>How Relics Work:</strong> Equip up to 3 Relics per Chalice (9 effects total). Effects persist between expeditions. Relic size determines effect count — <strong>Delicate</strong> = 1, <strong>Polished</strong> = 2, <strong>Grand</strong> = 3. Each Nightfarer has 3 colour-coded slots — only matching colours can slot in.
+        <strong>How Relics Work:</strong> Relics roll 2–3 effects but <strong>cannot</strong> roll 2+ effects from the same category (Category 19 is the only exception — see Relic Categories section). Each Nightfarer has 3 colour-coded slots.
         <div class="relic-colors">
-          <span class="rcol rcol-red">🔴 Burning (Red)</span>
-          <span class="rcol rcol-green">🟢 Tranquil (Green)</span>
-          <span class="rcol rcol-blue">🔵 Drizzly (Blue)</span>
-          <span class="rcol rcol-yellow">🟡 Luminous (Yellow)</span>
+          <span class="rcol rcol-red">🔴 Red</span>
+          <span class="rcol rcol-green">🟢 Green</span>
+          <span class="rcol rcol-blue">🔵 Blue</span>
+          <span class="rcol rcol-yellow">🟡 Yellow</span>
         </div>
       </div>
 
       <div class="effect-grid">
 
         <!-- ── ATTACK ─────────────────────────────── -->
-        <div class="effect-category">⚔️ Attack Effects</div>
+        <div class="effect-category">⚔️ Attack Power Effects</div>
 
         <div class="effect-card">
           <div class="effect-label">Physical ATK Up</div>
-          <div class="effect-value">+3% (Delicate) / +6.5% (Polished) / +10% (Grand)</div>
-          <div class="effect-note">Flat percent bonus to all physical damage dealt. Multiple copies ADD together.</div>
+          <div class="effect-value">+3% / +6.5% / (tiered)</div>
+          <div class="effect-note">Flat percent bonus to all physical damage. Multiple copies add together.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🔥 Fire ATK Up</div>
-          <div class="effect-value">~+10.5% / +11% / +12%</div>
-          <div class="effect-note">Boosts Fire damage only. Has its own version for Magic, Lightning, and Holy — each tracked separately.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive, per element)</span>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-note">Boosts Fire damage from weapons and incantations. Each element (Fire, Magic, Lightning, Holy) is tracked separately.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive per element)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">✨ Magic ATK Up</div>
-          <div class="effect-value">~+10.5% / +11% / +12%</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
           <div class="effect-note">Boosts Sorcery and Magic-infused weapon damage only.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">⚡ Lightning ATK Up</div>
-          <div class="effect-value">~+10.5% / +11% / +12%</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
           <div class="effect-note">Boosts Lightning damage from weapons and incantations.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">✦ Holy ATK Up</div>
-          <div class="effect-value">~+10.5% / +11% / +12%</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
           <div class="effect-note">Boosts Holy damage from weapons and incantations.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
+          <div class="effect-label">🗡️ Improved [Weapon Type] ATK</div>
+          <div class="effect-value">+6.5% to that weapon type's damage</div>
+          <div class="effect-note">Per-weapon-type version. Covers all 23 weapon types (Greatswords, Katanas, etc.). Applies to weapon skills but NOT projectiles from skills.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive, YES)</span>
+        </div>
+
+        <div class="effect-card">
           <div class="effect-label">🗡️ 3+ Same Weapon Type</div>
-          <div class="effect-value">~+10% ATK</div>
-          <div class="effect-note">Carry 3+ weapons of one type (e.g. 3 Greatswords). Two different weapon-type bonuses can co-exist: ~+10% + ~+10% ≈ +21% total after multiplicative math.</div>
-          <span class="stack-badge stack-cap">⚠ One bonus per type (2 types possible)</span>
+          <div class="effect-value">+10% ATK with 3+ of that type in inventory</div>
+          <div class="effect-note">Carry 3+ weapons of one type. Two different type bonuses can co-exist simultaneously. Cannot stack same-type bonus twice.</div>
+          <span class="stack-badge stack-no">✘ One bonus per weapon type (NO)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🎯 Improved First Hit</div>
-          <div class="effect-value">+13% ATK</div>
-          <div class="effect-note">Applies only to the very first R1/light attack in a combo chain. Resets if you stop attacking. Powerful for poke builds.</div>
+          <div class="effect-label">🎯 Improved Initial Standard Attack</div>
+          <div class="effect-value">+13% to first light attack in a combo</div>
+          <div class="effect-note">Applies only to the very first R1/light attack in a combo chain. Resets if you stop attacking.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">💢 Hit-Back Rage</div>
-          <div class="effect-value">+15% ATK for 10 s</div>
-          <div class="effect-note">Triggered after taking damage. Duration refreshes on additional hits taken. Does NOT trigger from blocked or absorbed hits.</div>
-          <span class="stack-badge stack-cap">⚠ Refreshes, doesn't double-stack duration</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">🩸 Low HP ATK Up</div>
-          <div class="effect-value">Scales: up to ~+25% ATK at &lt;20% HP</div>
-          <div class="effect-note">Attack power ramps up as your HP drops. Each HP threshold crossed adds another layer — think Bloodboon Ritual. Extremely powerful if you can survive at low health.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with all other ATK buffs (multiplicative)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">😴 Near Sleep Buff</div>
-          <div class="effect-value">+12% (Delicate) → +22% (Grand) / 20 s</div>
-          <div class="effect-note">When any nearby enemy or ally is inflicted with Sleep, gain a damage buff for 20 seconds. Sleep is applied by Sleep pots, Sleep Mist, or certain weapons.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with Near Madness (separate buff)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">😵 Near Madness Buff</div>
-          <div class="effect-value">+12% (Delicate) → +22% (Grand) / 20 s</div>
-          <div class="effect-note">When any nearby enemy or ally is inflicted with Madness, gain a damage buff for 20 seconds. Near Sleep and Near Madness are separate effects and both can be active simultaneously.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with Near Sleep (separate buff)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">🔄 Charge Attack Boost</div>
-          <div class="effect-value">+15% to charged R2 attacks</div>
-          <div class="effect-note">Applies only to fully charged heavy attacks. Does not affect partial charges. Excellent for strength/colossal weapon users.</div>
+          <div class="effect-label">🔄 Improved Charge Attacks</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-note">Applies only to fully charged heavy attacks. Excellent for strength/colossal weapon users.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">↑ Jump Attack Boost</div>
-          <div class="effect-value">+15% to jump attacks</div>
-          <div class="effect-note">Improves all airborne plunge attacks (jumping R1 and R2). Extremely good for Rivers of Blood, curved swords, and polearms.</div>
+          <div class="effect-label">↑ Improved Jump Attacks</div>
+          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-note">Improves all airborne plunge attacks (jumping R1 and R2).</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🛡️ Guard Counter Boost</div>
-          <div class="effect-value">+15% to guard counter damage</div>
-          <div class="effect-note">R2 immediately after blocking an attack deals extra damage. Pairs well with shields and the Night of the Champion boss relic.</div>
+          <div class="effect-label">🛡️ Improved Guard Counters</div>
+          <div class="effect-value">×1.10 / ×1.15 / ×1.20</div>
+          <div class="effect-note">R2 immediately after blocking an attack. Pairs with Night of the Champion boss relic.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🗡️ Critical Hit Boost</div>
-          <div class="effect-value">+15% (Delicate) → +25% (Grand)</div>
-          <div class="effect-note">Boosts backstab and riposte critical hit damage. Critical hits after stance breaks count. Night of the Baron boss relic gives its own separate critical bonus on top.</div>
+          <div class="effect-label">🗡️ Improved Critical Hits</div>
+          <div class="effect-value">×1.12 / ×1.18 / ×1.24</div>
+          <div class="effect-note">Boosts backstab and riposte damage. The unique +1 version (×1.20) stacks with this base version — they are separate effects.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (base + unique +1 are separate)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🌀 Improved Skill ATK</div>
+          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-note">Boosts damage from activated Weapon Arts (L2). Does not affect passive weapon effects.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🌀 Weapon Skill ATK Up</div>
-          <div class="effect-value">+12% to Weapon Arts / Skills</div>
-          <div class="effect-note">Boosts damage from activated Weapon Arts (L2). Does not affect passive weapon effects — only triggered skill animations.</div>
+          <div class="effect-label">🔮 Improved Sorceries &amp; Incantations</div>
+          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-note">Boosts all sorcery and incantation damage. Also extends active spell buff duration (+30% with a separate Relic Effect).</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🔮 Spell Damage Up</div>
-          <div class="effect-value">+5.5% (Delicate) → +8% (Grand)</div>
-          <div class="effect-note">Also extends active spell buff duration by +45% → +60%. Affects both Sorceries and Incantations.</div>
+          <div class="effect-label">🎯 Improved Chain Finishers</div>
+          <div class="effect-value">×1.10 / ×1.15 / ×1.20 on last combo hit</div>
+          <div class="effect-note">Boosts only the final hit in a combo chain. Rewards completing full attack sequences.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🏹 Improved Ranged Attacks</div>
+          <div class="effect-value">×1.07 / ×1.10 / ×1.14</div>
+          <div class="effect-note">Boosts damage from bows and crossbows. Separate from weapon-type ATK Up for bows.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
@@ -1223,30 +1409,9 @@
         <div class="effect-category">🩸 Status Buildup Effects</div>
 
         <div class="effect-card">
-          <div class="effect-label">🩸 Bleed Buildup Up</div>
-          <div class="effect-value">+15 → +30 Hemorrhage buildup per hit</div>
-          <div class="effect-note">Accelerates Bleed proc on enemies. Bleed procs scale with the enemy's max HP (roughly 15%). Stacking buildup = more frequent procs.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive buildup)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">☠️ Poison Buildup Up</div>
-          <div class="effect-value">+15 → +25 Poison buildup per hit</div>
-          <div class="effect-note">Speeds up Poison application. Poison deals flat HP loss per second; stacking doesn't increase per-tick damage, only application speed.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive buildup)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">❄️ Frost Buildup Up</div>
-          <div class="effect-value">+15 → +25 Frostbite buildup per hit</div>
-          <div class="effect-note">Frost proc reduces enemy damage by ~20% and drains stamina — very strong on bosses. Pairs well with Night of the Miasma boss relic.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive buildup)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">😴 Sleep Buildup Up</div>
-          <div class="effect-value">+10 → +20 Sleep buildup per hit</div>
-          <div class="effect-note">Sleep puts enemies to sleep for a short window — great for setting up Near Sleep ATK Up relic. Slept enemies take a powerful riposte.</div>
+          <div class="effect-label">🩸 Blood Loss / Poison / Sleep / Rot / Frost Buildup</div>
+          <div class="effect-value">+18 / +23 / +30 buildup per hit</div>
+          <div class="effect-note">Separate effects for each status. Accelerates proc frequency. Bleed procs scale with max HP (~15%). Frost debuffs enemy damage. Each status is its own relic effect.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive buildup)</span>
         </div>
 
@@ -1254,90 +1419,121 @@
         <div class="effect-category">🛡️ Survivability Effects</div>
 
         <div class="effect-card">
-          <div class="effect-label">❤️ Max HP Up</div>
-          <div class="effect-value">+10% max HP</div>
-          <div class="effect-note">Increases base maximum HP for the expedition. Calculated after base stats — so it grows as you level up.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
+          <div class="effect-label">❤️ Max HP Up / 💧 Max FP Up / 🏃 Max Stamina Up</div>
+          <div class="effect-value">+10% (Delicate) / +15% (Grand)</div>
+          <div class="effect-note">Three separate effects — HP, FP, and Stamina — each with their own relic effect entry. Each stacks additively with copies of itself.</div>
+          <span class="stack-badge stack-yes">✔ HP/FP/Stamina each stack (additive %)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">💧 Max FP Up</div>
-          <div class="effect-value">+15% max FP</div>
-          <div class="effect-note">More FP for spells, incantations, and weapon arts. Important for caster-heavy runs.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
+          <div class="effect-label">🛡️ Physical / Elemental DMG Negation Up</div>
+          <div class="effect-value">+10% per relic effect</div>
+          <div class="effect-note">Separate effects for Physical, Fire, Holy, Lightning, Magic negation. Each stacks additively.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive, per type)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🏃 Max Stamina Up</div>
-          <div class="effect-value">+12% max Stamina</div>
-          <div class="effect-note">Longer stamina bar for rolls, attacks, and blocking. Stamina regeneration rate is unchanged.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">⚖️ Equip Load Up</div>
-          <div class="effect-value">+5 → +10 equip load</div>
-          <div class="effect-note">Allows heavier armour without roll-penalty. Flat increase, not percentage. Useful for tanky Nightfarers using heavy sets.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive flat)</span>
-        </div>
-
-        <div class="effect-card">
-          <div class="effect-label">🩹 Flask Heal Up</div>
-          <div class="effect-value">+13% (Delicate) → +18% (Grand)</div>
-          <div class="effect-note">Each sip from Flask of Crimson Tears restores more HP. Does not add flasks — just makes each one stronger.</div>
+          <div class="effect-label">🩹 Improved Flask HP Restoration</div>
+          <div class="effect-value">Increased HP per flask sip</div>
+          <div class="effect-note">Does not add extra flasks — just makes each sip restore more HP.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🧪 Status Resist Up</div>
-          <div class="effect-value">+52 (Delicate) → +65 (Grand)</div>
-          <div class="effect-note">Flat increase to ALL status resistances simultaneously (Poison, Bleed, Frost, Sleep, Madness, Death Blight). Single relic covers everything.</div>
+          <div class="effect-label">🧪 Status Resistance Up</div>
+          <div class="effect-value">+57 (Delicate) / +75 (Grand) to ALL resistances</div>
+          <div class="effect-note">A single relic effect raises ALL status resistances simultaneously — Poison, Bleed, Frost, Sleep, Madness, Death Blight, Rot.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive flat)</span>
         </div>
 
         <!-- ── RESOURCE ────────────────────────────── -->
-        <div class="effect-category">⚡ Resource Effects</div>
+        <div class="effect-category">⚡ Resource &amp; Utility Effects</div>
 
         <div class="effect-card">
-          <div class="effect-label">⚡ Stamina on Hit</div>
-          <div class="effect-value">Small stamina restore per hit</div>
-          <div class="effect-note">Recover stamina with every successful attack. Enables more aggressive sustained combos without backing off. Exact restore scales slightly with weapon speed.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive per-hit restore)</span>
+          <div class="effect-label">⚡ Stamina on Attacks / 🔋 FP on Attacks</div>
+          <div class="effect-value">+2 / +3 Stamina per hit &nbsp;·&nbsp; +1/+2/+3 FP per hit</div>
+          <div class="effect-note">Two separate effects. Stamina restores with each landing attack. FP restores on successive attacks. Both stack with copies.</div>
+          <span class="stack-badge stack-yes">✔ Both stack (additive per-hit)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">💠 FP Cost Reduction</div>
-          <div class="effect-value">−8% (after Char. Skill) → −15% (global, Grand)</div>
-          <div class="effect-note">Delicate/Polished: 40 s window after using Character Skill. Grand: global permanent reduction. Two copies of Delicate do stack their windows.</div>
+          <div class="effect-label">💠 Reduced Skill FP Cost</div>
+          <div class="effect-value">×0.88 / ×0.82 / ×0.76 FP cost</div>
+          <div class="effect-note">Reduces FP cost of weapon arts and skills. Stacks additively — two copies multiply.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
         </div>
 
         <div class="effect-card">
-          <div class="effect-label">🔋 Stamina Regen Up</div>
-          <div class="effect-value">~+8% stamina regeneration speed</div>
-          <div class="effect-note">Increases the rate at which stamina refills. Very noticeable during sustained fights — less downtime between attack windows.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
-        </div>
-
-        <div class="effect-card">
           <div class="effect-label">💰 Rune Acquisition Up</div>
-          <div class="effect-value">+5% (Delicate) → +20% (Grand)</div>
-          <div class="effect-note">More runes from enemy kills. Lets you buy upgrades, smithing stones, or flask charges faster from mid-run merchants.</div>
+          <div class="effect-value">+10% runes from kills (self) · +3.5% runes for self+allies</div>
+          <div class="effect-note">Two variants: personal (+10%) and team-wide (+3.5%). Standard discount −10% and Huge Rune Discount −20% stack with each other.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">💚 HP Restore on Kill</div>
-          <div class="effect-value">Small HP on each kill</div>
-          <div class="effect-note">Triggers on enemy death regardless of how they died (direct or AoE). Not affected by Flask Heal Up. Provides consistent passive sustain in mob fights.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive per-kill restore)</span>
+          <div class="effect-value">+20 / +30 / +40 HP per kill</div>
+          <div class="effect-note">Triggers on enemy death regardless of cause (direct or AoE). Not affected by Flask Heal Up. Also a version that restores nearby ally HP (+20 HP).</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive per-kill)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">💚 HP Restore on Critical</div>
-          <div class="effect-value">Medium HP on backstab / riposte</div>
-          <div class="effect-note">Triggers on every critical hit (backstab after stance break or guard break, riposte). Higher restore than on-kill. Pairs with Critical Hit Boost and Night of the Baron.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive per-critical restore)</span>
+          <div class="effect-value">+10% max HP on backstab / riposte</div>
+          <div class="effect-note">Triggers on every critical hit. Pairs with Critical Hit Boost and Night of the Baron.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🩺 Flask Also Heals Allies</div>
+          <div class="effect-value">50% of flask heal shared to nearby allies</div>
+          <div class="effect-note">Each time you use a Flask of Crimson Tears, nearby allies also receive a heal.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">🎯 Art Gauge Effects</div>
+          <div class="effect-value">+5% from kills · +5% from critical hits</div>
+          <div class="effect-note">Two separate effects. One fills art gauge on each kill, one on each critical hit. Plus passive gauge charge speed: +5%/+7.5%/+10% (stacks YES).</div>
+          <span class="stack-badge stack-no">✘ Kill/crit gauge: NO stack · Passive: YES</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⏱️ Character Skill Cooldown Reduction</div>
+          <div class="effect-value">−5% / −7.5% / −10% cooldown</div>
+          <div class="effect-note">Three tiers each with their own relic effect (+1/+2/+3). All three tiers stack with each other.</div>
+          <span class="stack-badge stack-yes">✔ All tiers stack (additive)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">📜 Sorcery &amp; Incantation Duration</div>
+          <div class="effect-value">+30% active buff duration</div>
+          <div class="effect-note">Extends how long spell buffs (e.g., Golden Vow, Flame, Grant Me Strength) remain active.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
+        </div>
+
+        <!-- ── STARTING ─────────────────────────────── -->
+        <div class="effect-category">🎒 Starting Effects (per expedition)</div>
+
+        <div class="effect-card">
+          <div class="effect-label">🗡️ Imbue Starting Weapon</div>
+          <div class="effect-value">Infuse with Fire / Holy / Lightning / Magic / Bleed / Frost / Poison</div>
+          <div class="effect-note">Changes your starting weapon's damage type at expedition start. Each element is a separate relic effect.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">📦 Starting Items</div>
+          <div class="effect-value">Begin with specific consumables (greases, pots, darts, branches, pouches…)</div>
+          <div class="effect-note">19 item variants. All stack (YES) except Stonesword Key (NO). Max item slots is 8 — Small Pouch won't stack past 8 slots.</div>
+          <span class="stack-badge stack-yes">✔ Most stack (YES); Stonesword Key: NO</span>
+        </div>
+
+        <div class="effect-card">
+          <div class="effect-label">⚔️ Change Starting Weapon Skill</div>
+          <div class="effect-value">Swap to: Eruption, Blood Blade, Chilling Mist, Determination, Endure, Flaming Strike, Glintblade Phalanx, Gravitas, Hoarfrost Stomp, Lightning Slash, Poison Moth Flight, Poisonous Mist, Prayerful Strike, Quickstep, Rain of Arrows, Sacred Blade, Seppuku, Storm Stomp, Thunderbolt, White Shadow's Lure</div>
+          <div class="effect-note">Only applies to compatible weapon types. 20 different skill options available as separate relic effects.</div>
+          <span class="stack-badge stack-no">✘ Does not stack (NO)</span>
         </div>
 
       </div><!-- /effect-grid -->
@@ -1346,75 +1542,30 @@
       <div class="evergoal-section">
         <h4>🏕️ Evergoal ATK Scaling (Battlefield Experience)</h4>
         <p class="evergoal-note">
-          Completing Evergoals (on-map camp objectives cleared during Night 1 &amp; Night 2) grants a stacking
-          <strong>Battlefield Experience</strong> buff. Each Evergoal adds another layer of ATK power for the
-          rest of the expedition. The bonus is <strong>multiplicative</strong> with relic ATK, invasion buffs,
-          and weapon passives — making early Evergoal clearing extremely valuable.
+          Completing Evergoals grants a stacking <strong>Battlefield Experience</strong> ATK buff for the rest of the expedition. The bonus is <strong>multiplicative</strong> with relic ATK, invasion buffs, and weapon passives.
         </p>
         <table class="evergoal-table">
           <thead>
             <tr>
               <th>Evergoals Cleared</th>
-              <th>ATK Bonus per Layer</th>
-              <th>Total Estimated Bonus</th>
+              <th>Bonus per Layer</th>
+              <th>Est. Total</th>
               <th>Notes</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="eg-count">0</td>
-              <td>—</td>
-              <td class="eg-total">+0%</td>
-              <td>Baseline</td>
-            </tr>
-            <tr>
-              <td class="eg-count">1</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+2%</td>
-              <td>First camp cleared</td>
-            </tr>
-            <tr>
-              <td class="eg-count">2</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+4%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="eg-count">3</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+6%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="eg-count">4</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+8%</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="eg-count">5</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+10%</td>
-              <td>Strong midpoint</td>
-            </tr>
-            <tr>
-              <td class="eg-count">6</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+12%</td>
-              <td></td>
-            </tr>
-            <tr class="eg-highlight">
-              <td class="eg-count">7</td>
-              <td class="eg-bonus">~+2%</td>
-              <td class="eg-total">~+14%</td>
-              <td>Max achievable in a full run — equivalent to a Grand Physical ATK relic</td>
-            </tr>
+            <tr><td class="eg-count">0</td><td>—</td><td class="eg-total">+0%</td><td>Baseline</td></tr>
+            <tr><td class="eg-count">1</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+2%</td><td>First camp</td></tr>
+            <tr><td class="eg-count">2</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+4%</td><td></td></tr>
+            <tr><td class="eg-count">3</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+6%</td><td></td></tr>
+            <tr><td class="eg-count">4</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+8%</td><td></td></tr>
+            <tr><td class="eg-count">5</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+10%</td><td>Strong midpoint</td></tr>
+            <tr><td class="eg-count">6</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+12%</td><td></td></tr>
+            <tr class="eg-highlight"><td class="eg-count">7</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+14%</td><td>Max in full run — ~= Grand Physical ATK relic</td></tr>
           </tbody>
         </table>
         <p class="evergoal-note" style="margin-top:8px;">
-          ⚠ Exact per-Evergoal values are community-estimated (~±1%) and may vary by patch.
-          The bonus <strong>stacks multiplicatively</strong> with all relic ATK bonuses, Low HP ATK Up,
-          invasion buffs, and weapon passives — prioritise clearing Evergoals even on relaxed runs.
+          ⚠ Per-Evergoal values are community-estimated (~±1%). Stacks <strong>multiplicatively</strong> with all relic ATK, Low HP ATK, invasion buffs, and weapon passives.
         </p>
       </div><!-- /evergoal-section -->
 
@@ -1539,147 +1690,638 @@
   </div><!-- /boss relic section -->
 
   <!-- ══════════════════════════════════════════════════════════
-       WEAPON PASSIVES
+       GENERIC WEAPON PASSIVES
   ═══════════════════════════════════════════════════════════ -->
   <div class="info-section">
     <button class="info-toggle" id="wpnPassiveToggle">
-      <span>⚔️ &nbsp;Weapon Passives Reference</span>
+      <span>🗡️ &nbsp;Weapon Passives Reference</span>
       <em class="chevron">▼</em>
     </button>
     <div class="info-wrap" id="wpnPassiveWrap">
 
       <div class="relic-system">
-        <strong>What are Weapon Passives?</strong> Certain legendary and found weapons carry a unique passive
-        ability separate from their Weapon Art. These effects are <strong>always active</strong> while the
-        weapon is in your inventory (you don't need to have it equipped in hand). They do NOT occupy a relic
-        slot. Weapon passives <strong>stack with relics</strong> and Evergoal buffs but cannot be duplicated
-        (you can't carry two of the same named weapon).
+        <strong>What are Weapon Passives?</strong> Passives that appear on weapons — separate from Relic Effects.
+        Most offensive and stat passives stack with different tiers. Most proc / miscellaneous passives do <strong>NOT</strong> stack.
+        Tiers shown as <strong>+1 / +2 / +3</strong>.
       </div>
 
-      <div class="wpn-grid">
+      <!-- DEFENSIVE -->
+      <div class="wpn-section-header">🛡️ Defensive</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>+1 / +2 / +3</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Improved Magic/Fire/Lightning/Holy Dmg Negation</td><td class="col-val">+12% / +16% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Physical Dmg Negation</td><td class="col-val">+12% / +16% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Dmg Negation at Low HP (&lt;20%)</td><td class="col-val">+29% / +38% / +48%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Dmg Negation at Full HP (100%)</td><td class="col-val">+24% / +32% / +40%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Taking Damage Boosts Dmg Negation</td><td class="col-val">+21% / +28% / +36% for 10s</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Dmg Negation Up While Casting Spells</td><td class="col-val">+18% / +24% / +30%</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Dmg Negation Up While Charging Attacks</td><td class="col-val">+24% / +32% / +40%</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Successive Attacks Negate Damage</td><td class="col-val">+38% / +48% / +60% for 30s</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Successful Guarding Ups Dmg Negation</td><td class="col-val">+14% / +19% / +24%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Successful Guarding Ups Poise</td><td class="col-val">×0.88 / ×0.82 / ×0.76 poise dmg taken</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guarding Ability (stamina dmg taken)</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Status Resist (Poison/Bleed/Sleep/etc.)</td><td class="col-val">+57 / +75 / +112</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Less Likely to Be Targeted</td><td class="col-val">−300 / −450 / −600 target priority</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
 
-        <div class="wpn-card">
-          <div class="wpn-name">Wraith Walking</div>
-          <span class="wpn-type wpn-spectral">👻 Spectral</span>
-          <div class="wpn-desc">While moving, spectral wraith companions trail behind you. They periodically lunge at nearby enemies, dealing moderate phantom damage.</div>
-          <div class="wpn-note">Cannot be stacked (only one copy of weapon). Does NOT stack with a second wraith-passive weapon. Wraiths deal fixed damage unaffected by your ATK buffs.</div>
-          <span class="stack-badge stack-no">✘ No duplicate stacking</span>
-        </div>
+      <!-- OFFENSIVE -->
+      <div class="wpn-section-header">⚔️ Offensive</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>+1 / +2 / +3</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Attack Up When Wielding Two Armaments (paired L1)</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power When Two-Handing</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Low HP</td><td class="col-val">×1.07 → ×1.21 (5 tiers)</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Full HP (100%)</td><td class="col-val">×1.07 / ×1.105 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Chain Attack Finishers (last hit)</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charge Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Skill Attack Power</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guard Counters</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Jump Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Critical Hits</td><td class="col-val">×1.12 / ×1.18 / ×1.24</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Ranged Weapon Attacks</td><td class="col-val">×1.07 / ×1.10 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Projectile Damage Drop-Off Reduced</td><td class="col-val">−30% / −40% / −50%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Magic/Fire/Holy/Lightning Attack Power</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Add Magic/Fire/Holy/Lightning to Weapon</td><td class="col-val">−25/26/30/35 phys, +25/26/30/35 elemental</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Attacks Inflict Poison/Bleed/Sleep/Rot/Frost</td><td class="col-val">+18 / +23 / +30 buildup</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Improved Sorceries / Incantations</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charged Sorceries / Incantations</td><td class="col-val">×1.09 / ×1.13 / ×1.18</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Spell Casting Speed</td><td class="col-val">+30 / +60 vdex</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Reduced Skill FP Cost</td><td class="col-val">×0.88 / ×0.82 / ×0.76</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Reduced Spell FP Cost</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Multiple Periodical Glintblades</td><td class="col-val">5 blades / 18s · 60 magic atk each</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Many Periodical Glintblades</td><td class="col-val">9 blades / 18s · 48 magic atk each</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two-Handing)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two Weapons, paired L1)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guard Breaking</td><td class="col-val">×1.30 / ×1.45 / ×1.60 stamina damage</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
 
-        <div class="wpn-card">
-          <div class="wpn-name">Bloodboon Ritual</div>
-          <span class="wpn-type wpn-offensive">🩸 Offensive</span>
-          <div class="wpn-desc">As your HP drops, attack power increases in stages. Each 20% HP threshold crossed below 60% HP adds a damage layer (~+5% per layer, up to 5 layers at critical HP).</div>
-          <div class="wpn-note">At ~20% HP: up to ~+25% total ATK bonus. Multiplicative with relic ATK Up and Evergoal buffs. Extremely dangerous but rewarding synergy with Low HP ATK Up relic.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with all ATK relics (multiplicative)</span>
-        </div>
+      <!-- REGEN -->
+      <div class="wpn-section-header">💚 Regen</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Value</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Continuous HP Recovery</td><td class="col-val">+1 HP/s</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">HP Restoration upon Attacks</td><td class="col-val">+4 / +6 / +8 HP per hit</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">FP Restoration upon Attacks</td><td class="col-val">+1 / +2 / +3 FP per hit</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Defeating Enemies Restores HP</td><td class="col-val">+20 / +30 / +40 HP</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Defeating Enemies Restores FP</td><td class="col-val">+4% / +6% / +8% max FP</td><td class="col-stack-no">NO</td></tr>
+          <tr><td class="col-name">Taking Damage Restores FP</td><td class="col-val">+2 / +4 / +6 FP</td><td class="col-stack-no">NO</td></tr>
+        </tbody>
+      </table>
 
-        <div class="wpn-card">
-          <div class="wpn-name">Corpse Raising</div>
-          <span class="wpn-type wpn-spectral">👻 Spectral</span>
-          <div class="wpn-desc">On kill, chance (~30%) to raise the slain enemy as a spectral thrall. Thralls fight independently for ~15 s then crumble. Works on most non-boss enemies.</div>
-          <div class="wpn-note">Thrall damage is fixed and does not scale with your stats. Great in large mob encounters (Night 1 camps). One raised thrall at a time max.</div>
-          <span class="stack-badge stack-no">✘ Max 1 thrall active at a time</span>
-        </div>
+      <!-- STAT / GRIEF -->
+      <div class="wpn-section-header">📊 Stat — "Grief" Passives</div>
+      <div class="relic-system" style="margin-bottom:10px;">
+        Each Grief passive boosts two stats by <strong>+3/+6/+9</strong>. Tiers stack only with <em>different</em> tiers — two "+1" copies of the same Grief <strong>do NOT stack</strong>.
+      </div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Stats Boosted</th><th>+1/+2/+3</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Wylder's Grief</td><td class="col-note">STR + DEX</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Guardian's Grief</td><td class="col-note">VIG + END</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Ironeye's Grief</td><td class="col-note">END + DEX</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Duchess' Grief</td><td class="col-note">DEX + INT</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Raider's Grief</td><td class="col-note">VIG + STR</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Revenant's Grief</td><td class="col-note">FTH + ARC</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Recluse's Grief</td><td class="col-note">MND + INT</td><td class="col-val">+3 / +6 / +9</td></tr>
+          <tr><td class="col-name">Executor's Grief</td><td class="col-note">DEX + ARC</td><td class="col-val">+3 / +6 / +9</td></tr>
+        </tbody>
+      </table>
 
-        <div class="wpn-card">
-          <div class="wpn-name">Ancestral Ward</div>
-          <span class="wpn-type wpn-spectral">👻 Spectral</span>
-          <div class="wpn-desc">Periodically summons an Ancestral Follower spirit (bow-armed) that fires spectral arrows at your current target for ~20 s before fading.</div>
-          <div class="wpn-note">Cooldown ~60 s between summons. Arrows apply your weapon's elemental type. Follower damage is moderate and does not benefit from your ATK relics.</div>
-          <span class="stack-badge stack-no">✘ One follower at a time, fixed cooldown</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Improved ATK at Low HP</div>
-          <span class="wpn-type wpn-offensive">🩸 Offensive</span>
-          <div class="wpn-desc">A simplified version of Bloodboon Ritual. Grants a flat ~+15% ATK bonus when HP falls below 35%. Binary on/off — no layered stages.</div>
-          <div class="wpn-note">Easier to maintain than full Bloodboon Ritual. Stacks with Low HP ATK Up relic for a combined ~+35–40% bonus at low HP. Very strong for aggressive players.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with Low HP ATK Up relic (multiplicative)</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Frost on Draw</div>
-          <span class="wpn-type wpn-offensive">❄️ Offensive</span>
-          <div class="wpn-desc">First attack after switching to this weapon releases a small burst of Frost around you, applying Frostbite buildup to all nearby enemies.</div>
-          <div class="wpn-note">Pairs exceptionally well with Night of the Lord boss relic (weapon swap triggers affinity attack + ATK Up). Cooldown resets each time you swap away and back.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with Frost Buildup Up relic</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Life Steal</div>
-          <span class="wpn-type wpn-defensive">💚 Defensive</span>
-          <div class="wpn-desc">Each successful hit restores a small amount of HP (~0.5–1% max HP per hit). Faster weapons restore HP more frequently.</div>
-          <div class="wpn-note">Does not benefit from Flask Heal Up relic (different healing source). Stacks additively with HP Restore on Kill relic for dual sustain on trash mobs.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with HP Restore relics (different source)</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Combo Escalation</div>
-          <span class="wpn-type wpn-offensive">⚔️ Offensive</span>
-          <div class="wpn-desc">Each consecutive hit on the same enemy increases damage by ~+2%, stacking up to 5 times (+10% max). Counter resets if you switch targets or stop attacking for ~2 s.</div>
-          <div class="wpn-note">Excellent for boss fights. The stack builds during combo chains. Stacks multiplicatively with all ATK relics. Hard to maintain against fast-moving bosses.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with ATK relics (multiplicative)</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Spirit Storm</div>
-          <span class="wpn-type wpn-spectral">👻 Spectral</span>
-          <div class="wpn-desc">Occasionally (~every 30 s) unleashes a spectral storm around you, dealing moderate area damage and applying a random status buildup (Bleed, Frost, or Sleep) to all nearby enemies.</div>
-          <div class="wpn-note">Triggered automatically — no player input required. Great passive AoE pressure during large fights. Status applied scales with your Buildup relic effects.</div>
-          <span class="stack-badge stack-yes">✔ Status applies your Buildup relic bonuses</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Undying Flame</div>
-          <span class="wpn-type wpn-defensive">🛡️ Defensive</span>
-          <div class="wpn-desc">Once per expedition, when reduced to 0 HP, you automatically revive with ~30% HP and a brief period of invincibility (~2 s).</div>
-          <div class="wpn-note">Consumed on use — only triggers once. Think of it as a free extra life. Activates before allies can revive you. Does NOT trigger if you fall into a death zone (void/lava).</div>
-          <span class="stack-badge stack-no">✘ Once per expedition only</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Warcry Passive</div>
-          <span class="wpn-type wpn-offensive">⚔️ Offensive</span>
-          <div class="wpn-desc">While holding this weapon, shouting (via the in-game gesture or specific emote) grants a 10 s ATK boost (~+8%) and slightly increases poise. Refreshable.</div>
-          <div class="wpn-note">Requires the Warcry gesture equipped. Short cooldown (~15 s) between activations. Pairs with Hit-Back Rage relic for multiple simultaneous ATK layers.</div>
-          <span class="stack-badge stack-yes">✔ Stacks with all ATK relics</span>
-        </div>
-
-        <div class="wpn-card">
-          <div class="wpn-name">Poison Aura</div>
-          <span class="wpn-type wpn-utility">☠️ Utility</span>
-          <div class="wpn-desc">Passively emanates a faint Poison cloud while you stand still for 2+ s. Applies Poison buildup to all nearby enemies over time without attacking.</div>
-          <div class="wpn-note">Useful for boss fights — stand and let the aura tick while your team attacks. Pairs with Night of the Wise boss relic (ATK Up near Poison/Rot).</div>
-          <span class="stack-badge stack-yes">✔ Stacks with Poison Buildup Up relic</span>
-        </div>
-
-      </div><!-- /wpn-grid -->
-
-      <!-- ── STACKING RULES ──────────────────────── -->
-      <div class="stacking-rules">
-        <h4>📋 What Stacks / What Doesn't</h4>
-        <ul class="stack-rule-list">
-          <li class="yes"><strong>Same relic effect, multiple copies</strong> — ADD together. Two Grand Physical ATK Up relics = +20% total physical ATK.</li>
-          <li class="yes"><strong>Different ATK buff types</strong> — MULTIPLY together. Physical ATK Up × Fire ATK Up × Evergoal ATK × Low HP ATK all multiply for massive combined bonuses.</li>
-          <li class="yes"><strong>Evergoal ATK (Battlefield Experience)</strong> — Stacks MULTIPLICATIVELY with all relic effects, invasion buffs, and weapon passives.</li>
-          <li class="yes"><strong>Invasion buffs</strong> — All stack with relics, Evergoal ATK, and weapon passives.</li>
-          <li class="yes"><strong>Near Sleep + Near Madness</strong> — Both can be active simultaneously as they are separate buff entries.</li>
-          <li class="yes"><strong>Weapon passives + relics</strong> — Always multiplicative with each other. Low HP ATK Up (relic) × Bloodboon Ritual (weapon) is legal and extremely strong.</li>
-          <li class="yes"><strong>Different elemental ATK Up relics</strong> — Each element (Fire, Magic, Lightning, Holy) is tracked separately so all four can be active simultaneously.</li>
-          <li class="cap"><strong>Same weapon-type bonus (3+ weapons)</strong> — Only one bonus per weapon type. You can have TWO different weapon-type bonuses active (e.g. Greatswords + Katanas), not three.</li>
-          <li class="cap"><strong>Hit-Back Rage (timed buff)</strong> — Refreshes its duration on additional hits taken; does NOT double the ATK bonus. Duration is capped at 10 s.</li>
-          <li class="cap"><strong>FP Cost Reduction (after Char. Skill)</strong> — Two Delicate copies extend the window. A Grand copy makes it global, making additional Delicate copies redundant.</li>
-          <li class="no"><strong>Boss Relics (Night of…)</strong> — Cannot equip the same Boss Relic twice. Each is unique per expedition.</li>
-          <li class="no"><strong>Weapon passives (duplicate weapon)</strong> — You cannot carry two copies of the same named weapon. No way to double a weapon passive.</li>
-          <li class="no"><strong>Undying Flame</strong> — Triggers once per expedition regardless of how many weapons with this passive you carry.</li>
-          <li class="no"><strong>Spectral companions (Wraith Walking, Ancestral Ward, Corpse Raising)</strong> — Each caps at one active entity. Multiple spectral-type weapon passives do NOT spawn additional companions simultaneously.</li>
-          <li class="no"><strong>Invasion buff: Rise from Near-Death</strong> — The auto-revive triggers once per player per Night. Having higher ATK after it triggers does stack with everything else.</li>
-        </ul>
-      </div><!-- /stacking-rules -->
+      <!-- EXPLORATION -->
+      <div class="wpn-section-header">🗺️ Exploration</div>
+      <table class="wpn-table">
+        <thead><tr><th>Passive</th><th>Value</th><th>Stacks?</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">Improved Item Discovery</td><td class="col-val">+20 / +30 / +40 discovery</td><td class="col-stack-yes">YES</td></tr>
+        </tbody>
+      </table>
 
     </div><!-- /wpnPassiveWrap -->
   </div><!-- /weapon passives section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       DORMANT POWERS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="dormantToggle">
+      <span>🏛️ &nbsp;Dormant Powers Reference</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="dormantWrap">
+
+      <div class="relic-system">
+        <strong>What are Dormant Powers?</strong> Passives found in the world or tied to the character — separate from Weapon Passives and Relic Effects. Some are found at map locations, some are unlocked through character progression. Where not noted, assume one tier only.
+      </div>
+
+      <!-- ATTRIBUTES -->
+      <div class="effect-category">📊 Attributes</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max HP</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max FP</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Max Stamina</div>
+          <div class="dormant-val">+10% / +15%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Poise</div>
+          <div class="dormant-val">+25% / +38%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Stamina Recovery</div>
+          <div class="dormant-val">+4 / +6</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+      </div>
+
+      <!-- DEFENSIVE -->
+      <div class="effect-category">🛡️ Defensive</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">All Resistances Up</div>
+          <div class="dormant-val">+57 / +75 to all statuses</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Affinity Dmg Negation</div>
+          <div class="dormant-val">+12% / +15% / +18%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Physical Dmg Negation</div>
+          <div class="dormant-val">+12% / +15% / +18%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Dodging</div>
+          <div class="dormant-val">TBA</div>
+          <div class="dormant-note">Community data pending.</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Creates Holy Ground at Low HP</div>
+          <div class="dormant-val">Generates protective Holy aura below 20% HP</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Wending Grace</div>
+          <div class="dormant-val">Rise from defeat once (Item)</div>
+          <div class="dormant-note">Unique — consumed on use.</div>
+          <span class="stack-badge stack-no">✘ NO (unique item)</span>
+        </div>
+      </div>
+
+      <!-- OFFENSIVE -->
+      <div class="effect-category">⚔️ Offensive</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Dragons</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Those Who Live in Death</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Attack Boost vs Lifeforms Born of Falling Stars</div>
+          <div class="dormant-val">+20% ATK</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Physical Attack Power</div>
+          <div class="dormant-val">Stacking physical ATK bonus</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Affinity Attack Power</div>
+          <div class="dormant-val">Stacking elemental ATK bonus</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Roar &amp; Breath Attacks</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Throwing Pots</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Thrusting Counterattack</div>
+          <div class="dormant-val">+20%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Stance-Breaking</div>
+          <div class="dormant-val">Increased poise damage</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Sorceries &amp; Incantations</div>
+          <div class="dormant-val">+7%</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Dragonwound upon Dragon Communion</div>
+          <div class="dormant-val">Inflicts dragonwound debuff on nearby enemies</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Flame of Frenzy While Walking</div>
+          <div class="dormant-val">Proc AoE Frenzy flames while moving</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Guard Counters Activate Holy Attacks</div>
+          <div class="dormant-val">Guard counters trigger extra Holy explosion</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Guard Counters Activate Summoning Attack</div>
+          <div class="dormant-val">Guard counters summon an attack spirit</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Ice Storm Surge Sprint</div>
+          <div class="dormant-val">Ice storm proc while sprinting</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Lightning upon Dodging</div>
+          <div class="dormant-val">Lightning burst on dodge</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Periodical Giant Glintblade</div>
+          <div class="dormant-val">Large magic blade fires periodically</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Successful Parries Activate Golden Retaliation</div>
+          <div class="dormant-val">Holy burst on successful parry</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Sudden Enemy Death upon Attacks</div>
+          <div class="dormant-val">Rare instant-kill chance on hit — TBA</div>
+          <span class="stack-badge stack-no">✘ NO (minimal effect)</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Violent Deluge of Star Rain While Walking</div>
+          <div class="dormant-val">Star rain proc while moving</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Enemy Dmg After Critical Hit</div>
+          <div class="dormant-val">−15% enemy defense for 20s after riposte/backstab</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+      </div>
+
+      <!-- STATUS EFFECT -->
+      <div class="effect-category">🩸 Status Effect</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Blood Loss in Vicinity Increases ATK</div>
+          <div class="dormant-val">+20% ATK when Bleed procs nearby</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Inflict Blood Loss at Critical Hits</div>
+          <div class="dormant-val">Applies Bleed on backstab/riposte</div>
+          <div class="dormant-note">Despite the name, it applies on critical hits — not "at low HP."</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Poison &amp; Rot Trigger Continuous HP Recovery</div>
+          <div class="dormant-val">+7 HP/s while Poison or Rot is applied nearby</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+      </div>
+
+      <!-- UTILITY -->
+      <div class="effect-category">⚡ Utility</div>
+      <div class="dormant-grid">
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Flask HP Restoration</div>
+          <div class="dormant-val">More HP per flask sip</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Perfuming Arts</div>
+          <div class="dormant-val">+20% perfume/aromatic effectiveness</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Improved Ultimate Art Gauge Charge Speed</div>
+          <div class="dormant-val">+6% faster gauge charge in combat</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Rune Acquisition</div>
+          <div class="dormant-val">+10% runes from kills</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">More Runes From Defeated Enemies</div>
+          <div class="dormant-val">+10% runes (separate from above)</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Increased Sorcery &amp; Incantation Duration</div>
+          <div class="dormant-val">+30% active buff duration</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Reduced FP Consumption</div>
+          <div class="dormant-val">−% FP cost on spells/skills</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Character Skill Cooldown Reduction</div>
+          <div class="dormant-val">−10% cooldown</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Critical Hit FP Restoration</div>
+          <div class="dormant-val">+10% max FP on critical hit</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Critical Hit HP Restoration</div>
+          <div class="dormant-val">+10% max HP on critical hit</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">FP Recovery upon Successful Guards</div>
+          <div class="dormant-val">+2 FP per guard</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">HP Recovery upon Successful Guards</div>
+          <div class="dormant-val">+10 HP per guard</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">FP Restoration upon Successive Attacks</div>
+          <div class="dormant-val">Restore FP during combo chains</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">HP Restoration upon Successive Attacks</div>
+          <div class="dormant-val">+3 HP per hit in combo</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Gradual Restoration by Flask</div>
+          <div class="dormant-val">Flask HP restores gradually over time (not instant)</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Area of Darkness Conceals Caster While Walking</div>
+          <div class="dormant-val">Invisibility while moving through dark areas</div>
+          <span class="stack-badge stack-no">✘ NO</span>
+        </div>
+        <div class="dormant-card">
+          <div class="dormant-name">Rune of the Strong</div>
+          <div class="dormant-val">Gain Runes (special RUNES type)</div>
+          <div class="dormant-note">Not a conventional passive — directly grants runes.</div>
+          <span class="stack-badge stack-yes">✔ YES</span>
+        </div>
+      </div>
+
+    </div><!-- /dormantWrap -->
+  </div><!-- /dormant powers section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       LEGENDARY WEAPON PASSIVES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="legendaryToggle">
+      <span>👑 &nbsp;Legendary Weapon Passives</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="legendaryWrap">
+
+      <div class="relic-system">
+        <strong>Legendary Weapon Passives</strong> are unique effects tied to specific named weapons. Unlike generic weapon passives, each is unique — you cannot duplicate them. Critically, they vary in <em>how</em> they're active:
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only (not sheathed)</span>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+        </div>
+      </div>
+
+      <!-- Works Offhand + Sheathed -->
+      <div class="wpn-section-header">Works anywhere in loadout — Offhand &amp; Sheathed</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Blasphemous Blade / Devourer's Scepter</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">+HP on each enemy kill. Passive triggers from anywhere in your inventory.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Marais Executioner's Sword</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">×1.008 ATK per kill — stacks multiplicatively each kill for the run.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Grafted Blade Greatsword (Vengeance)</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Stacking buff per kill: all stats increase (+HP, +FP, +Stamina, +ATK, +Negation all ×0.5–1.005x per kill).</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Mohgwyn's Sacred Spear</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Blood Loss in vicinity increases ATK. Works with any Bleed source nearby — yours or allies'.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Hand of Malenia</div>
+          <span class="wpn-avail avail-both">✔ Offhand + Sheathed</span>
+          <div class="wpn-desc">Attacks after taking damage partially restore HP. Requires taking a hit to trigger.</div>
+        </div>
+      </div>
+
+      <!-- Works Offhand but NOT Sheathed -->
+      <div class="wpn-section-header">Works when attacking with offhand — NOT when sheathed</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Eclipse Shotel (Despair)</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Chance to instantly kill enemies on hit. Rare proc — more effective against weakened foes.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Dark Moon Greatsword</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">−15% enemy magic damage negation for 20s on attack. Can weapon-swap after triggering to maintain buff while using another weapon.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Maliketh's Black Blade</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Destined Death DoT on hit — deals (MaxHP×0.01)+2 damage every 0.1s for 0.8s per hit.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Carian Regal Scepter</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Casting spells deflects incoming projectiles and retaliates with Glintblades.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Winged Greathorn</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Occasionally reduces enemy damage negation on hit. Can weapon-swap after triggering to keep buff.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Bastard's Stars</div>
+          <span class="wpn-avail avail-offhand">⚠ Offhand only</span>
+          <div class="wpn-desc">Occasionally generates a star cloud on attacks that lingers and deals periodic magic damage.</div>
+        </div>
+      </div>
+
+      <!-- Held only -->
+      <div class="wpn-section-header">Must be actively held in hand to function</div>
+      <div class="wpn-grid">
+        <div class="wpn-card">
+          <div class="wpn-name">Ruins Greatsword (Destruction)</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Gravitational shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Sword of Night and Flame</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">+67 magic or fire ATK for 30s when activating the weapon skill.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Dragon King's Cragblade</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Thundercloud jump attack on jump R2.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Grafted Dragon</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Flame burst on critical hits.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Lion Greatbow (General)</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Bundle of arrows fires on strong attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Giant's Red Braid</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Flame pillars erupt on weapon skill activation.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Axe of Godrick</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Earth-shaking shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Golden Order Greatsword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Charged attack heals ailments and dispels debuffs on hit.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Bolt of Gransax</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">+67 Lightning ATK for 30s on charged skill activation.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Sacred Relic Sword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Waves of Holy light fire from charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Morgott's Cursed Sword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Cursed flame burst on critical hits.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Marika's Hammer</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Holy shockwave on charged attack.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Starscourge Greatsword</div>
+          <span class="wpn-avail avail-held">✗ Held only</span>
+          <div class="wpn-desc">Gravity pull on consecutive attacks (requires dual-wielding two copies). Pulls enemies toward you.</div>
+        </div>
+        <div class="wpn-card">
+          <div class="wpn-name">Axe of Godfrey (First Lord)</div>
+          <span class="wpn-avail avail-offhand">⚠ Can weapon swap after!</span>
+          <div class="wpn-desc">×1.2 ATK for 15s after charged heavy attack. Activate, then swap to another weapon — the buff persists.</div>
+        </div>
+      </div>
+
+    </div><!-- /legendaryWrap -->
+  </div><!-- /legendary passives section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RELIC CATEGORIES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="relicCatToggle">
+      <span>📋 &nbsp;Relic Categories (Rolling Rules)</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="relicCatWrap">
+
+      <div class="relic-system">
+        <strong>The core rule:</strong> A relic <em>cannot</em> roll 2+ effects from the <em>same category</em>.
+        <strong>Category 19 (Miscellaneous Stackable) is the only exception</strong> — it can appear multiple times on the same relic.
+        Use this table to plan which effect combinations are possible on a single relic.
+      </div>
+
+      <table class="cat-table">
+        <thead><tr><th>#</th><th>Category</th><th>Example Effects</th></tr></thead>
+        <tbody>
+          <tr><td class="col-num">1</td><td class="col-cat">Attack Power</td><td class="col-examples">Physical ATK Up, elemental ATK Up, weapon-type ATK Up, 3+ weapon type bonus, guard counter boost, evergaol bonuses</td></tr>
+          <tr><td class="col-num">2</td><td class="col-cat">Starting Armament Infusion</td><td class="col-examples">Imbue starting weapon with Fire / Holy / Lightning / Magic / Bleed / Frost / Poison</td></tr>
+          <tr><td class="col-num">3</td><td class="col-cat">Compatible Armament's Skill</td><td class="col-examples">Swap weapon skill (Eruption, Blood Blade, Hoarfrost Stomp, Quickstep, Seppuku, etc.)</td></tr>
+          <tr><td class="col-num">4</td><td class="col-cat">Sorcery &amp; Incantation</td><td class="col-examples">Improved specific spell schools (Gravity, Fire, Holy, Dragon, etc.)</td></tr>
+          <tr><td class="col-num">5</td><td class="col-cat">Character (Nightfarer-specific)</td><td class="col-examples">All Duchess / Executor / Guardian / Ironeye / Raider / Recluse / Revenant / Wylder specific effects</td></tr>
+          <tr><td class="col-num">6</td><td class="col-cat">Vigor</td><td class="col-examples">Vigor +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">7</td><td class="col-cat">Mind</td><td class="col-examples">Mind +1 / +2 / +3; Max FP increased per Sorcerer's Rise unlocked</td></tr>
+          <tr><td class="col-num">8</td><td class="col-cat">Endurance</td><td class="col-examples">Endurance +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">9</td><td class="col-cat">Strength</td><td class="col-examples">Strength +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">10</td><td class="col-cat">Dexterity</td><td class="col-examples">Dexterity +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">11</td><td class="col-cat">Intelligence</td><td class="col-examples">Intelligence +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">12</td><td class="col-cat">Faith</td><td class="col-examples">Faith +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">13</td><td class="col-cat">Arcane</td><td class="col-examples">Arcane +1 / +2 / +3</td></tr>
+          <tr><td class="col-num">14</td><td class="col-cat">Cooldown Reduction</td><td class="col-examples">Char. Skill Cooldown Reduction +1/+2/+3 (−5%/−7.5%/−10%)</td></tr>
+          <tr><td class="col-num">15</td><td class="col-cat">Ultimate Art Gauge</td><td class="col-examples">Art Gauge +1/+2/+3 (fills 5%/7.5%/10% faster in combat)</td></tr>
+          <tr><td class="col-num">16</td><td class="col-cat">Poise</td><td class="col-examples">Poise +1/+2/+3</td></tr>
+          <tr><td class="col-num">17</td><td class="col-cat">HP Restoration</td><td class="col-examples">HP from weapon-type attacks, HP from guarding, HP from counterattack, HP from boluses, post-damage HP recovery</td></tr>
+          <tr><td class="col-num">18</td><td class="col-cat">FP Restoration</td><td class="col-examples">FP from weapon-type attacks, FP on successive attacks, FP per 5% max FP gained</td></tr>
+          <tr class="cat-exception"><td class="col-num">19</td><td class="col-cat" style="color:var(--accent);font-weight:700;">⭐ Miscellaneous Stackable (EXCEPTION)</td><td class="col-examples">Max HP/FP/Stamina Up, status resistances, rune acquisition, flask healing, art gauge passives, rune discount, Frostbite concealment, Madness FP recovery, item effects to allies, many utility effects</td></tr>
+          <tr><td class="col-num">20</td><td class="col-cat">Unique Relic Effects</td><td class="col-examples">Character-specific uniques, Gesture "Crossed Legs" Builds Madness, special one-offs</td></tr>
+        </tbody>
+      </table>
+
+      <p class="evergoal-note" style="margin-top:12px;">
+        ⭐ <strong>Category 19</strong> is the ONLY category where a single relic can roll the same category twice or three times.
+        This means e.g. a relic could have Max HP Up + Max FP Up + Status Resistance all together (all Cat. 19).
+        All other categories are mutually exclusive on a single relic.
+      </p>
+
+    </div><!-- /relicCatWrap -->
+  </div><!-- /relic categories section -->
 
   <!-- ══════════════════════════════════════════════════════════
        INVASION / RAID EVENT BUFFS
@@ -2107,18 +2749,127 @@ buildJumps();
 render();
 
 /* ── Collapsible section toggles ────────────────────────────── */
-[
+const SECTIONS = [
   ['bossToggle',       'bossGridWrap'],
   ['relicToggle',      'relicWrap'],
   ['bossRelicToggle',  'bossRelicWrap'],
   ['wpnPassiveToggle', 'wpnPassiveWrap'],
+  ['dormantToggle',    'dormantWrap'],
+  ['legendaryToggle',  'legendaryWrap'],
+  ['relicCatToggle',   'relicCatWrap'],
   ['invToggle',        'invWrap'],
-].forEach(([btnId, wrapId]) => {
+];
+SECTIONS.forEach(([btnId, wrapId]) => {
   document.getElementById(btnId).addEventListener('click', function() {
     this.classList.toggle('open');
     document.getElementById(wrapId).classList.toggle('open');
   });
 });
+
+/* ── Search ─────────────────────────────────────────────────── */
+(function initSearch() {
+  const $input  = document.getElementById('searchInput');
+  const $clear  = document.getElementById('searchClear');
+  const $count  = document.getElementById('searchCount');
+
+  // Map each section to its searchable item selector and the table row selector
+  const SECTION_ITEMS = [
+    { btn: 'bossToggle',      wrap: 'bossGridWrap',  sel: '.boss-card' },
+    { btn: 'relicToggle',     wrap: 'relicWrap',     sel: '.effect-card' },
+    { btn: 'bossRelicToggle', wrap: 'bossRelicWrap', sel: '.relic-card' },
+    { btn: 'wpnPassiveToggle',wrap: 'wpnPassiveWrap',sel: 'tr[data-searchable]' },
+    { btn: 'dormantToggle',   wrap: 'dormantWrap',   sel: '.dormant-card' },
+    { btn: 'legendaryToggle', wrap: 'legendaryWrap', sel: '.wpn-card' },
+    { btn: 'relicCatToggle',  wrap: 'relicCatWrap',  sel: 'tr[data-searchable]' },
+    { btn: 'invToggle',       wrap: 'invWrap',       sel: '.inv-card' },
+  ];
+
+  // Mark table rows as searchable
+  document.querySelectorAll('.wpn-table tbody tr, .cat-table tbody tr').forEach(tr => {
+    tr.setAttribute('data-searchable', '1');
+  });
+
+  // Snapshot: which sections were open before search started
+  let preSearchOpen = null;
+
+  function setSection(btnId, wrapId, open) {
+    const btn  = document.getElementById(btnId);
+    const wrap = document.getElementById(wrapId);
+    if (!btn || !wrap) return;
+    btn.classList.toggle('open', open);
+    wrap.classList.toggle('open', open);
+  }
+
+  function doSearch(q) {
+    if (!q) {
+      // Restore pre-search state
+      if (preSearchOpen) {
+        SECTIONS.forEach(([btnId, wrapId]) => {
+          setSection(btnId, wrapId, preSearchOpen[btnId] || false);
+        });
+        preSearchOpen = null;
+      }
+      // Restore all items visible
+      document.querySelectorAll(
+        '.boss-card, .effect-card, .relic-card, .dormant-card, .wpn-card, .inv-card, tr[data-searchable]'
+      ).forEach(el => el.style.display = '');
+      // Restore effect-category and wpn-section-header visibility
+      document.querySelectorAll('.effect-category, .wpn-section-header').forEach(el => el.style.display = '');
+      $count.textContent = '';
+      $clear.classList.remove('visible');
+      return;
+    }
+
+    $clear.classList.add('visible');
+
+    // Snapshot open state once
+    if (!preSearchOpen) {
+      preSearchOpen = {};
+      SECTIONS.forEach(([btnId]) => {
+        const btn = document.getElementById(btnId);
+        preSearchOpen[btnId] = btn ? btn.classList.contains('open') : false;
+      });
+    }
+
+    const lq = q.toLowerCase();
+    let total = 0;
+
+    SECTION_ITEMS.forEach(({ btn, wrap, sel }) => {
+      const wrapEl = document.getElementById(wrap);
+      if (!wrapEl) return;
+      const items = wrapEl.querySelectorAll(sel);
+      let sectionMatches = 0;
+      items.forEach(item => {
+        const match = item.textContent.toLowerCase().includes(lq);
+        item.style.display = match ? '' : 'none';
+        if (match) sectionMatches++;
+      });
+      total += sectionMatches;
+      setSection(btn, wrap, sectionMatches > 0);
+    });
+
+    // Handle category sub-headers (effect-category, wpn-section-header):
+    // Show them if at least one sibling card/row after them is visible
+    document.querySelectorAll('.effect-category').forEach(cat => {
+      let next = cat.nextElementSibling;
+      let hasVisible = false;
+      while (next && !next.classList.contains('effect-category')) {
+        if (next.classList.contains('effect-card') && next.style.display !== 'none') hasVisible = true;
+        next = next.nextElementSibling;
+      }
+      cat.style.display = hasVisible ? '' : 'none';
+    });
+
+    $count.textContent = total === 0 ? 'No results' : `${total} result${total === 1 ? '' : 's'} found`;
+  }
+
+  $input.addEventListener('input', () => doSearch($input.value.trim()));
+  $clear.addEventListener('click', () => {
+    $input.value = '';
+    doSearch('');
+    $input.focus();
+  });
+})();
 </script>
 </body>
 </html>
