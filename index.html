@@ -249,8 +249,8 @@
     /* ─── Phase jump buttons ─────────────────────────────────── */
     .jumps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
     }
     .jump {
       display: flex;
@@ -1081,6 +1081,263 @@
     .cat-exception { background: rgba(245,158,11,.07) !important; }
     .cat-exception td { border-bottom-color: rgba(245,158,11,.15) !important; }
 
+    /* ─── Desktop sizing ─────────────────────────────────────── */
+    @media (min-width: 780px) {
+      .wrap { max-width: 960px; padding: 28px 24px 36px; gap: 26px; }
+      .title { font-size: 3rem; }
+      .subtitle { font-size: .85rem; }
+      .phase-name { font-size: 1.7rem; }
+      .phase-desc { font-size: 1rem; }
+      .phase-tag { font-size: .8rem; padding: 4px 18px; }
+      #countdown { font-size: 7rem; }
+      .card { padding: 38px 36px 32px; gap: 30px; }
+      .jump-label { font-size: .72rem; }
+      .jump-time { font-size: .84rem; }
+      .jump-icon { font-size: 1.3rem; }
+      .jump { padding: 11px 8px; }
+      .btn { font-size: 1.05rem; padding: 16px 22px; }
+      .hints { font-size: .78rem; }
+      .boss-toggle, .info-toggle { font-size: .9rem; padding: 15px 26px; }
+      .boss-grid { grid-template-columns: repeat(3, 1fr); }
+      .boss-card.final { grid-column: 1 / -1; }
+      .boss-name { font-size: .88rem; }
+      .boss-expedition { font-size: .74rem; }
+      .boss-tip { font-size: .78rem; }
+      .boss-weak { font-size: .74rem; padding: 3px 10px; }
+      .effect-grid { grid-template-columns: repeat(3, 1fr); }
+      .effect-label { font-size: .76rem; }
+      .effect-value { font-size: .88rem; }
+      .effect-note { font-size: .74rem; }
+      .relic-grid { grid-template-columns: repeat(3, 1fr); }
+      .wpn-grid { grid-template-columns: repeat(3, 1fr); }
+      .dormant-grid { grid-template-columns: repeat(3, 1fr); }
+      .relic-name { font-size: .8rem; }
+      .relic-effects-list { font-size: .75rem; }
+      .wpn-name { font-size: .8rem; }
+      .wpn-desc { font-size: .75rem; }
+      .wpn-note { font-size: .7rem; }
+      .inv-name { font-size: .84rem; }
+      .inv-event { font-size: .76rem; }
+      .inv-lords { font-size: .7rem; }
+      .inv-reward { font-size: .78rem; }
+      .evergoal-table { font-size: .76rem; }
+      .evergoal-note { font-size: .76rem; }
+      .wpn-table { font-size: .76rem; }
+      .cat-table { font-size: .76rem; }
+      .relic-system { font-size: .83rem; }
+      .search-bar input { font-size: 1.05rem; }
+      .search-result-count { font-size: .76rem; }
+      .jumps { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    /* ─── Element icon badges ─────────────────────────────────── */
+    .el-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid;
+      flex-shrink: 0;
+      vertical-align: middle;
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow: none;
+    }
+    .el-holy      { background: rgba(251,191,36,.2);  color: #fde68a; border-color: rgba(251,191,36,.55); }
+    .el-fire      { background: rgba(249,115,22,.2);  color: #fdba74; border-color: rgba(249,115,22,.55); }
+    .el-lightning { background: rgba(96,165,250,.2);  color: #93c5fd; border-color: rgba(96,165,250,.55); }
+    .el-magic     { background: rgba(167,139,250,.2); color: #c4b5fd; border-color: rgba(167,139,250,.55); }
+    .el-poison    { background: rgba(74,222,128,.2);  color: #86efac; border-color: rgba(74,222,128,.55); }
+    .el-bleed     { background: rgba(239,68,68,.2);   color: #fca5a5; border-color: rgba(239,68,68,.55); }
+    .el-rot       { background: rgba(251,146,60,.2);  color: #fdba74; border-color: rgba(251,146,60,.55); }
+    .el-frost     { background: rgba(147,197,253,.2); color: #bae6fd; border-color: rgba(147,197,253,.55); }
+    .el-sleep     { background: rgba(192,132,252,.2); color: #e9d5ff; border-color: rgba(192,132,252,.55); }
+    .el-madness   { background: rgba(234,179,8,.2);   color: #fde047; border-color: rgba(234,179,8,.55); }
+    .el-death     { background: rgba(15,15,20,.9);    color: #71717a; border-color: rgba(113,113,122,.3); }
+    .el-physical  { background: rgba(163,163,163,.15);color: #d4d4d4; border-color: rgba(163,163,163,.4); }
+
+    /* ─── Boss card pin button ────────────────────────────────── */
+    .boss-pin-btn {
+      position: absolute;
+      top: 9px; right: 9px;
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.13);
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .boss-pin-btn:hover { background: var(--accent); border-color: var(--accent); color: #08080e; }
+    .boss-pin-btn.pinned { background: var(--accent); border-color: var(--accent); color: #08080e; }
+
+    /* ─── Resistance section inside boss card ─────────────────── */
+    .resist-section { margin-top: 5px; }
+    .resist-label {
+      font-size: .58rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .resist-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+    .resist-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      padding: 2px 5px;
+      border-radius: 4px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .r-low  { background: rgba(52,211,153,.13); color: #34d399; border-color: rgba(52,211,153,.35); }
+    .r-med  { background: rgba(251,191,36,.12); color: #fbbf24; border-color: rgba(251,191,36,.32); }
+    .r-high { background: rgba(249,115,22,.12); color: #fb923c; border-color: rgba(249,115,22,.32); }
+    .r-imm  { background: rgba(75,85,99,.15);   color: #6b7280; border-color: rgba(75,85,99,.3); }
+
+    /* Elemental modifier pills */
+    .elem-grid { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+    .elem-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 2px 5px;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+    .ep-pos { background: rgba(52,211,153,.12); color: #34d399; border-color: rgba(52,211,153,.3); }
+    .ep-neg { background: rgba(239,68,68,.10);  color: #f87171; border-color: rgba(239,68,68,.28); }
+    .ep-neu { background: rgba(75,85,99,.12);   color: #9ca3af; border-color: rgba(75,85,99,.28); }
+
+    /* ─── Pinned boss panel ───────────────────────────────────── */
+    .pin-panel {
+      display: none;
+      position: sticky;
+      top: 8px;
+      z-index: 50;
+      background: rgba(10,10,20,0.97);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: 0 0 40px var(--glow), 0 8px 32px rgba(0,0,0,.7);
+      backdrop-filter: blur(10px);
+      transition: border-color 1.2s, box-shadow 1.2s;
+    }
+    .pin-panel.visible { display: block; }
+    .pin-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .pin-label {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .pin-dismiss {
+      cursor: pointer;
+      font-size: .9rem;
+      color: var(--muted);
+      width: 22px; height: 22px;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .pin-dismiss:hover { background: rgba(239,68,68,.2); color: #f87171; border-color: rgba(239,68,68,.4); }
+    .pin-body { display: flex; gap: 14px; align-items: flex-start; }
+    .pin-icon-big { font-size: 2.2rem; line-height: 1; flex-shrink: 0; }
+    .pin-info { flex: 1; min-width: 0; }
+    .pin-name {
+      font-family: 'Cinzel', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .03em;
+      margin-bottom: 4px;
+    }
+    .pin-exp { font-size: .64rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+    .pin-weak-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; align-items: center; }
+    .pin-tip { font-size: .72rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
+    @media (min-width: 780px) {
+      .pin-name { font-size: 1.1rem; }
+      .pin-tip { font-size: .8rem; }
+      .pin-icon-big { font-size: 2.6rem; }
+    }
+
+    /* ─── Day 2 popup overlay ─────────────────────────────────── */
+    .day2-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      display: none;
+    }
+    .day2-overlay.show { display: flex; }
+    .day2-modal {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 36px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 60px var(--glow), 0 20px 60px rgba(0,0,0,.8);
+      position: relative;
+    }
+    .day2-modal::before {
+      content:'';
+      position:absolute; inset:0 0 auto;
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .day2-modal-icon { font-size: 3rem; margin-bottom: 14px; line-height:1; }
+    .day2-modal-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px var(--glow);
+    }
+    .day2-modal-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .day2-modal-desc strong { color: var(--text); }
+
     /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width:520px) {
       .card { padding: 20px 16px; }
@@ -1101,7 +1358,37 @@
 <div id="flash"></div>
 <button id="soundBtn">🔔 Sound: ON</button>
 
+<!-- Day 2 popup overlay -->
+<div class="day2-overlay" id="day2Overlay">
+  <div class="day2-modal">
+    <div class="day2-modal-icon">☀️</div>
+    <div class="day2-modal-title">Day 2 Has Begun!</div>
+    <div class="day2-modal-desc">
+      When you see the <strong>Day 2 screen</strong> in-game — the map opens back up — click below to start the Day 2 timer.
+    </div>
+    <button class="btn btn-primary" id="day2StartBtn" style="width:100%;max-width:280px;margin:0 auto;display:block;">▶ Start Day 2 Timer</button>
+  </div>
+</div>
+
 <div class="wrap">
+
+  <!-- Pinned boss panel -->
+  <div class="pin-panel" id="pinPanel">
+    <div class="pin-panel-header">
+      <span class="pin-label">📌 Pinned — Quick Reference</span>
+      <button class="pin-dismiss" id="pinDismiss" title="Unpin">✕</button>
+    </div>
+    <div class="pin-body">
+      <div class="pin-icon-big" id="pinIcon"></div>
+      <div class="pin-info">
+        <div class="pin-name" id="pinName"></div>
+        <div class="pin-exp" id="pinExp"></div>
+        <div class="pin-weak-row" id="pinWeak"></div>
+        <div class="resist-grid" id="pinResist" style="margin-bottom:5px;"></div>
+        <div class="pin-tip" id="pinTip"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Header -->
   <div class="header">
@@ -1145,7 +1432,7 @@
     <div class="hints">
       <kbd>Space</kbd> start/pause &nbsp;·&nbsp;
       <kbd>R</kbd> reset &nbsp;·&nbsp;
-      <kbd>1</kbd>–<kbd>4</kbd> jump to phase
+      <kbd>1</kbd>–<kbd>9</kbd> jump to phase
     </div>
 
   </div><!-- /card -->
@@ -1168,78 +1455,79 @@
       <div class="boss-grid">
 
         <!-- 1 Gladius -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-gladius">
           <div class="boss-icon">🐺</div>
           <div class="boss-name">Gladius, Beast of Night</div>
           <div class="boss-expedition">Everdark: Tricephalos</div>
-          <span class="boss-weak weak-holy">✦ Holy</span>
+          <span class="boss-weak weak-holy"><span class="el-icon el-holy" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✦</span> Holy</span>
           <div class="boss-tip">Splits into 3 wolves at 75% HP — focus the red-eyed one. Stay close to bait lunges.</div>
         </div>
 
         <!-- 2 Adel -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-adel">
           <div class="boss-icon">🦷</div>
           <div class="boss-name">Adel, Baron of Night</div>
           <div class="boss-expedition">Everdark: Gaping Jaw</div>
-          <span class="boss-weak weak-poison">✦ Poison</span>
-          <div class="boss-tip">Stack poison and kite his charges. Watch for lightning geysers in phase 2.</div>
+          <span class="boss-weak weak-poison"><span class="el-icon el-rot" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✾</span> Rot / Bleed / Frost</span>
+          <div class="boss-tip">Resists poison — use Rot, Bleed, or Frost instead. Kite his charges. Watch for lightning geysers in phase 2.</div>
         </div>
 
         <!-- 3 Gnoster -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-gnoster">
           <div class="boss-icon">🦋</div>
           <div class="boss-name">Gnoster, Wisdom of Night</div>
           <div class="boss-expedition">Everdark: Sentient Pest</div>
-          <span class="boss-weak weak-fire">✦ Fire</span>
+          <span class="boss-weak weak-fire"><span class="el-icon el-fire" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">♨</span> Fire</span>
           <div class="boss-tip">Team splits — ranged on the moth, melee on the ant. Keep moving to avoid rune-drain swarms.</div>
         </div>
 
         <!-- 4 Maris -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-maris">
           <div class="boss-icon">🌊</div>
           <div class="boss-name">Maris, Fathom of Night</div>
           <div class="boss-expedition">Everdark: Augur</div>
-          <span class="boss-weak weak-lightning">✦ Lightning</span>
-          <div class="boss-tip">Any Lightning hit cancels her Sleep cast. Destroy the floating egg midair before it lands.</div>
+          <span class="boss-weak weak-lightning"><span class="el-icon el-lightning" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">↯</span> Lightning</span>
+          <div class="boss-tip">Any Lightning hit cancels her Sleep cast. Destroy the floating egg midair before it lands. Immune to Rot, Bleed, and Sleep.</div>
         </div>
 
         <!-- 5 Libra -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-libra">
           <div class="boss-icon">⚖️</div>
           <div class="boss-name">Libra, Creature of Night</div>
           <div class="boss-expedition">Everdark: Equilibrious Beast</div>
-          <span class="boss-weak weak-madness">✦ Madness</span>
-          <div class="boss-tip">Destroy light symbols to remove orb shield before casting — reflected projectiles can down you.</div>
+          <span class="boss-weak weak-madness"><span class="el-icon el-madness" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">◎</span> Madness</span>
+          <div class="boss-tip">Destroy light symbols to remove orb shield before casting — reflected projectiles can down you. Immune to Sleep.</div>
         </div>
 
         <!-- 6 Fulghor -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-fulghor">
           <div class="boss-icon">⚡</div>
           <div class="boss-name">Fulghor, Champion of Nightglow</div>
           <div class="boss-expedition">Everdark: Darkdrift Knight</div>
-          <span class="boss-weak weak-lightning">✦ Lightning</span>
-          <div class="boss-tip">One-armed centaur that can regrow its arm mid-fight. Deal Holy damage, punish recovery windows.</div>
+          <span class="boss-weak weak-lightning"><span class="el-icon el-lightning" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">↯</span> Lightning</span>
+          <div class="boss-tip">One-armed centaur that can regrow its arm mid-fight. Use Lightning — avoid Holy (he resists it). All status ailments apply easily (154 resistance across the board).</div>
         </div>
 
         <!-- 7 Caligo -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-caligo">
           <div class="boss-icon">🌫️</div>
           <div class="boss-name">Caligo, Miasma of Night</div>
           <div class="boss-expedition">Everdark: Fissure in the Fog</div>
-          <span class="boss-weak weak-fire">✦ Fire</span>
-          <div class="boss-tip">Highly evasive — Fire relics are essential for consistent damage through the miasma clouds.</div>
+          <span class="boss-weak weak-fire"><span class="el-icon el-fire" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">♨</span> Fire</span>
+          <div class="boss-tip">Highly evasive — Fire relics are essential. Resists Rot and Sleep (541). Kite and burst through the miasma clouds.</div>
         </div>
 
         <!-- 8 Heolstor — full width / final -->
-        <div class="boss-card final">
+        <div class="boss-card final" id="boss-heolstor">
           <div class="boss-icon">👑</div>
           <div class="boss-name">Heolstor, the Nightlord &nbsp;— TRUE FINAL BOSS</div>
           <div class="boss-expedition">Everdark: Night Aspect · Unlock: clear all 7 other expeditions</div>
-          <span class="boss-weak weak-holy">✦ Holy</span>
+          <span class="boss-weak weak-holy"><span class="el-icon el-holy" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✦</span> Holy · P1+Fire · P2+Lightning</span>
           <div class="boss-tip">
             Two full HP bars. Save all flasks &amp; ultimates for phase 2 — they don't refill between phases.<br>
             Phase 2: dodge <em>through</em> attacks, never backward (elemental AoE zones linger behind you).<br>
-            At 75 / 50 / 25% HP he flies up for a one-hit-kill nuke — sprint to the arena edge immediately.
+            At 75 / 50 / 25% HP he flies up for a one-hit-kill nuke — sprint to the arena edge immediately.<br>
+            Immune to Poison, Rot, and Bleed.
           </div>
         </div>
 
@@ -1247,21 +1535,21 @@
         <div class="boss-dlc-header"><span>DLC — The Forsaken Hollows</span></div>
 
         <!-- 9 Harmonia / Balancers -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-harmonia">
           <div class="boss-icon">⚔️</div>
           <div class="boss-name">Weapon Bequeathed Harmonia</div>
           <div class="boss-expedition">Everdark: Balancers · Unlock: beat Tricephalos + 1 other, unlock Scholar &amp; Undertaker</div>
-          <span class="boss-weak" style="background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)">✦ Sleep</span>
-          <div class="boss-tip">7 valkyrie-style enemies. Sleep status hits fast and lasts long — crit sleeping enemies. Most attacks are parryable; a single parry staggers. Failing to kill all Balancers before Night ends costs your Healing Flasks.</div>
+          <span class="boss-weak" style="background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)"><span class="el-icon el-sleep" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">◗</span> Sleep</span>
+          <div class="boss-tip">7 valkyrie-style enemies. Sleep status hits fast (84 resist!) — crit sleeping enemies. Most attacks are parryable; a single parry staggers. Failing to kill all Balancers before Night ends costs your Healing Flasks.</div>
         </div>
 
         <!-- 10 Dreglord -->
-        <div class="boss-card">
+        <div class="boss-card" id="boss-dreglord">
           <div class="boss-icon">🧟</div>
           <div class="boss-name">Dreglord — Traitorous Straghess</div>
           <div class="boss-expedition">Everdark: Forsaken Hollows · Unlock: beat Balancers</div>
-          <span class="boss-weak weak-holy">✦ Holy / Fire / Bleed</span>
-          <div class="boss-tip">Two HP bars (Phase 2 = Pure Impulse Straghess). Phase 1: Scarlet Rot spam — stock Preserving Boluses. Avoid Lightning (resistant). Bleed chunks HP fastest. Stagger pillar-leap attacks with Ultimate Arts. Save 3 flasks for phase 2.</div>
+          <span class="boss-weak weak-holy"><span class="el-icon el-holy" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✦</span> Holy / Fire</span>
+          <div class="boss-tip">Two HP bars (Phase 2 = Pure Impulse Straghess). Phase 1: Scarlet Rot spam — stock Preserving Boluses. Avoid Lightning (resistant). Resists Poison and Rot (542). Stagger pillar-leap attacks with Ultimate Arts. Save 3 flasks for phase 2.</div>
         </div>
 
       </div><!-- /boss-grid -->
@@ -2408,6 +2696,21 @@
         </div>
 
         <div class="inv-card">
+          <div class="inv-badge">🐕</div>
+          <div class="inv-name">Tricephalos Pack Hunt (DLC)</div>
+          <div class="inv-event">Event: A pack of Tricephalos hounds invades across the map in three waves — wolf-dogs with coordinated flanking AI. Defeat all waves before they scatter or the timer expires.</div>
+          <div class="inv-lords">Triggers when Nightlord is: Gladius (DLC variant)</div>
+          <div class="inv-spells-label">Pack abilities:</div>
+          <div class="inv-spells">
+            <span class="spell-tag">Pack Howl (ATK aura)</span>
+            <span class="spell-tag">Frenzy Bite (bleed buildup)</span>
+            <span class="spell-tag">Split Lunge (3-wolf simultaneous charge)</span>
+            <span class="spell-tag">Coordinated Flank</span>
+          </div>
+          <div class="inv-reward"><strong>Buff:</strong> Maximum Stamina permanently increased for the entire run (~+25% base Stamina). Also grants a Stamina regen boost after rolling — aggressive roll-catching and combo-extending playstyles benefit enormously. One of the best quality-of-life buffs heading into the Night Lord.</div>
+        </div>
+
+        <div class="inv-card">
           <div class="inv-badge">⚔️</div>
           <div class="inv-name">Rise from Near-Death (DLC)</div>
           <div class="inv-event">Event: Balancers raid — 7 valkyrie-type warriors teleport your team to an arena. Each kill refills 1 Flask; failing to kill all 7 costs every Flask you have for the rest of the Night.</div>
@@ -2433,57 +2736,131 @@
 <script>
 /* ================================================================
    NIGHTREIGN TIMER
-   Phase timings sourced from baspla/nightreign (timer.js)
-   Day 1: 265s  |  Night 1: 175s  |  Day 2: 205s  |  Night 2: 175s
-   Total: 820s  |  End: Boss Fight
+   Structured as: Day 1 (3 sub-phases, 265s total)
+                  Night 1 — Interim Boss (175s)
+                  [Day 2 popup]
+                  Day 2 (3 sub-phases, 205s total)
+                  Night 2 — Final Boss + Night Lord (2 sub-phases, 175s total)
+   Grand Total: 820s
 ================================================================ */
 
 const PHASES = [
+  /* ── Day 1 ──────────────────────────────── */
   {
+    group     : 'day1',
     bodyClass : 'p0',
-    icon      : '☀️',
-    short     : 'Day 1',
-    name      : 'Day 1 — Exploration',
-    desc      : 'Explore, gather loot, and prepare for the storm',
-    duration  : 265,          // 4:25
-    warnAt    : 60,
-    warnMsg   : '⚡ Storm closing in — 1 minute remaining!',
+    icon      : '🌅',
+    short     : 'D1 Circle 1',
+    name      : 'Day 1 — First Circle',
+    desc      : 'Storm begins to close — loot fast and watch the boundary',
+    duration  : 115,          // 1:55
+    warnAt    : 30,
+    warnMsg   : '⚡ Second circle shrinking — head to safe zone!',
     warnType  : 'warn',
   },
   {
-    bodyClass : 'p1',
-    icon      : '🌩️',
-    short     : 'Night 1',
-    name      : 'Night 1 — Storm Closing',
-    desc      : 'Storm shrinking — move to the safe zone now',
-    duration  : 175,          // 2:55
+    group     : 'day1',
+    bodyClass : 'p0',
+    icon      : '🌄',
+    short     : 'D1 Circle 2',
+    name      : 'Day 1 — Second Circle',
+    desc      : 'Storm tightens — start heading toward the Erdtree fragment',
+    duration  : 90,           // 1:30
     warnAt    : 30,
-    warnMsg   : '💀 Night Boss spawning soon — get in position!',
+    warnMsg   : '🌳 Run to the tree! Storm closing fast!',
+    warnType  : 'warn',
+  },
+  {
+    group     : 'day1',
+    bodyClass : 'p1',
+    icon      : '🌳',
+    short     : 'Run to Tree',
+    name      : 'Day 1 — Run to Tree',
+    desc      : 'Sprint to the Erdtree fragment — boss fight incoming!',
+    duration  : 60,           // 1:00
+    warnAt    : 15,
+    warnMsg   : '⚔️ Boss fight imminent — get in position!',
+    warnType  : 'danger',
+  },
+  /* ── Night 1 (Interim Boss) ──────────────── */
+  {
+    group     : 'night1',
+    bodyClass : 'pboss',
+    icon      : '💀',
+    short     : 'Interim Boss',
+    name      : 'Night 1 — Interim Boss',
+    desc      : 'Fight the boss at the Erdtree — save flasks for Day 2',
+    duration  : 175,          // 2:55
+    warnAt    : 0,
+    warnMsg   : '',
+    warnType  : 'warn',
+  },
+  /* ── Day 2 (starts after popup) ─────────── */
+  {
+    group     : 'day2',
+    bodyClass : 'p2',
+    icon      : '☀️',
+    short     : 'D2 Full Map',
+    name      : 'Day 2 — Full Map Open',
+    desc      : 'Full map is open — gear up fast before the circle closes',
+    duration  : 85,           // 1:25
+    warnAt    : 30,
+    warnMsg   : '⚡ First circle closing — move toward the Erdtree!',
+    warnType  : 'warn',
+  },
+  {
+    group     : 'day2',
+    bodyClass : 'p2',
+    icon      : '🌄',
+    short     : 'D2 Circle 1',
+    name      : 'Day 2 — First Circle',
+    desc      : 'Storm closing in — push toward the Erdtree now',
+    duration  : 80,           // 1:20
+    warnAt    : 30,
+    warnMsg   : '🌳 Run to the tree — Night Lord approaches!',
     warnType  : 'danger',
   },
   {
-    bodyClass : 'p2',
-    icon      : '🌅',
-    short     : 'Day 2',
-    name      : 'Day 2 — Final Push',
-    desc      : 'Last window to gear up — the final storm is coming',
-    duration  : 205,          // 3:25
-    warnAt    : 60,
-    warnMsg   : '⚡ Final storm approaching — 1 minute left!',
+    group     : 'day2',
+    bodyClass : 'p3',
+    icon      : '🌳',
+    short     : 'Run to Tree',
+    name      : 'Day 2 — Run to Tree',
+    desc      : 'Final sprint to the Erdtree — the Night Lord awakens',
+    duration  : 40,           // 0:40
+    warnAt    : 15,
+    warnMsg   : '⚔️ Night Lord IMMINENT — prepare everything!',
+    warnType  : 'danger',
+  },
+  /* ── Night 2 (Final Boss + Night Lord) ─── */
+  {
+    group     : 'night2',
+    bodyClass : 'pboss',
+    icon      : '🔥',
+    short     : 'Final Boss',
+    name      : 'Night 2 — Final Boss',
+    desc      : 'Second interim boss — save ultimates for the Night Lord',
+    duration  : 90,           // 1:30
+    warnAt    : 0,
+    warnMsg   : '',
     warnType  : 'warn',
   },
   {
-    bodyClass : 'p3',
-    icon      : '🔥',
-    short     : 'Night 2',
-    name      : 'Night 2 — Storm Closing',
-    desc      : 'Converge on the boss arena — the Night Lord awaits',
-    duration  : 175,          // 2:55
-    warnAt    : 30,
-    warnMsg   : '⚔️ Night Lord incoming — prepare for battle!',
+    group     : 'night2',
+    bodyClass : 'pboss',
+    icon      : '👑',
+    short     : 'Night Lord',
+    name      : 'Night 2 — Night Lord!',
+    desc      : 'THE NIGHT LORD AWAKENS — use everything you have!',
+    duration  : 85,           // 1:25
+    warnAt    : 0,
+    warnMsg   : '',
     warnType  : 'danger',
   },
 ];
+
+// Phase index at which to show the Day 2 popup (after Night 1 boss)
+const DAY2_POPUP_AFTER = 3;
 
 const TOTAL = PHASES.reduce((s, p) => s + p.duration, 0); // 820
 
@@ -2630,7 +3007,7 @@ function render() {
   $fill.style.width = `${Math.min((elapsed/TOTAL)*100, 100)}%`;
   $start.textContent = running ? 'Pause' : (elapsed === 0 ? 'Start — GL HF' : 'Resume');
 
-  if (running && left <= p.warnAt) {
+  if (running && p.warnAt > 0 && left <= p.warnAt) {
     showAlert(p.warnMsg, p.warnType);
   } else {
     hideAlert();
@@ -2677,6 +3054,18 @@ function tick() {
 function nextPhase() {
   phase++;
   warned = false;
+
+  // After Night 1 boss completes → show Day 2 popup, pause timer
+  if (phase === DAY2_POPUP_AFTER + 1) {
+    running = false;
+    sfxPhaseChange();
+    flash();
+    left = PHASES[phase].duration;
+    render();
+    showDay2Popup();
+    return;
+  }
+
   if (phase >= PHASES.length) {
     running = false;
     sfxBoss();
@@ -2689,6 +3078,13 @@ function nextPhase() {
   flash();
   render();
   timer = setTimeout(tick, 1000);
+}
+
+function showDay2Popup() {
+  document.getElementById('day2Overlay').classList.add('show');
+}
+function hideDay2Popup() {
+  document.getElementById('day2Overlay').classList.remove('show');
 }
 
 function startPause() {
@@ -2736,17 +3132,270 @@ $sound.addEventListener('click', () => {
   sound = !sound;
   $sound.textContent = sound ? '🔔 Sound: ON' : '🔕 Sound: OFF';
 });
+document.getElementById('day2StartBtn').addEventListener('click', () => {
+  hideDay2Popup();
+  // phase is already set to DAY2_POPUP_AFTER+1 (the first Day 2 phase)
+  running = true;
+  try { audio().resume(); } catch(_) {}
+  render();
+  timer = setTimeout(tick, 1000);
+});
 document.addEventListener('keydown', e => {
   if (e.target !== document.body) return;
   if (e.code === 'Space') { e.preventDefault(); startPause(); }
   if (e.key.toLowerCase() === 'r') doReset();
-  if (e.key >= '1' && e.key <= '4') jumpTo(+e.key - 1);
+  if (e.key >= '1' && e.key <= '9') jumpTo(+e.key - 1);
 });
 
 /* ── Init ───────────────────────────────────────────────────── */
 buildDividers();
 buildJumps();
 render();
+
+/* ================================================================
+   BOSS DATA — resistances from reference table
+   Status resistance scale: 84=very easy · 154=easy · 252=moderate
+                            541/542=hard · Immune=cannot proc
+   Elemental modifiers: positive=boss takes more dmg (weak)
+                        negative=boss takes less dmg (resistant)
+   Element column order: Magic, Fire, Lightning, Holy
+================================================================ */
+
+const BOSS_DATA = {
+  'gladius': {
+    name: 'Gladius, Beast of Night', icon: '🐺',
+    expedition: 'Everdark: Tricephalos',
+    weakLabel: '✦ Holy', weakClass: 'weak-holy',
+    tip: 'Splits into 3 wolves at 75% HP — focus the red-eyed one. Stay close to bait lunges.',
+    elem: { magic:0, fire:-50, lightning:0, holy:35 },
+    status: { poison:252, rot:541, bleed:541, frost:252, sleep:154, madness:null, death:null },
+  },
+  'adel': {
+    name: 'Adel, Baron of Night', icon: '🦷',
+    expedition: 'Everdark: Gaping Jaw',
+    weakLabel: '✦ Rot / Bleed / Frost', weakClass: 'weak-poison',
+    tip: 'Resists Poison (541). Use Rot, Bleed, or Frost — all at low 154 resistance. Kite his charges. Watch for lightning geysers in phase 2.',
+    elem: { magic:0, fire:-20, lightning:-50, holy:0 },
+    status: { poison:541, rot:154, bleed:154, frost:154, sleep:154, madness:null, death:null },
+  },
+  'gnoster': {
+    name: 'Gnoster, Wisdom of Night', icon: '🦋',
+    expedition: 'Everdark: Sentient Pest',
+    weakLabel: '✦ Fire', weakClass: 'weak-fire',
+    tip: 'Team splits — ranged on the moth, melee on the ant. Avoid Magic (−50%). Keep moving to avoid rune-drain swarms.',
+    elem: { magic:-50, fire:40, lightning:-10, holy:-10 },
+    status: { poison:154, rot:541, bleed:541, frost:154, sleep:154, madness:null, death:null },
+  },
+  'maris': {
+    name: 'Maris, Fathom of Night', icon: '🌊',
+    expedition: 'Everdark: Augur',
+    weakLabel: '✦ Lightning', weakClass: 'weak-lightning',
+    tip: 'Any Lightning hit cancels her Sleep cast. Destroy the floating egg midair. Immune to Rot, Bleed, and Sleep. Avoid Fire (−50%).',
+    elem: { magic:-20, fire:-50, lightning:40, holy:-15 },
+    status: { poison:252, rot:null, bleed:null, frost:252, sleep:null, madness:null, death:null },
+  },
+  'libra': {
+    name: 'Libra, Creature of Night', icon: '⚖️',
+    expedition: 'Everdark: Equilibrious Beast',
+    weakLabel: '✦ Madness', weakClass: 'weak-madness',
+    tip: 'Destroy light symbols to remove orb shield. Immune to Sleep. Madness procs easily (154). Reflected projectiles can down you.',
+    elem: { magic:-20, fire:20, lightning:0, holy:35 },
+    status: { poison:252, rot:252, bleed:154, frost:154, sleep:null, madness:154, death:null },
+  },
+  'fulghor': {
+    name: 'Fulghor, Champion of Nightglow', icon: '⚡',
+    expedition: 'Everdark: Darkdrift Knight',
+    weakLabel: '✦ Lightning', weakClass: 'weak-lightning',
+    tip: 'One-armed centaur that regrows its arm mid-fight. Use Lightning (+20%) — avoid Holy (−30%). All status ailments apply easily (154 across the board).',
+    elem: { magic:0, fire:0, lightning:20, holy:-30 },
+    status: { poison:154, rot:154, bleed:154, frost:154, sleep:154, madness:null, death:null },
+  },
+  'caligo': {
+    name: 'Caligo, Miasma of Night', icon: '🌫️',
+    expedition: 'Everdark: Fissure in the Fog',
+    weakLabel: '✦ Fire', weakClass: 'weak-fire',
+    tip: 'Fire is the key (+35%) — use Fire relics. Resists Rot and Sleep (541 each). Avoid Magic, Lightning, Holy (all −20%). Highly evasive — stay aggressive.',
+    elem: { magic:-20, fire:35, lightning:-20, holy:-20 },
+    status: { poison:252, rot:541, bleed:252, frost:252, sleep:541, madness:null, death:null },
+  },
+  'heolstor': {
+    name: 'Heolstor, the Nightlord', icon: '👑',
+    expedition: 'Everdark: Night Aspect — TRUE FINAL BOSS',
+    weakLabel: '✦ Holy · P1+Fire · P2+Lightning', weakClass: 'weak-holy',
+    tip: 'Phase 1 weak to Holy+Fire. Phase 2 weak to Holy+Lightning. Immune to Poison, Rot, Bleed. Save all flasks for P2 — sprint to arena edge at 75/50/25% HP or instant-kill nuke hits.',
+    elem: { magic:0, fire:10, lightning:10, holy:28 },
+    status: { poison:null, rot:null, bleed:null, frost:252, sleep:541, madness:null, death:null },
+  },
+  'harmonia': {
+    name: 'Weapon Bequeathed Harmonia', icon: '⚔️',
+    expedition: 'Everdark: Balancers (DLC)',
+    weakLabel: '✦ Sleep', weakClass: '',
+    tip: 'Sleep procs instantly — resistance only 84! Crit all sleeping enemies. Most attacks parryable (single parry = stagger). Resists Holy (−30%). Kill all 7 before Night ends.',
+    elem: { magic:0, fire:-8, lightning:-10, holy:-30 },
+    status: { poison:252, rot:252, bleed:252, frost:252, sleep:84, madness:null, death:null },
+  },
+  'dreglord': {
+    name: 'Dreglord — Traitorous Straghess', icon: '🧟',
+    expedition: 'Everdark: Forsaken Hollows (DLC)',
+    weakLabel: '✦ Holy / Fire', weakClass: 'weak-holy',
+    tip: 'Weak to Holy (+25%) and Fire (+20%). Resists Poison and Rot (542 each). Phase 1: Rot spam from boss — stock Preserving Boluses. Avoid Lightning. Save 3 flasks for phase 2.',
+    elem: { magic:0, fire:20, lightning:-10, holy:25 },
+    status: { poison:542, rot:542, bleed:252, frost:252, sleep:252, madness:null, death:null },
+  },
+};
+
+/* ── Element icon helpers ─────────────────────────────────────── */
+const ELEM_META = {
+  magic:     { icon: '✦', label: 'Mgk', cls: 'el-magic' },
+  fire:      { icon: '♨', label: 'Fire', cls: 'el-fire' },
+  lightning: { icon: '↯', label: 'Lgtn', cls: 'el-lightning' },
+  holy:      { icon: '✦', label: 'Holy', cls: 'el-holy' },
+};
+const STATUS_META = {
+  poison: { icon: '☠', label: 'PSN',  cls: 'el-poison' },
+  rot:    { icon: '✾', label: 'ROT',  cls: 'el-rot' },
+  bleed:  { icon: '♦', label: 'BLD',  cls: 'el-bleed' },
+  frost:  { icon: '❄', label: 'FRZ',  cls: 'el-frost' },
+  sleep:  { icon: '◗', label: 'SLP',  cls: 'el-sleep' },
+  madness:{ icon: '◎', label: 'MDN',  cls: 'el-madness' },
+  death:  { icon: '✝', label: 'DTH',  cls: 'el-death' },
+};
+
+function resistClass(val) {
+  if (val === null) return 'r-imm';
+  if (val <= 100)   return 'r-low';
+  if (val <= 200)   return 'r-low';
+  if (val <= 300)   return 'r-med';
+  return 'r-high';
+}
+function resistLabel(val) {
+  return val === null ? 'Immune' : String(val);
+}
+function elemPillClass(val) {
+  if (val > 0)  return 'ep-pos';
+  if (val < 0)  return 'ep-neg';
+  return 'ep-neu';
+}
+function elemSign(val) {
+  return val > 0 ? `+${val}%` : `${val}%`;
+}
+
+function buildResistHTML(boss) {
+  // Status ailment pills
+  let pills = Object.entries(STATUS_META).map(([key, meta]) => {
+    const val = boss.status[key];
+    const rc  = resistClass(val);
+    const rl  = resistLabel(val);
+    return `<span class="resist-pill ${rc}" title="${meta.label === 'DTH' ? 'Death Blight' : key}"><span class="el-icon ${meta.cls}" style="width:14px;height:14px;font-size:9px;border-radius:3px;">${meta.icon}</span> ${rl}</span>`;
+  }).join('');
+
+  // Elemental modifier pills
+  let elems = Object.entries(ELEM_META).map(([key, meta]) => {
+    const val = boss.elem[key];
+    const ec  = elemPillClass(val);
+    const label = val === 0 ? `${meta.label} 0%` : `${meta.label} ${elemSign(val)}`;
+    return `<span class="elem-pill ${ec}"><span class="el-icon ${meta.cls}" style="width:14px;height:14px;font-size:9px;border-radius:3px;">${meta.icon}</span> ${label}</span>`;
+  }).join('');
+
+  return `
+    <div class="resist-section" style="margin-top:7px;">
+      <div class="resist-label">Ailment Resistance</div>
+      <div class="resist-grid">${pills}</div>
+      <div class="elem-grid" style="margin-top:5px;">${elems}</div>
+    </div>`;
+}
+
+/* ── Inject pin buttons + resistance rows into boss cards ─────── */
+let pinnedBoss = null;
+
+function togglePin(id) {
+  if (pinnedBoss === id) {
+    unpin();
+  } else {
+    pinBoss(id);
+  }
+}
+
+function pinBoss(id) {
+  // Deactivate old pin button
+  if (pinnedBoss) {
+    const oldBtn = document.querySelector(`#boss-${pinnedBoss} .boss-pin-btn`);
+    if (oldBtn) { oldBtn.classList.remove('pinned'); oldBtn.textContent = '+'; }
+  }
+  pinnedBoss = id;
+  const boss = BOSS_DATA[id];
+
+  // Activate new pin button
+  const btn = document.querySelector(`#boss-${id} .boss-pin-btn`);
+  if (btn) { btn.classList.add('pinned'); btn.textContent = '📌'; }
+
+  // Build pin panel content
+  document.getElementById('pinIcon').textContent = boss.icon;
+  document.getElementById('pinName').textContent = boss.name;
+  document.getElementById('pinExp').textContent  = boss.expedition;
+  document.getElementById('pinTip').textContent  = boss.tip;
+
+  // Weak badges
+  const weakRow = document.getElementById('pinWeak');
+  weakRow.innerHTML = '';
+  const weakSpan = document.createElement('span');
+  weakSpan.className = `boss-weak ${boss.weakClass}`;
+  weakSpan.style.cssText = boss.weakClass ? '' : 'background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)';
+  weakSpan.textContent = boss.weakLabel;
+  weakRow.appendChild(weakSpan);
+
+  // Resistance pills
+  const resistRow = document.getElementById('pinResist');
+  let pills = Object.entries(STATUS_META).map(([key, meta]) => {
+    const val = boss.status[key];
+    const rc  = resistClass(val);
+    const rl  = resistLabel(val);
+    return `<span class="resist-pill ${rc}" title="${key}"><span class="el-icon ${meta.cls}" style="width:14px;height:14px;font-size:9px;border-radius:3px;">${meta.icon}</span> ${rl}</span>`;
+  }).join('');
+  let elems = Object.entries(ELEM_META).map(([key, meta]) => {
+    const val = boss.elem[key];
+    const ec  = elemPillClass(val);
+    const label = val === 0 ? `${meta.label} 0%` : `${meta.label} ${elemSign(val)}`;
+    return `<span class="elem-pill ${ec}"><span class="el-icon ${meta.cls}" style="width:14px;height:14px;font-size:9px;border-radius:3px;">${meta.icon}</span> ${label}</span>`;
+  }).join('');
+  resistRow.innerHTML = pills + `<div class="elem-grid" style="margin-top:4px;width:100%;">${elems}</div>`;
+
+  // Show panel
+  document.getElementById('pinPanel').classList.add('visible');
+
+  // Scroll pin panel into view
+  document.getElementById('pinPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function unpin() {
+  if (pinnedBoss) {
+    const oldBtn = document.querySelector(`#boss-${pinnedBoss} .boss-pin-btn`);
+    if (oldBtn) { oldBtn.classList.remove('pinned'); oldBtn.textContent = '+'; }
+    pinnedBoss = null;
+  }
+  document.getElementById('pinPanel').classList.remove('visible');
+}
+
+document.getElementById('pinDismiss').addEventListener('click', unpin);
+
+// Inject pin buttons and resistance rows into each boss card
+(function initBossCards() {
+  Object.entries(BOSS_DATA).forEach(([id, boss]) => {
+    const card = document.getElementById('boss-' + id);
+    if (!card) return;
+
+    // Pin button
+    const pinBtn = document.createElement('button');
+    pinBtn.className = 'boss-pin-btn';
+    pinBtn.textContent = '+';
+    pinBtn.title = 'Pin above for quick reference';
+    pinBtn.addEventListener('click', e => { e.stopPropagation(); togglePin(id); });
+    card.appendChild(pinBtn);
+
+    // Resistance section
+    card.insertAdjacentHTML('beforeend', buildResistHTML(boss));
+  });
+})();
 
 /* ── Collapsible section toggles ────────────────────────────── */
 const SECTIONS = [
