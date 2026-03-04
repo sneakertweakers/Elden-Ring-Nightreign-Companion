@@ -1528,6 +1528,14 @@
     </div>
   </div>
 
+  <!-- Search bar -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
+    <button class="search-clear" id="searchClear">✕ Clear</button>
+  </div>
+  <div class="search-result-count" id="searchCount"></div>
+
   <!-- Header -->
   <div class="header">
     <div class="title">NIGHTREIGN</div>
@@ -1576,7 +1584,7 @@
 
     <!-- Controls -->
     <div class="controls">
-      <button class="btn btn-primary" id="startBtn">Start Expedition — GL HF</button>
+      <button class="btn btn-primary" id="startBtn">Start Expedition</button>
       <button class="btn btn-secondary" id="resetBtn">Reset</button>
     </div>
 
@@ -1587,14 +1595,6 @@
     </div>
 
   </div><!-- /card -->
-
-  <!-- Search bar -->
-  <div class="search-bar">
-    <span class="search-icon">🔍</span>
-    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
-    <button class="search-clear" id="searchClear">✕ Clear</button>
-  </div>
-  <div class="search-result-count" id="searchCount"></div>
 
   <!-- Boss reference -->
   <div class="boss-section">
@@ -1620,7 +1620,7 @@
           <div class="boss-name js-boss-name">Adel, Baron of Night</div>
           <div class="boss-expedition js-boss-exp">Regular — Standard Expedition</div>
           <span class="boss-weak weak-poison"><span class="el-icon el-rot" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✾</span> Rot / Bleed / Frost</span>
-          <div class="boss-tip js-boss-tip">Resists Poison (541) — use Rot, Bleed, or Frost instead (all 154). Kite his charges. Watch for lightning geysers in phase 2.</div>
+          <div class="boss-tip js-boss-tip">Weak to Poison, Rot, and Frost (all 154). Resists Bleed (541). Kite his charges and avoid standing in front.</div>
         </div>
 
         <!-- 3 Gnoster -->
@@ -1751,7 +1751,7 @@
         <div class="inv-card">
           <div class="inv-badge">🕷️</div>
           <div class="inv-name">Favor of the Night</div>
-          <div class="inv-event">Event: Purple/dark orb visible in the sky — locate and kill all Fingercreepers &amp; their variants in the area</div>
+          <div class="inv-event">Event: Purple/dark orb appears in the sky — locate and defeat all Night Horde enemies (night swarms) in the area</div>
           <div class="inv-lords">Triggers when Nightlord is: Gnoster, Libra, or Harmonia (DLC)</div>
           <div class="inv-spells-label">Invader abilities:</div>
           <div class="inv-spells">
@@ -1788,7 +1788,7 @@
             <span class="spell-tag">Max HP Halved (curse)</span>
             <span class="spell-tag">No combat required — pay or endure</span>
           </div>
-          <div class="inv-reward"><strong>Buff:</strong> After paying: all players receive Demon's Plating — a defensive shell reducing incoming damage for the entire expedition. Also counts as a free Wish (no item or boss requirement). One of the safest buffs — just bank Runes before Night.</div>
+          <div class="inv-reward"><strong>Buff:</strong> After paying: all players receive Demon's Plating — a defensive shell reducing incoming damage for the entire expedition. Also counts as a free Wish (no item or boss requirement). One of the safest buffs — just bank Runes before Night.<br><em class="effect-note" style="display:block;margin-top:4px;font-size:.68rem;">💡 Tip: Stop leveling at character level 10–11 if you want max attack power scaling — ATK efficiency drops significantly past that point.</em></div>
         </div>
 
         <div class="inv-card">
@@ -1809,7 +1809,7 @@
         <div class="inv-card">
           <div class="inv-badge">⚔️</div>
           <div class="inv-name">Rise from Near-Death (DLC)</div>
-          <div class="inv-event">Event: Balancers raid — 7 valkyrie-type warriors teleport your team to an arena. Each kill refills 1 Flask; failing to kill all 7 costs every Flask you have for the rest of the Night.</div>
+          <div class="inv-event">Event: 3 Balancers spawn at the camp and your team is teleported to face them. You must kill all 3 before the storm touches them — failure means you lose all Healing Flasks for the rest of the run.</div>
           <div class="inv-lords">Triggers when Nightlord is: Balancers / Harmonia (DLC only)</div>
           <div class="inv-spells-label">Balancer valkyrie spells / abilities:</div>
           <div class="inv-spells">
@@ -1820,7 +1820,7 @@
             <span class="spell-tag">Wrath of Gold (AoE)</span>
             <span class="spell-tag">Dual Greatsword Combo</span>
           </div>
-          <div class="inv-reward"><strong>Buff:</strong> Rare chance to automatically rise from near-death (works like Wending Grace / Bloodboon). <strong>Each time you rise, ATK power is permanently boosted</strong> for the run. Stacks if you trigger it multiple times. One of the strongest buffs in the game — worth losing Flasks for.</div>
+          <div class="inv-reward"><strong>Buff:</strong> Rare chance to automatically rise from near-death (works like Wending Grace / Bloodboon). <strong>Each time you rise, ATK power is permanently boosted</strong> for the run. Stacks if you trigger it multiple times. One of the strongest buffs in the game.</div>
         </div>
 
       </div><!-- /inv-grid -->
@@ -1853,35 +1853,35 @@
 
         <div class="effect-card">
           <div class="effect-label">Physical ATK Up</div>
-          <div class="effect-value">Delicate: +2% · Polished: +3% · Grand: +4%</div>
-          <div class="effect-note">Flat % bonus to all physical damage. Tier names (Delicate / Polished / Grand) always map to exact fixed values — these are not approximations. Multiple copies of different tiers add together: e.g., Delicate + Grand = +6%.</div>
-          <span class="stack-badge stack-yes">✔ Stacks (additive per tier)</span>
+          <div class="effect-value">+0: +4% · +1: +5% · +2: +6% · +3: +10.5% · +4: +12%</div>
+          <div class="effect-note">Five tiers labeled +0 through +4. Each is a fixed multiplier on physical damage: +0=+4%, +1=+5%, +2=+6%, +3=+10%5, +4=+12%. Multiple copies from different sources stack additively. Shown in-game as "Physical ATK Up +1" etc., not as Delicate/Polished/Grand.</div>
+          <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🔥 Fire ATK Up</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-value">+6% / +9% / +12% (+6/9/12%)</div>
           <div class="effect-note">Boosts Fire damage from weapons and incantations. Each element (Fire, Magic, Lightning, Holy) is tracked separately.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive per element)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">✨ Magic ATK Up</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-value">+6% / +9% / +12% (+6/9/12%)</div>
           <div class="effect-note">Boosts Sorcery and Magic-infused weapon damage only.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">⚡ Lightning ATK Up</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-value">+6% / +9% / +12% (+6/9/12%)</div>
           <div class="effect-note">Boosts Lightning damage from weapons and incantations.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">✦ Holy ATK Up</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12 (+6/9/12%)</div>
+          <div class="effect-value">+6% / +9% / +12% (+6/9/12%)</div>
           <div class="effect-note">Boosts Holy damage from weapons and incantations.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
@@ -1909,56 +1909,56 @@
 
         <div class="effect-card">
           <div class="effect-label">🔄 Improved Charge Attacks</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-value">+6% / +9% / +12%</div>
           <div class="effect-note">Applies only to fully charged heavy attacks. Excellent for strength/colossal weapon users.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">↑ Improved Jump Attacks</div>
-          <div class="effect-value">×1.06 / ×1.09 / ×1.12</div>
+          <div class="effect-value">+6% / +9% / +12%</div>
           <div class="effect-note">Improves all airborne plunge attacks (jumping R1 and R2).</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🛡️ Improved Guard Counters</div>
-          <div class="effect-value">×1.10 / ×1.15 / ×1.20</div>
+          <div class="effect-value">+10% / +15% / +20%</div>
           <div class="effect-note">R2 immediately after blocking an attack. Pairs with Night of the Champion boss relic.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🗡️ Improved Critical Hits</div>
-          <div class="effect-value">×1.12 / ×1.18 / ×1.24</div>
-          <div class="effect-note">Boosts backstab and riposte damage. The unique +1 version (×1.20) stacks with this base version — they are separate effects.</div>
+          <div class="effect-value">+12% / +18% / +24%</div>
+          <div class="effect-note">Boosts backstab and riposte damage. The unique +1 version (+20%) stacks with this base version — they are separate effects.</div>
           <span class="stack-badge stack-yes">✔ Stacks (base + unique +1 are separate)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🌀 Improved Skill ATK</div>
-          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-value">+5% / +8% / +11%</div>
           <div class="effect-note">Boosts damage from activated Weapon Arts (L2). Does not affect passive weapon effects.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🔮 Improved Sorceries &amp; Incantations</div>
-          <div class="effect-value">×1.05 / ×1.08 / ×1.11</div>
+          <div class="effect-value">+5% / +8% / +11%</div>
           <div class="effect-note">Boosts all sorcery and incantation damage. Also extends active spell buff duration (+30% with a separate Relic Effect).</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🎯 Improved Chain Finishers</div>
-          <div class="effect-value">×1.10 / ×1.15 / ×1.20 on last combo hit</div>
+          <div class="effect-value">+10% / +15% / +20% on last combo hit</div>
           <div class="effect-note">Boosts only the final hit in a combo chain. Rewards completing full attack sequences.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
 
         <div class="effect-card">
           <div class="effect-label">🏹 Improved Ranged Attacks</div>
-          <div class="effect-value">×1.07 / ×1.10 / ×1.14</div>
+          <div class="effect-value">+7% / +10% / +14%</div>
           <div class="effect-note">Boosts damage from bows and crossbows. Separate from weapon-type ATK Up for bows.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive)</span>
         </div>
@@ -2016,7 +2016,7 @@
 
         <div class="effect-card">
           <div class="effect-label">💠 Reduced Skill FP Cost</div>
-          <div class="effect-value">×0.88 / ×0.82 / ×0.76 FP cost</div>
+          <div class="effect-value">−12% / −18% / −24% FP cost</div>
           <div class="effect-note">Reduces FP cost of weapon arts and skills. Stacks additively — two copies multiply.</div>
           <span class="stack-badge stack-yes">✔ Stacks (additive %)</span>
         </div>
@@ -2098,225 +2098,85 @@
 
       <!-- ── EVERGOAL SCALING ──────────────────────── -->
       <div class="evergoal-section">
-        <h4>🏕️ Evergoal Rewards</h4>
+        <h4>🏕️ Evergoal — ATK Buff Chart</h4>
         <p class="evergoal-note">
-          Completing an Evergoal gives you <strong>two things</strong>:<br>
-          ① An <strong>equippable Relic</strong> — drops with 2–3 effects rolled from the standard relic pool (same pool as all other relics in the game; no Evergoal-exclusive effects).<br>
-          ② A stacking <strong>Battlefield Experience</strong> ATK buff for the rest of the expedition. The bonus is <strong>multiplicative</strong> with relic ATK, invasion buffs, and weapon passives.
+          <strong>Relic Effect: Attack power permanently increased for each Evergaol prisoner defeated</strong><br>
+          Each Evergaol boss cleared = ×1.05 attack power, stacking multiplicatively. Max 7 per run.
+          You also receive an equippable Relic from the standard relic pool (no Evergoal-exclusive effects).
         </p>
         <table class="evergoal-table">
           <thead>
-            <tr>
-              <th>Evergoals Cleared</th>
-              <th>Bonus per Layer</th>
-              <th>Est. Total</th>
-              <th>Notes</th>
-            </tr>
+            <tr><th>Evergoals</th><th>Stack</th><th>Total / Bonus</th><th>Notes</th></tr>
           </thead>
           <tbody>
-            <tr><td class="eg-count">0</td><td>—</td><td class="eg-total">+0%</td><td>Baseline</td></tr>
-            <tr><td class="eg-count">1</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+2%</td><td>First camp</td></tr>
-            <tr><td class="eg-count">2</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+4%</td><td></td></tr>
-            <tr><td class="eg-count">3</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+6%</td><td></td></tr>
-            <tr><td class="eg-count">4</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+8%</td><td></td></tr>
-            <tr><td class="eg-count">5</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+10%</td><td>Strong midpoint</td></tr>
-            <tr><td class="eg-count">6</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+12%</td><td></td></tr>
-            <tr class="eg-highlight"><td class="eg-count">7</td><td class="eg-bonus">~+2%</td><td class="eg-total">~+14%</td><td>Max in full run — ~= Grand Physical ATK relic</td></tr>
+            <tr class="eg-highlight"><td class="eg-count">0</td><td class="eg-bonus">—</td><td class="eg-total">x1.0000 = +0.0%</td><td>Baseline</td></tr>
+            <tr><td class="eg-count">1</td><td class="eg-bonus">x1.05 x1</td><td class="eg-total">x1.0500 = +5.0%</td><td></td></tr>
+            <tr><td class="eg-count">2</td><td class="eg-bonus">x1.05 x2</td><td class="eg-total">x1.1025 = +10.3%</td><td></td></tr>
+            <tr><td class="eg-count">3</td><td class="eg-bonus">x1.05 x3</td><td class="eg-total">x1.1576 = +15.8%</td><td></td></tr>
+            <tr><td class="eg-count">4</td><td class="eg-bonus">x1.05 x4</td><td class="eg-total">x1.2155 = +21.6%</td><td></td></tr>
+            <tr><td class="eg-count">5</td><td class="eg-bonus">x1.05 x5</td><td class="eg-total">x1.2763 = +27.6%</td><td></td></tr>
+            <tr><td class="eg-count">6</td><td class="eg-bonus">x1.05 x6</td><td class="eg-total">x1.3401 = +34.0%</td><td></td></tr>
+            <tr class="eg-highlight"><td class="eg-count">7</td><td class="eg-bonus">x1.05 x7</td><td class="eg-total">x1.4071 = +40.7%</td><td>Max — 7 Evergoals in one full run</td></tr>
           </tbody>
         </table>
         <p class="evergoal-note" style="margin-top:8px;">
-          ⚠ Per-Evergoal values are community-estimated (~±1%). Stacks <strong>multiplicatively</strong> with all relic ATK, Low HP ATK, invasion buffs, and weapon passives.
+          Stacks <strong>multiplicatively</strong> with all other ATK sources (relics, invasion buffs, weapon passives).
         </p>
       </div><!-- /evergoal-section -->
 
 
       <div class="effect-category">🧑 Character Passives (Nightfarer-Specific)</div>
       <div class="relic-system" style="margin-bottom:10px;">
-        Character passives can only appear on relics when that specific Nightfarer is in the expedition.
-        <strong>None of these stack</strong> — only one copy of each can be active at a time.
+        Character passives only appear on relics when that Nightfarer is in the expedition.
+        None of these can appear multiple times on a relic.
       </div>
 
-      <!-- Duchess -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Duchess</div>
+      <div class="effect-card"><div class="effect-label">[Duchess] Become difficult to spot and silence footsteps after landing critical from behind</div><div class="effect-note">After landing a critical hit from behind, become hard to detect and footsteps are silenced.</div></div>
+      <div class="effect-card"><div class="effect-label">[Duchess] Successive dagger attack reprises event upon nearby enemies</div><div class="effect-note">After executing a full dagger chain attack, triggers another instance of Restage.</div></div>
+      <div class="effect-card"><div class="effect-label">[Duchess] Defeating enemies while Art is active ups attack power</div><div class="effect-note">While invisible after using Finale, gain +15% damage for 30 seconds after any team member kills an enemy.</div></div>
+      <div class="effect-card"><div class="effect-label">[Duchess] Improved Character Skill Attack Power</div><div class="effect-note">Restage damage now does 60% of the original damage, instead of 50%.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Duchess] After-Crit Stealth</div>
-        <div class="effect-note">After landing a critical hit from behind, become hard to detect and footsteps are silenced.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Duchess] Restage Chain Trigger</div>
-        <div class="effect-note">After executing a full dagger chain attack, triggers another instance of Restage.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Duchess] Finale Kill Bonus</div>
-        <div class="effect-note">While invisible after using Finale, gain +15% damage for 30 seconds after any team member kills an enemy.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Duchess] Restage Power Up</div>
-        <div class="effect-note">Restage damage now does 60% of the original damage, instead of 50%.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Executor -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Executor</div>
+      <div class="effect-card"><div class="effect-label">[Executor] Character Skill Boosts Attack but Attacking Drains HP</div><div class="effect-note">With the Cursed Sword drawn, +8% damage but every attack drains 10 HP.</div></div>
+      <div class="effect-card"><div class="effect-label">[Executor] Roaring restores HP while Art is active</div><div class="effect-note">Roar while transformed to heal 15% of max HP to self and nearby allies.</div></div>
+      <div class="effect-card"><div class="effect-label">[Executor] While Character Skill is active, unlocking use of cursed sword restores HP</div><div class="effect-note">After parrying enough hits for the Cursed Sword to glow, restore 100 HP.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Executor] Cursed Sword Aggression</div>
-        <div class="effect-note">With the Cursed Sword drawn, +8% damage but every attack drains 10 HP.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Executor] Roar Healing</div>
-        <div class="effect-note">Roar while transformed to heal 15% of max HP to self and nearby allies.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Executor] Parry HP Restore</div>
-        <div class="effect-note">After parrying enough hits for the Cursed Sword to glow, restore 100 HP.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Guardian -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Guardian</div>
+      <div class="effect-card"><div class="effect-label">[Guardian] Creates whirlwind when charging halberd attacks</div><div class="effect-note">Charged heavy halberd attacks create whirlwinds that deal additional damage with slight AOE.</div></div>
+      <div class="effect-card"><div class="effect-label">[Guardian] Increased duration for Character Skill</div><div class="effect-note">Charging a use of Whirlwind increases its area of effect and duration, allowing it to deflect larger projectiles.</div></div>
+      <div class="effect-card"><div class="effect-label">[Guardian] Successful guards send out shockwaves while ability is active</div><div class="effect-note">Blocking an enemy attack with Steel Guard creates small shockwaves that can damage and stagger nearby small enemies.</div></div>
+      <div class="effect-card"><div class="effect-label">[Guardian] Slowly restores nearby allies' HP while Art is active</div><div class="effect-note">After landing with Wings of Salvation, hold the Ultimate Art button to heal allies within the protective aura for (10% + 12) HP per half-second.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Guardian] Halberd Whirlwind</div>
-        <div class="effect-note">Charged heavy halberd attacks create whirlwinds that deal additional damage with slight AOE.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Guardian] Whirlwind Range Up</div>
-        <div class="effect-note">Charging a use of Whirlwind increases its area of effect and duration, allowing it to deflect larger projectiles.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Guardian] Steel Guard Shockwave</div>
-        <div class="effect-note">Blocking an enemy attack with Steel Guard creates small shockwaves that can damage and stagger nearby small enemies.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Guardian] Wings of Salvation Healing</div>
-        <div class="effect-note">After landing with Wings of Salvation, hold the Ultimate Art button to heal allies within the protective aura for (10% + 12) HP per half-second.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Ironeye -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Ironeye</div>
+      <div class="effect-card"><div class="effect-label">[Ironeye] +1 additional Character Skill use</div><div class="effect-note">Grants one additional use of Single Shot (Character Skill).</div></div>
+      <div class="effect-card"><div class="effect-label">[Ironeye] Art Charge Activation Adds Poison Effect</div><div class="effect-note">When Single Shot is fully charged, it inflicts 300 Poison buildup to its primary target.</div></div>
+      <div class="effect-card"><div class="effect-label">[Ironeye] Boosts thrusting counterattacks after executing Art</div><div class="effect-note">After executing Single Shot, thrusting counterattacks inflict +20% damage for 30 seconds.</div></div>
+      <div class="effect-card"><div class="effect-label">[Ironeye] Extends duration of weak point</div><div class="effect-note">Marking base duration extended from 17.5 seconds to 20 seconds.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Ironeye] +1 Single Shot Use</div>
-        <div class="effect-note">Grants one additional use of Single Shot (Character Skill).</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Ironeye] Charged Shot Poison</div>
-        <div class="effect-note">When Single Shot is fully charged, it inflicts 300 Poison buildup to its primary target.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Ironeye] Post-Shot Thrust Boost</div>
-        <div class="effect-note">After executing Single Shot, thrusting counterattacks inflict +20% damage for 30 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Ironeye] Extended Marking Duration</div>
-        <div class="effect-note">Marking base duration extended from 17.5 seconds to 20 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Raider -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Raider</div>
+      <div class="effect-card"><div class="effect-label">[Raider] Damage taken while using Character Skill improves attack power and stamina</div><div class="effect-note">When taking damage during the Retaliate wind-up, +10% damage and +20% Stamina for 20 seconds.</div></div>
+      <div class="effect-card"><div class="effect-label">[Raider] Duration of Ultimate Art extended</div><div class="effect-note">Totem Stela duration increased from 20 seconds to 30 seconds.</div></div>
+      <div class="effect-card"><div class="effect-label">[Raider] Defeating enemies near Totem Stela restores HP</div><div class="effect-note">Heals 20% of max HP for each enemy defeated near an active Totem Stela.</div></div>
+      <div class="effect-card"><div class="effect-label">[Raider] Improved Poise Near Totem Stela</div><div class="effect-note">Halves stance damage taken near Totem Stela.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Raider] Retaliate Power Up</div>
-        <div class="effect-note">When taking damage during the Retaliate wind-up, +10% damage and +20% Stamina for 20 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Raider] Extended Totem Stela</div>
-        <div class="effect-note">Totem Stela duration increased from 20 seconds to 30 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Raider] Totem Kill Heal</div>
-        <div class="effect-note">Heals 20% of max HP for each enemy defeated near an active Totem Stela.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Raider] Totem Poise</div>
-        <div class="effect-note">Halves stance damage taken near Totem Stela.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Recluse -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Recluse</div>
+      <div class="effect-card"><div class="effect-label">[Recluse] Activating Ultimate Art raises Max HP</div><div class="effect-note">After activating Soulblood Song, gain +30% max HP for 30 seconds.</div></div>
+      <div class="effect-card"><div class="effect-label">[Recluse] Collecting affinity residue activates Terra Magica</div><div class="effect-note">Terra Magica triggers when collecting affinity residue. Will only re-trigger after the previous instance has expired.</div></div>
+      <div class="effect-card"><div class="effect-label">[Recluse] Suffer blood loss and increase attack power upon Art activation</div><div class="effect-note">After activating Soulblood Song, lose 20% of max HP through blood loss and gain an additional +16% damage for 30 seconds.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Recluse] Soulblood HP Boost</div>
-        <div class="effect-note">After activating Soulblood Song, gain +30% max HP for 30 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Recluse] Residue Terra Magica</div>
-        <div class="effect-note">Terra Magica triggers when collecting affinity residue. Will only re-trigger after the previous instance has expired.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Recluse] Soulblood Blood Loss</div>
-        <div class="effect-note">After activating Soulblood Song, lose 20% of max HP through blood loss and gain an additional +16% damage for 30 seconds.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Revenant -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Revenant</div>
+      <div class="effect-card"><div class="effect-label">[Revenant] Expend own HP to fully heal nearby allies when activating Art</div><div class="effect-note">While using Immortal March, current HP is halved and all living allies are fully healed.</div></div>
+      <div class="effect-card"><div class="effect-label">[Revenant] Power up while fighting alongside family</div><div class="effect-note">Grants a buff based on the summoned family member — Helen: +1 HP/second regeneration; Frederick: +10% damage; Sebastian: +20% damage negation.</div></div>
+      <div class="effect-card"><div class="effect-label">[Revenant] Strengthens family and allies when Ultimate Art is activated</div><div class="effect-note">After using Immortal March, all family and living allies get +25% damage for 30 seconds. Revenant herself does NOT receive the damage increase.</div></div>
+      <div class="effect-card"><div class="effect-label">[Revenant] Trigger ghostflame explosion during Ultimate Art activation</div><div class="effect-note">Triggers a ghostflame explosion during Ultimate Art activation.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Revenant] Immortal March Sacrifice</div>
-        <div class="effect-note">While using Immortal March, current HP is halved and all living allies are fully healed.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Revenant] Family Companion Buff</div>
-        <div class="effect-note">Grants a buff based on the summoned family member — Helen: +1 HP/second regeneration; Frederick: +10% damage; Sebastian: +20% damage negation.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Revenant] Immortal March Team Buff</div>
-        <div class="effect-note">After using Immortal March, all family and living allies get +25% damage for 30 seconds. Revenant herself does NOT receive the damage increase.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Revenant] Ghostflame Explosion</div>
-        <div class="effect-note">Triggers a ghostflame explosion during Ultimate Art activation.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-
-      <!-- Wylder -->
       <div class="effect-category" style="font-size:.7rem;letter-spacing:.1em;opacity:.7;">Wylder</div>
+      <div class="effect-card"><div class="effect-label">[Wylder] +1 additional Character Skill use</div><div class="effect-note">Grants one additional use of Claw Shot (Character Skill).</div></div>
+      <div class="effect-card"><div class="effect-label">[Wylder] Art activation spreads fire in area</div><div class="effect-note">Wylder's Onslaught Stake causes lingering fire on the ground around the point of explosion.</div></div>
+      <div class="effect-card"><div class="effect-label">[Wylder] Art gauge greatly filled when ability is activated</div><div class="effect-note">+18% Ultimate Art Gauge after cheating death with Sixth Sense.</div></div>
+      <div class="effect-card"><div class="effect-label">[Wylder] Standard attacks enhanced with fiery follow-ups when using Character Skill (greatsword only)</div><div class="effect-note">Shortly after using Claw Shot, performing a light attack conducts a flaming strike giving the greatsword +12 Fire Damage for 20 seconds.</div></div>
 
-      <div class="effect-card">
-        <div class="effect-label">[Wylder] +1 Claw Shot Use</div>
-        <div class="effect-note">Grants one additional use of Claw Shot (Character Skill).</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Wylder] Onslaught Fire Spread</div>
-        <div class="effect-note">Wylder's Onslaught Stake causes lingering fire on the ground around the point of explosion.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Wylder] Sixth Sense Art Gauge</div>
-        <div class="effect-note">+18% Ultimate Art Gauge after cheating death with Sixth Sense.</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
-      <div class="effect-card">
-        <div class="effect-label">[Wylder] Claw Shot Fire Follow-up</div>
-        <div class="effect-note">Shortly after using Claw Shot, performing a light attack conducts a flaming strike giving the greatsword +12 Fire Damage for 20 seconds. (Greatsword only.)</div>
-        <span class="stack-badge stack-no">✘ No Stack</span>
-      </div>
 
     </div><!-- /relicWrap -->
   </div><!-- /relic section -->
@@ -2537,16 +2397,30 @@
           </ul>
         </div>
 
-        <!-- Will of the Balancers: Harmonia DLC — slot Green -->
+        <!-- Will of the Balancers: Harmonia (Reg) / Balancers (ED) -->
         <div class="relic-card">
-          <div class="relic-name">Will of the Balancers</div>
-          <div class="relic-source">Weapon Bequeathed Harmonia — Regular DLC Expedition</div>
+          <div class="relic-name js-relic-name">Will of the Balancers</div>
+          <div class="boss-ver-toggle">
+            <button class="boss-ver-btn active" onclick="relicToggle(this,'reg')">Regular</button>
+            <button class="boss-ver-btn" onclick="relicToggle(this,'ev')">Everdark</button>
+          </div>
+          <div class="relic-source js-relic-src">Weapon Bequeathed Harmonia — Regular DLC Expedition</div>
           <span class="relic-slot slot-green">🟢 Green · DLC</span>
-          <ul class="relic-effects-list">
+          <ul class="relic-effects-list js-relic-effects">
             <li>Improved melee attack power</li>
             <li>Improved skill attack power</li>
             <li>Continuous FP recovery</li>
           </ul>
+          <div class="relic-reg-data" style="display:none">
+            <span class="rd-name">Will of the Balancers</span>
+            <span class="rd-src">Weapon Bequeathed Harmonia — Regular DLC Expedition</span>
+            <ul><li>Improved melee attack power</li><li>Improved skill attack power</li><li>Continuous FP recovery</li></ul>
+          </div>
+          <div class="relic-ev-data" style="display:none">
+            <span class="rd-name">Will of Balance</span>
+            <span class="rd-src">Balancers — Everdark DLC Variant</span>
+            <ul><li>Improved Melee Attack Power</li><li>Improved Skill Attack Power</li><li>Occasionally Nullify Attacks When Damage Negation is Lowered</li></ul>
+          </div>
         </div>
 
       </div><!-- /relic-grid -->
@@ -2583,7 +2457,7 @@
           <tr><td class="col-name">Dmg Negation Up While Charging Attacks</td><td class="col-val">+24% / +32% / +40%</td><td class="col-stack-no">NO</td></tr>
           <tr><td class="col-name">Successive Attacks Negate Damage</td><td class="col-val">+38% / +48% / +60% for 30s</td><td class="col-stack-no">NO</td></tr>
           <tr><td class="col-name">Successful Guarding Ups Dmg Negation</td><td class="col-val">+14% / +19% / +24%</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Successful Guarding Ups Poise</td><td class="col-val">×0.88 / ×0.82 / ×0.76 poise dmg taken</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Successful Guarding Ups Poise</td><td class="col-val">−12% / −18% / −24% poise dmg taken</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Improved Guarding Ability (stamina dmg taken)</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Improved Status Resist (Poison/Bleed/Sleep/etc.)</td><td class="col-val">+57 / +75 / +112</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Less Likely to Be Targeted</td><td class="col-val">−300 / −450 / −600 target priority</td><td class="col-stack-yes">YES</td></tr>
@@ -2595,30 +2469,30 @@
       <table class="wpn-table">
         <thead><tr><th>Passive</th><th>+1 / +2 / +3</th><th>Stacks?</th></tr></thead>
         <tbody>
-          <tr><td class="col-name">Attack Up When Wielding Two Armaments (paired L1)</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Attack Power When Two-Handing</td><td class="col-val">×1.07 / ×1.10 / ×1.13</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Attack Power at Low HP</td><td class="col-val">×1.07 → ×1.21 (5 tiers)</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Attack Power at Full HP (100%)</td><td class="col-val">×1.07 / ×1.105 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Chain Attack Finishers (last hit)</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Charge Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Skill Attack Power</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Guard Counters</td><td class="col-val">×1.10 / ×1.15 / ×1.20</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Jump Attacks</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Critical Hits</td><td class="col-val">×1.12 / ×1.18 / ×1.24</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Ranged Weapon Attacks</td><td class="col-val">×1.07 / ×1.10 / ×1.14</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Attack Up When Wielding Two Armaments (paired L1)</td><td class="col-val">+7% / +10% / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power When Two-Handing</td><td class="col-val">+7% / +10% / ×1.13</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Low HP</td><td class="col-val">+7% → ×1.21 (5 tiers)</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Attack Power at Full HP (100%)</td><td class="col-val">+7% / +10%5 / +14%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Chain Attack Finishers (last hit)</td><td class="col-val">+10% / +15% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charge Attacks</td><td class="col-val">+6% / +9% / +12%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Skill Attack Power</td><td class="col-val">+5% / +8% / +11%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Guard Counters</td><td class="col-val">+10% / +15% / +20%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Jump Attacks</td><td class="col-val">+6% / +9% / +12%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Critical Hits</td><td class="col-val">+12% / +18% / +24%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Ranged Weapon Attacks</td><td class="col-val">+7% / +10% / +14%</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Projectile Damage Drop-Off Reduced</td><td class="col-val">−30% / −40% / −50%</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Magic/Fire/Holy/Lightning Attack Power</td><td class="col-val">×1.06 / ×1.09 / ×1.12</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Magic/Fire/Holy/Lightning Attack Power</td><td class="col-val">+6% / +9% / +12%</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Add Magic/Fire/Holy/Lightning to Weapon</td><td class="col-val">−25/26/30/35 phys, +25/26/30/35 elemental</td><td class="col-stack-no">NO</td></tr>
           <tr><td class="col-name">Attacks Inflict Poison/Bleed/Sleep/Rot/Frost</td><td class="col-val">+18 / +23 / +30 buildup</td><td class="col-stack-no">NO</td></tr>
-          <tr><td class="col-name">Improved Sorceries / Incantations</td><td class="col-val">×1.05 / ×1.08 / ×1.11</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Charged Sorceries / Incantations</td><td class="col-val">×1.09 / ×1.13 / ×1.18</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Sorceries / Incantations</td><td class="col-val">+5% / +8% / +11%</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Charged Sorceries / Incantations</td><td class="col-val">+9% / ×1.13 / +18%</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Improved Spell Casting Speed</td><td class="col-val">+30 / +60 vdex</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Reduced Skill FP Cost</td><td class="col-val">×0.88 / ×0.82 / ×0.76</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Reduced Skill FP Cost</td><td class="col-val">−12% / −18% / −24%</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Reduced Spell FP Cost</td><td class="col-val">×0.90 / ×0.85 / ×0.80</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Multiple Periodical Glintblades</td><td class="col-val">5 blades / 18s · 60 magic atk each</td><td class="col-stack-no">NO</td></tr>
           <tr><td class="col-name">Many Periodical Glintblades</td><td class="col-val">9 blades / 18s · 48 magic atk each</td><td class="col-stack-no">NO</td></tr>
-          <tr><td class="col-name">Improved Stance-Breaking (Two-Handing)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
-          <tr><td class="col-name">Improved Stance-Breaking (Two Weapons, paired L1)</td><td class="col-val">×1.20 / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two-Handing)</td><td class="col-val">+20% / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
+          <tr><td class="col-name">Improved Stance-Breaking (Two Weapons, paired L1)</td><td class="col-val">+20% / ×1.25 poise damage</td><td class="col-stack-yes">YES</td></tr>
           <tr><td class="col-name">Improved Guard Breaking</td><td class="col-val">×1.30 / ×1.45 / ×1.60 stamina damage</td><td class="col-stack-yes">YES</td></tr>
         </tbody>
       </table>
@@ -3133,7 +3007,7 @@
         <div class="wpn-card">
           <div class="wpn-name">Axe of Godfrey (First Lord)</div>
           <span class="wpn-avail avail-offhand">⚠ Can weapon swap after!</span>
-          <div class="wpn-desc">×1.2 ATK for 15s after charged heavy attack. Activate, then swap to another weapon — the buff persists.</div>
+          <div class="wpn-desc">+20% ATK for 15s after charged heavy attack. Activate, then swap to another weapon — the buff persists.</div>
         </div>
       </div>
 
@@ -3216,21 +3090,21 @@ const DAY_PHASES = [
   {
     id: 'shrink1', icon: '🌀', short: 'First Shrink', name: 'First Shrink',
     circleLabel: '🔴 Contracting', circleStatic: false,
-    desc: 'Circle is closing in — push toward the Spirit Tree fragment',
+    desc: 'Circle is closing in — Head toward the safe area!',
     duration: 180,
     warnAt: 30, warnMsg: '🌀 Storm almost done shrinking — get inside the circle!', warnType: 'warn',
   },
   {
-    id: 'intermission', icon: '🌄', short: 'Intermission', name: 'Intermission',
+    id: 'intermission', icon: '🌄', short: 'Explore 2nd', name: 'Explore 2nd Circle',
     circleLabel: '🟡 Static — Mid-size', circleStatic: true,
-    desc: 'Circle paused at mid-size — finish objectives, heal, conserve flasks',
+    desc: 'Circle paused at mid-size — continue exploring and clearing.',
     duration: 210,
     warnAt: 30, warnMsg: '⏳ Intermission ending — position for the final shrink!', warnType: 'warn',
   },
   {
     id: 'shrink2', icon: '🌳', short: 'Final Shrink', name: 'Final Shrink',
     circleLabel: '🔴 Converging on Spirit Tree', circleStatic: false,
-    desc: 'Circle converging on Spirit Tree — move there NOW',
+    desc: 'Circle converging on Spirit Tree — start moving there NOW!',
     duration: 180,
     warnAt: 15, warnMsg: '⚔️ BOSS IMMINENT — get to the Spirit Tree!', warnType: 'danger',
   },
@@ -3420,7 +3294,7 @@ function render() {
 
   // Start button label
   if (gameState === 'pre_start') {
-    $start.textContent = 'Start Expedition — GL HF';
+    $start.textContent = 'Start Expedition';
   } else if (running) {
     $start.textContent = 'Pause';
   } else {
@@ -3691,6 +3565,37 @@ document.getElementById('summaryRestartBtn').addEventListener('click', doReset);
 // Storm exposure toggle
 $stormBtn.addEventListener('click', toggleStorm);
 
+// Draggable progress bar — click/drag to jump to any point in the day
+(function() {
+  let dragging = false;
+  function seekBar(e) {
+    const rect = $bar.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const frac = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const targetElapsed = Math.round(frac * DAY_TOTAL);
+    let cum = 0, idx = 0;
+    for (let i = 0; i < DAY_PHASES.length; i++) {
+      if (targetElapsed < cum + DAY_PHASES[i].duration || i === DAY_PHASES.length - 1) { idx = i; break; }
+      cum += DAY_PHASES[i].duration;
+    }
+    clearTimeout(ticker);
+    phaseIdx   = idx;
+    phaseLeft  = DAY_PHASES[idx].duration - (targetElapsed - cum);
+    dayElapsed = targetElapsed;
+    warned     = false;
+    if (gameState === 'pre_start') { gameState = 'running'; expStartMs = Date.now(); }
+    if (running) ticker = setTimeout(tick, 1000);
+    render();
+  }
+  $bar.style.cursor = 'ew-resize';
+  $bar.addEventListener('mousedown',  e => { dragging = true; seekBar(e); });
+  $bar.addEventListener('touchstart', e => { dragging = true; seekBar(e); }, { passive: true });
+  document.addEventListener('mousemove',  e => { if (dragging) seekBar(e); });
+  document.addEventListener('touchmove',  e => { if (dragging) seekBar(e); }, { passive: true });
+  document.addEventListener('mouseup',    () => { dragging = false; });
+  document.addEventListener('touchend',   () => { dragging = false; });
+})();
+
 // Keyboard shortcuts
 document.addEventListener('keydown', e => {
   if (e.target !== document.body && e.target.tagName !== 'BODY') return;
@@ -3731,15 +3636,15 @@ const BOSS_DATA = {
   'adel': {
     name: 'Adel, Baron of Night', icon: '🦷',
     expedition: 'Regular — Standard Expedition',
-    weakLabel: '✦ Rot / Bleed / Frost', weakClass: 'weak-poison',
-    tip: 'Resists Poison (541) — use Rot, Bleed, or Frost instead (all 154). Kite his charges and avoid standing in front. Watch for lightning geysers erupting from the ground in phase 2.',
+    weakLabel: '✦ Poison / Rot / Frost', weakClass: 'weak-poison',
+    tip: 'Weak to Poison, Rot, and Frost (all 154). Resists Bleed (541) — don\'t waste Bleed. Kite his charges and avoid standing in front.',
     everdark: {
       name: 'Gaping Jaw',
       expedition: 'Everdark Variant',
-      tip: 'Enormous multi-mouthed creature with lethal grab attacks — dodge perpendicular to its charges, never backward. Rot/Bleed/Frost still apply easily (154). Avoid standing in front at all times. Has more AoE slam attacks than regular Adel.',
+      tip: 'Enormous multi-mouthed creature with lethal grab attacks — dodge perpendicular to its charges, never backward. Poison/Rot/Frost still apply easily (154). Resists Bleed. Watch for lightning geysers erupting from the ground. Has more AoE slam attacks than regular Adel.',
     },
     elem: { magic:0, fire:-20, lightning:-50, holy:0 },
-    status: { poison:541, rot:154, bleed:154, frost:154, sleep:154, madness:null, death:null },
+    status: { poison:154, rot:154, bleed:541, frost:154, sleep:154, madness:null, death:null },
   },
   'gnoster': {
     name: 'Gnoster, Wisdom of Night', icon: '🦋',
@@ -3762,7 +3667,7 @@ const BOSS_DATA = {
     everdark: {
       name: 'Augur',
       expedition: 'Everdark Variant',
-      tip: 'Prophetic sea creature with more projectile spread and multiple floating eggs simultaneously. Lightning still interrupts the Sleep cast. More eggs/bubbles spawn — prioritise destroying them before they land. Immune to Rot, Bleed, Sleep. Highly mobile — position below it.',
+      tip: 'Prophetic sea creature with more projectile spread and multiple floating eggs simultaneously. Lightning still interrupts the Sleep cast. More eggs/bubbles spawn — prioritise destroying them before they land. Immune to Poison, Rot, Bleed, and Sleep. Highly mobile — position below it.',
     },
     elem: { magic:-20, fire:-50, lightning:40, holy:-15 },
     status: { poison:252, rot:null, bleed:null, frost:252, sleep:null, madness:null, death:null },
@@ -4026,6 +3931,13 @@ document.getElementById('pinDismiss').addEventListener('click', unpin);
       const weakEl = card.querySelector('.boss-weak');
       if (weakEl) weakEl.after(toggleRow); else tipEl.before(toggleRow);
 
+      // Show everdark name as a secondary line below regular name (always visible)
+      const evNameEl = document.createElement('div');
+      evNameEl.className = 'boss-everdark-name';
+      evNameEl.style.cssText = 'display:none;font-size:.7rem;color:#a78bfa;letter-spacing:.05em;margin-top:1px;';
+      evNameEl.textContent = '🌑 ' + boss.everdark.name;
+      nameEl.after(evNameEl);
+
       // Click handlers
       toggleRow.querySelectorAll('.boss-ver-btn').forEach(btn => {
         btn.addEventListener('click', e => {
@@ -4033,15 +3945,17 @@ document.getElementById('pinDismiss').addEventListener('click', unpin);
           const mode = btn.dataset.mode;
           toggleRow.querySelectorAll('.boss-ver-btn').forEach(b => b.classList.toggle('active', b === btn));
           if (mode === 'dark') {
-            nameEl.textContent = boss.everdark.name;
-            expEl.textContent  = '🌑 ' + boss.everdark.expedition;
-            tipEl.textContent  = boss.everdark.tip;
-            nameEl.style.color = '#a78bfa';
+            expEl.textContent = '🌑 ' + boss.everdark.expedition;
+            tipEl.textContent = boss.everdark.tip;
+            evNameEl.style.display = 'block';
+            card.style.borderColor = 'rgba(167,139,250,.5)';
+            card.style.background  = 'rgba(88,28,135,.13)';
           } else {
-            nameEl.textContent = regName;
-            expEl.textContent  = regExp;
-            tipEl.textContent  = regTip;
-            nameEl.style.color = '';
+            expEl.textContent = regExp;
+            tipEl.textContent = regTip;
+            evNameEl.style.display = 'none';
+            card.style.borderColor = '';
+            card.style.background  = '';
           }
         });
       });
