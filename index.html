@@ -3420,6 +3420,108 @@
     </div>
   </div><!-- /consumables section -->
 
+  <!-- ══════════════════════════════════════════════════════════
+       DEEP OF NIGHT WEAPON EFFECTS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="dnWeaponToggle">
+      <span>🌑 &nbsp;Deep of Night Weapon Effects</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="dnWeaponWrap">
+      <div class="relic-system">
+        Effects that can roll on weapons found in <strong>Deep of Night</strong> mode.
+        Many effects have two tiers (shown as +1 / +2). <strong>Curses</strong> are negative effects that can also roll on weapons — listed at the bottom in red.
+      </div>
+
+      <table class="dn-table">
+        <thead>
+          <tr>
+            <th style="width:32%">Effect Name</th>
+            <th>Effect</th>
+            <th style="width:7%">Stack?</th>
+            <th style="width:20%">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- STAT -->
+          <tr class="dn-subhead dn-subhead-stat"><td colspan="4">⬡ Stat</td></tr>
+          <tr><td class="col-name">Increased Maximum HP</td><td class="col-fx">Increases maximum HP by 1.08x / 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Increased Maximum FP</td><td class="col-fx">Increases maximum FP by 1.09x / 1.13x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Increased Maximum Stamina</td><td class="col-fx">Increases maximum stamina by 1.08x / 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+          <!-- EXPLORATION -->
+          <tr class="dn-subhead dn-subhead-explore"><td colspan="4">🗺 Exploration</td></tr>
+          <tr><td class="col-name">More Runes From Defeated Enemies</td><td class="col-fx">Increases rune gain by 1.06x / 1.09x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+          <!-- OFFENSIVE -->
+          <tr class="dn-subhead dn-subhead-offense"><td colspan="4">⚔ Offensive</td></tr>
+          <tr><td class="col-name">Physical Attack Up</td><td class="col-fx">Increases physical attack damage by 1.055x / 1.08x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Affinity Attack Power</td><td class="col-fx">Increases magic / fire / lightning / holy damage by 1.055x / 1.08x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Thrusting Counterattack</td><td class="col-fx">Increases counterhit damage by 1.1x / 1.15x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improve Stance-Breaking</td><td class="col-fx">Increases poise damage by 1.08x / 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Sorceries &amp; Incantations</td><td class="col-fx">Increases spell damage by 1.055x / 1.08x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Increased Sorcery &amp; Incantation Duration</td><td class="col-fx">Increases duration of spells by 1.45x / 1.6x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Ice Storm upon Charged Attacks</td><td class="col-fx">Performs a frost wind attack after charged heavy attack; buffs weapon with 20 frost buildup for 20 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Black Flames upon Charged Attacks</td><td class="col-fx">Creates black flame on the ground after charged heavy attack; buffs weapon with 12 fire AP and DoT effect for 7 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Phantom Attack upon Charged Attacks</td><td class="col-fx">Performs the Phantom Slash AoW after charged heavy attack</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Holy Shockwave upon Charged Attacks</td><td class="col-fx">Performs Wave of Gold AoW after charged heavy attack; buffs weapon with 12 holy AP for 20 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Luring Enemies upon Charged Attacks</td><td class="col-fx">Creates gravity pulse that pulls in enemies after charged heavy attack</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Magma upon Charged Attacks</td><td class="col-fx">Creates magma on ground after charged heavy attack; buffs weapon with 12 fire AP for 20 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Lightning upon Charged Attacks</td><td class="col-fx">Creates lightning blast after charged heavy attack; buffs weapon with 12 lightning AP for 20 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Charged Attacks Invoke Sleep Mist</td><td class="col-fx">Creates sleep mist after charged heavy attack; buffs weapon with 20 sleep buildup for 20 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Projectiles Launched upon Charged Attacks</td><td class="col-fx">Fires 3 magic projectiles after charged heavy bow shot</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Bow-specific</td></tr>
+          <tr><td class="col-name">Lightning upon Precision Aiming</td><td class="col-fx">Creates specified effect at the location where a manually aimed bow shot lands</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Bow-specific</td></tr>
+          <tr><td class="col-name">Poison Mist upon Precision Aiming</td><td class="col-fx">Creates specified effect at the location where a manually aimed bow shot lands</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Bow-specific</td></tr>
+          <tr><td class="col-name">Rot Mist upon Precision Aiming</td><td class="col-fx">Creates specified effect at the location where a manually aimed bow shot lands</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Bow-specific</td></tr>
+          <tr><td class="col-name">Bloodflies upon Precision Aiming</td><td class="col-fx">Creates specified effect at the location where a manually aimed bow shot lands</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Bow-specific</td></tr>
+          <tr><td class="col-name">Guarding Ups Sorceries &amp; Incantations</td><td class="col-fx">After blocking with staff/seal for 2 seconds, increases spell damage by 1.1x and vdex by 30 for 25 seconds (stacks up to 3 times)</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+
+          <!-- DEFENSIVE -->
+          <tr class="dn-subhead dn-subhead-defense"><td colspan="4">🛡 Defensive</td></tr>
+          <tr><td class="col-name">Improved Poise</td><td class="col-fx">Reduces incoming poise damage by 0.8x / 0.67x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">All Resistances Up</td><td class="col-fx">Increases all status effect resistance by 52 / 65</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Shielding Creates Holy Ground</td><td class="col-fx">Creates holy ground after blocking with shield for 3 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Broken Stance Activates Endure</td><td class="col-fx">After your guard breaks, increases damage negations by 30% and provides immunity to all Damage Level (immune to stagger)</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+
+          <!-- REGEN -->
+          <tr class="dn-subhead dn-subhead-regen"><td colspan="4">💚 Regen</td></tr>
+          <tr><td class="col-name">Improved Stamina Recovery</td><td class="col-fx">Increases stamina recovery by 3 / 5</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Flask HP Restoration</td><td class="col-fx">Increases HP gained from flasks by 1.13x / 1.18x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Flask Healing Also Restores FP</td><td class="col-fx">Restores [MaxFP × 0.2] FP when drinking flask</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Failing to Cast Spell Restores FP</td><td class="col-fx">Restores [MaxFP × 0.13] FP after attempting to cast a spell with insufficient FP</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+
+          <!-- CURSES -->
+          <tr class="dn-subhead dn-subhead-curse"><td colspan="4">⚠ Weapon Curses</td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Maximum HP</td><td class="col-fx">Reduces maximum HP by 0.96x / 0.94x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Maximum FP</td><td class="col-fx">Reduces maximum FP by 0.94x / 0.91x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Maximum Stamina</td><td class="col-fx">Reduces maximum stamina by 0.95x / 0.92x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Near Death Reduces Max HP</td><td class="col-fx">Decreases maximum HP by 0.85x for 30 seconds after being downed</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Attacks Impaired on Occasion</td><td class="col-fx">Each attack has a 3% / 5% chance to deal no damage</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Lower Attack When Below Max HP</td><td class="col-fx">Decreases damage by 0.95x / 0.93x when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Slower Art Gauge When Below Max HP</td><td class="col-fx">Decreases ultimate gauge gained by 0.6x / 0.85x when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Unlike "Ultimate Art Gauge" effect, affects ult gauge gained from attacking</td></tr>
+          <tr class="curse-row"><td class="curse-name">Near Death Reduces Art Gauge</td><td class="col-fx">Decreases ultimate gauge by 25 / 33 when the wearer is downed</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Impaired Physical Damage Negation</td><td class="col-fx">Increases physical damage taken by 5.5% / 8%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Impaired Affinity Damage Negation</td><td class="col-fx">Increases magic / fire / lightning / holy damage taken by 5.5% / 8%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">More Damage Taken After Evasion</td><td class="col-fx">Increases damage taken by 15% / 20% right after rolling</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Repeated Evasions Lower Damage Negation</td><td class="col-fx">Increases damage taken by 23% / 30% for 15 seconds on repeat rolls</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Damage Negation for Flask Usages</td><td class="col-fx">Increases damage taken by 33% / 46% when using flask</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Lower Stamina Impairs Dmg Negation</td><td class="col-fx">Increases damage taken by 10% / 15% when stamina is at or below 50%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Night's Tide Damage Increased</td><td class="col-fx">Increases damage taken by the Night's Tide by 2x / 2.5x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Damage Increased by Night's Encroachment</td><td class="col-fx">Increases damage taken by 1% / 2.5% throughout each day 4 times. Most likely occurs at: start of day, 1st circle closed, 2nd circle closing, 2nd circle closed. Stacks reset after Night 1 boss</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">All Resistances Down</td><td class="col-fx">Reduces status resist by 30 / 45</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Ailments Cause Increased Damage</td><td class="col-fx">Increases damage received by 30% / 45%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Flask HP Restoration</td><td class="col-fx">Reduces HP gained from flasks by 0.94x / 0.91x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Continuous HP Loss</td><td class="col-fx">Wearer takes 1 HP per second / per 0.67s</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Poison Buildup When Below Max HP</td><td class="col-fx">Builds up 2 poison every 0.28s / 0.22s when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Rot Buildup When Below Max HP</td><td class="col-fx">Builds up 2 rot every 0.32s / 0.24s when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div><!-- /dnWeapon section -->
+
 
 
 </div><!-- /wrap -->
@@ -4333,6 +4435,7 @@ const SECTIONS = [
   ['deepnightToggle',  'deepnightWrap'],
   ['cursesToggle',     'cursesWrap'],
   ['consumablesToggle','consumablesWrap'],
+  ['dnWeaponToggle',   'dnWeaponWrap'],
   ['runeToggle',       'runeWrap'],
   ['invToggle',        'invWrap'],
 ];
