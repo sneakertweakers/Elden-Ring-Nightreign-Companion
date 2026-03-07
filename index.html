@@ -1138,6 +1138,58 @@
     .cat-exception { background: rgba(245,158,11,.07) !important; }
     .cat-exception td { border-bottom-color: rgba(245,158,11,.15) !important; }
 
+    /* ─── Deep of Night & Curse tables ────────────────────────── */
+    .dn-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .68rem;
+    }
+    .dn-table th {
+      text-align: left;
+      font-family: 'Cinzel', serif;
+      font-size: .58rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dn-table td {
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      vertical-align: top;
+      color: var(--text);
+    }
+    .dn-table tr:last-child td { border-bottom: none; }
+    .dn-table .col-name  { font-weight: 600; color: var(--text); }
+    .dn-table .col-fx    { color: var(--muted); font-size: .63rem; }
+    .dn-table .col-notes { color: var(--muted); font-size: .61rem; font-style: italic; }
+    .dn-table .col-stack { text-align: center; font-size: .62rem; white-space: nowrap; }
+    .stack-yes { color: #4ade80; }
+    .stack-no  { color: #f87171; }
+    /* category sub-headers */
+    .dn-subhead td {
+      font-family: 'Cinzel', serif;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 7px 8px 4px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    }
+    .dn-subhead-stat     td { color: #60a5fa; background: rgba(96,165,250,.06); }
+    .dn-subhead-start    td { color: #a78bfa; background: rgba(167,139,250,.06); }
+    .dn-subhead-explore  td { color: #34d399; background: rgba(52,211,153,.06); }
+    .dn-subhead-offense  td { color: #fb923c; background: rgba(251,146,60,.06); }
+    .dn-subhead-defense  td { color: #22d3ee; background: rgba(34,211,238,.06); }
+    .dn-subhead-regen    td { color: #f472b6; background: rgba(244,114,182,.06); }
+    .dn-subhead-char     td { color: #c084fc; background: rgba(192,132,252,.06); }
+    .dn-subhead-curse    td { color: #f87171; background: rgba(248,113,113,.06); }
+    /* curse row highlight */
+    .curse-row td { background: rgba(248,113,113,.03); }
+    .curse-name { font-weight: 600; color: #fca5a5 !important; }
+
     /* ─── Desktop sizing ─────────────────────────────────────── */
     @media (min-width: 780px) {
       .wrap { max-width: 740px; padding: 24px 20px 32px; gap: 22px; }
@@ -3135,6 +3187,170 @@
     </div><!-- /relicCatWrap -->
   </div><!-- /relic categories section -->
 
+  <!-- ══════════════════════════════════════════════════════════
+       DEEP OF NIGHT RELICS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="deepnightToggle">
+      <span>🌑 &nbsp;Deep of Night Relic Effects</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="deepnightWrap">
+      <div class="relic-system">
+        Deep of Night is a special expedition mode with its own relic pool. These effects can roll on relics found exclusively in Deep of Night runs.
+        <strong>Character</strong> effects are Nightfarer-specific and only apply to the listed character.
+        Stat redistribution entries assume <strong>Level 15</strong> for HP/FP impact notes.
+      </div>
+
+      <table class="dn-table">
+        <thead>
+          <tr>
+            <th style="width:32%">Effect Name</th>
+            <th>Effect</th>
+            <th style="width:7%">Stack?</th>
+            <th style="width:22%">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- STAT -->
+          <tr class="dn-subhead dn-subhead-stat"><td colspan="4">⬡ Stat</td></tr>
+          <tr><td class="col-name">Increased Maximum HP</td><td class="col-fx">Increases maximum HP by 1.1x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Increased Maximum FP</td><td class="col-fx">Increases maximum FP by 1.15x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Increased Maximum Stamina</td><td class="col-fx">Increases maximum stamina by 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+          <!-- START OF GAME -->
+          <tr class="dn-subhead dn-subhead-start"><td colspan="4">▶ Start of Game</td></tr>
+          <tr><td class="col-name">[Item] in Possession at Start of Expedition</td><td class="col-fx">Starts the game with the specified item</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Lists all crystal tears and perfume items</td></tr>
+
+          <!-- EXPLORATION -->
+          <tr class="dn-subhead dn-subhead-explore"><td colspan="4">🗺 Exploration</td></tr>
+          <tr><td class="col-name">Max HP Increased for Each Great Enemy Defeated at a Great Church</td><td class="col-fx">Increases maximum HP by 1.05x for each boss killed at a great church</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Runes and Item Discovery Increased for Each Great Enemy Defeated at a Fort</td><td class="col-fx">Increases discovery by 16 and rune gain by 1.055x for each boss killed at a fort</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Arcane Increased for Each Great Enemy Defeated at a Ruin</td><td class="col-fx">Increases arcane by 4 for each boss killed at a ruin</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Max Stamina Increased for Each Great Enemy Defeated at a Great Encampment</td><td class="col-fx">Increases maximum stamina by 1.075x for each boss killed at a camp</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Dormant Power Helps Discover [Weapon Class]</td><td class="col-fx">Changes the preferred weapon class to the specified class, making it more likely to obtain it</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Priority given to first in order. Does not stack with character's preferred weapon type</td></tr>
+
+          <!-- OFFENSIVE -->
+          <tr class="dn-subhead dn-subhead-offense"><td colspan="4">⚔ Offensive</td></tr>
+          <tr><td class="col-name">Physical Attack Up +3/4</td><td class="col-fx">Increases physical damage by 1.105x / 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Element] Attack Up +3/4</td><td class="col-fx">Increases magic / fire / lightning / holy damage by 1.105x / 1.12x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Affinity Attack Power +0/1/2</td><td class="col-fx">Increases magic, fire, lightning, and holy damage by 1.05x / 1.08x / 1.1x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Affects spells</td></tr>
+          <tr><td class="col-name">Physical Attack Power Increases After Using Grease Items +1/2</td><td class="col-fx">Increases physical damage by 1.17x / 1.2x for 30 seconds after using grease</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Different levels stack (+1 stacks with +2)</td></tr>
+          <tr><td class="col-name">Attack Power Up When Facing Poison / Scarlet Rot / Frostbite-Afflicted Enemy +1/2</td><td class="col-fx">Increases damage by 1.16x / 1.2x when attacking an enemy suffering from the specified status</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Different levels stack (+1 stacks with +2)</td></tr>
+          <tr><td class="col-name">Sleep/Madness in Vicinity Improves Attack Power +0/+1</td><td class="col-fx">Increases damage by 1.12x / 1.22x after sleep / madness procs</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+0 stacks with +1</td></tr>
+          <tr><td class="col-name">Improved Guard Counters +1/2</td><td class="col-fx">Increases guard counter damage by 1.25x / 1.29x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved [Consumable] Damage +1/2</td><td class="col-fx">Increases pot / knife / stone / perfume damage by 1.3x / 1.35x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Art Gauge Charged from Successful Guarding +1</td><td class="col-fx">Increases characterSkillGauge by 1.5 upon blocking an attack</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+0 stacks with +1</td></tr>
+          <tr><td class="col-name">Art Gauge Fills Moderately upon Critical Hit +1</td><td class="col-fx">Increases characterSkillGauge by 6.5 upon riposte</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+0 stacks with +1</td></tr>
+          <tr><td class="col-name">Defeating Enemies Fills More of the Art Gauge +1</td><td class="col-fx">Increases characterSkillGauge by 6.5 upon killing enemies</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+0 stacks with +1</td></tr>
+          <tr><td class="col-name">Improved Sorceries/Incantations +0/1/2</td><td class="col-fx">Increases sorcery / incant damage by 1.05x / 1.085x / 1.1x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Reduced FP Consumption +0/1/2</td><td class="col-fx">Reduces FP consumption by 0.92x / 0.87x / 0.84x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Higher tier (+1/2) does not seem to appear on random relics</td></tr>
+
+          <!-- DEFENSIVE -->
+          <tr class="dn-subhead dn-subhead-defense"><td colspan="4">🛡 Defensive</td></tr>
+          <tr><td class="col-name">Improved Physical Damage Negation +1/2</td><td class="col-fx">Increases physical damage negation by 10.5% / 12%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved [Element] Damage Negation +1/2</td><td class="col-fx">Increases magic / fire / lightning / holy damage negation by 15% / 16%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved Affinity Damage Negation +0/1/2</td><td class="col-fx">Increases magic, fire, lightning, and holy damage negation by 6% / 10.5% / 12%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Improved [Status] Resistance +1/2</td><td class="col-fx">Increases specified status resistance by 110 / 130</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+          <!-- REGEN -->
+          <tr class="dn-subhead dn-subhead-regen"><td colspan="4">💚 Regen</td></tr>
+          <tr><td class="col-name">Partial HP Restoration upon Post-Damage Attacks +1/2</td><td class="col-fx">Same as original, but increases HP gained per hit by 25% / 35%</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+1 stacks with +2, but neither stack with +0</td></tr>
+          <tr><td class="col-name">HP Restoration upon Thrusting Counterattack +1</td><td class="col-fx">Restores [MaxHP × 0.033] on counterhits</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Different levels stack (+1 stacks with +2)</td></tr>
+          <tr><td class="col-name">HP Restored When Using Medicinal Boluses, Etc. +1</td><td class="col-fx">Replenish 80 HP from certain consumables</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+0 stacks with +1</td></tr>
+          <tr><td class="col-name">Improved Flask HP Restoration</td><td class="col-fx">Increases HP gained from flasks by 1.1x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+
+          <!-- CHARACTER — SKILL BONUSES -->
+          <tr class="dn-subhead dn-subhead-char"><td colspan="4">◈ Character — Skill Bonuses</td></tr>
+          <tr><td class="col-name">[Wylder] Character Skill Inflicts Blood Loss</td><td class="col-fx">Skill inflicts 60 (impact) / 55 (pull) bleed on hit</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Guardian] Character Skill Boosts Damage Negation of Nearby Allies</td><td class="col-fx">Increases damage negation for self and allies by 12% for 30 seconds after using skill</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Ironeye] Character Skill Inflicts Heavy Poison Damage on Poisoned Enemies</td><td class="col-fx">Skill inflicts 70 poison. Deals [MaxHP × 0.0025] + 250 damage on poison-afflicted enemies</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Testing suggests still based on max HP</td></tr>
+          <tr><td class="col-name">[Duchess] Use Character Skill for Brief Invulnerability</td><td class="col-fx">Immune to damage for 0.4 seconds after using skill</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">Translates to 24 iframes at 60FPS</td></tr>
+          <tr><td class="col-name">[Raider] Hit With Character Skill to Reduce Enemy Attack Power</td><td class="col-fx">Decreases enemy damage dealt by 0.87x after hitting them with skill for 13 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Revenant] Increases Max FP upon Ability Activation</td><td class="col-fx">Permanently increases max FP by 1.0075x (0–20 stacks) / 1.0085x (21–40) / 1.0095x (41–60 stacks). Cap: total +51% max FP</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Recluse] Collect Affinity Residues to Negate Affinity</td><td class="col-fx">Increases magic / fire / lightning / holy damage negation by 20% upon absorbing respective residue for 30 seconds</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Executor] Slowly Restore HP upon Ability Activation</td><td class="col-fx">Restores [MaxHP × 0.0027] + 3 for 30 seconds after passive activates (recovering from status effect)</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Scholar] Reduced FP Consumption When Using Character Skill on Self</td><td class="col-fx">Reduces FP consumption by 0.85x for 40 seconds after using character skill self buff</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Undertaker] Executing Art Readies Character Skill</td><td class="col-fx">Allows you to perform Trance immediately after activating ultimate. Works with temporary ultimate use.</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+
+          <!-- CHARACTER — STAT REDISTRIBUTION -->
+          <tr class="dn-subhead dn-subhead-char"><td colspan="4">◈ Character — Stat Redistribution <span style="font-size:.58rem;font-weight:400;text-transform:none;letter-spacing:0;opacity:.8">(HP/FP notes assume Lv 15)</span></td></tr>
+          <tr><td class="col-name">[Wylder] Improved Mind, Reduced Vigor</td><td class="col-fx">Vigor −5, Mind +10</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−100 HP, +50 FP</td></tr>
+          <tr><td class="col-name">[Wylder] Improved Intelligence and Faith, Reduced Strength and Dexterity</td><td class="col-fx">Strength −7, Dexterity −5, Intelligence +15, Faith +15</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Guardian] Improved Strength and Dexterity, Reduced Vigor</td><td class="col-fx">Vigor −8, Strength +9, Dexterity +19</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">~16% AP increase for halberds, ~20% for heavy thrusting swords; −160 HP</td></tr>
+          <tr><td class="col-name">[Guardian] Improved Mind and Faith, Reduced Vigor</td><td class="col-fx">Vigor −8, Mind +8, Faith +17</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−120 HP, +40 FP</td></tr>
+          <tr><td class="col-name">[Ironeye] Improved Arcane, Reduced Dexterity</td><td class="col-fx">Dexterity −9, Arcane +15</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">~26% increase in status build up, ~−6% reduction to bow attack</td></tr>
+          <tr><td class="col-name">[Ironeye] Improved Vigor and Strength, Reduced Dexterity</td><td class="col-fx">Dexterity −13, Strength +20, Vigor +5</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+100 HP</td></tr>
+          <tr><td class="col-name">[Duchess] Improved Vigor and Strength, Reduced Mind</td><td class="col-fx">Mind −14, Strength +24, Vigor +3</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−70 FP, +60 HP</td></tr>
+          <tr><td class="col-name">[Duchess] Improved Mind and Faith, Reduced Intelligence</td><td class="col-fx">Intelligence −5, Faith +13, Mind +3</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+15 FP; 14% increase to incant damage vs base Duchess, but still 10% lower than Revenant</td></tr>
+          <tr><td class="col-name">[Raider] Improved Mind and Intelligence, Reduced Vigor and Endurance</td><td class="col-fx">Vigor −8, Endurance −4, Intelligence +35, Mind +9</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−160 HP, +45 FP</td></tr>
+          <tr><td class="col-name">[Raider] Improved Arcane, Reduced Vigor</td><td class="col-fx">Vigor −4, Arcane +17</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−80 HP</td></tr>
+          <tr><td class="col-name">[Revenant] Improved Vigor and Endurance, Reduced Mind</td><td class="col-fx">Mind −11, Vigor +5, Endurance +5</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−55 FP, +100 HP</td></tr>
+          <tr><td class="col-name">[Revenant] Improved Strength, Reduced Faith</td><td class="col-fx">Faith −6, Strength +25</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Recluse] Improved Vigor, Endurance, and Dexterity, Reduced Intelligence and Faith</td><td class="col-fx">Intelligence −10, Faith −10, Dexterity +20, Endurance +5, Vigor +4</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+80 HP</td></tr>
+          <tr><td class="col-name">[Recluse] Improved Intelligence and Faith, Reduced Mind</td><td class="col-fx">Mind −13, Intelligence +12, Faith +12</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−65 FP, ~10% increase in spell damage</td></tr>
+          <tr><td class="col-name">[Executor] Improved Vigor and Endurance, Reduced Arcane</td><td class="col-fx">Arcane −13, Vigor +5, Endurance +6</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">+100 HP</td></tr>
+          <tr><td class="col-name">[Executor] Improved Dexterity and Arcane, Reduced Vigor</td><td class="col-fx">Vigor −7, Arcane +9, Dexterity +12</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes">−140 HP, ~11% increase in status build up, ~6.3% increase in AP for katana</td></tr>
+          <tr><td class="col-name">[Scholar] Improved Mind, Reduced Vigor</td><td class="col-fx">Vigor −3, Mind +9</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Scholar] Improved Endurance and Dexterity, Reduced Intelligence and Arcane</td><td class="col-fx">Intelligence −4, Arcane −20, Endurance +6, Dexterity +40</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Undertaker] Improved Dexterity, Reduced Vigor and Faith</td><td class="col-fx">Vigor −5, Faith −13, Dexterity +19</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">[Undertaker] Improved Mind and Faith, Reduced Strength</td><td class="col-fx">Strength −15, Mind +9, Faith +12</td><td class="col-stack"><span class="stack-no">No</span></td><td class="col-notes"></td></tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div><!-- /deepnight section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RELIC CURSES
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="cursesToggle">
+      <span>☠ &nbsp;Relic Curses</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="cursesWrap">
+      <div class="relic-system">
+        Curses are <strong>negative effects</strong> that can roll on relics alongside positive effects.
+        All curses listed here are <strong>stackable with themselves</strong> (rolling the same curse twice doubles the penalty).
+        Watch for interactions with Executor's <em>Tenacity</em> ability — some curses prevent it from triggering until the status is recovered.
+      </div>
+
+      <table class="dn-table">
+        <thead>
+          <tr>
+            <th style="width:30%">Curse Name</th>
+            <th>Effect</th>
+            <th style="width:7%">Stack?</th>
+            <th style="width:25%">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="dn-subhead dn-subhead-curse"><td colspan="4">⚠ Active Curses</td></tr>
+          <tr class="curse-row"><td class="curse-name">Taking Damage Causes [Status] Buildup</td><td class="col-fx">Taking damage inflicts 32 (deathblight) / 40 (madness, sleep) / 44 (bleed, rot, frostbite) / 52 (poison) buildup on the user</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Poison / Rot / Frost does not trigger Executor ability Tenacity until the status is recovered</td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Strength and Intelligence</td><td class="col-fx">Decreases strength and intelligence by 3</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Dexterity and Faith</td><td class="col-fx">Decreases dexterity and faith by 3</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Dexterity and Intelligence</td><td class="col-fx">Decreases dexterity and intelligence by 3</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Strength and Faith</td><td class="col-fx">Decreases strength and faith by 3</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Vigor and Arcane</td><td class="col-fx">Decreases vigor and arcane by 3</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">−60 HP</td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Rune Acquisition</td><td class="col-fx">Decreases rune gain by 0.9x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Flask HP Restoration</td><td class="col-fx">Reduces HP gained from flasks by 0.85x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Ultimate Art Charging Impaired</td><td class="col-fx">Decreases ultimate gauge gain by 0.85x</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Unlike Ultimate Art Gauge relic, affects both passive ult gain and ult gain from attacking</td></tr>
+          <tr class="curse-row"><td class="curse-name">All Resistances Down</td><td class="col-fx">Decreases all status resist by 80</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Continuous HP Loss</td><td class="col-fx">Decreases HP by 2/s</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">More Damage Taken After Evasion</td><td class="col-fx">Decreases damage negation by 45% right after rolling</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Repeated Evasions Lower Damage Negation</td><td class="col-fx">Decreases damage negation by 23% / 35% for 15 seconds on repeat rolls</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Reduced Damage Negation for Flask Usages</td><td class="col-fx">Decreases damage negation by 45% while using flasks</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Lower Attack When Below Max HP</td><td class="col-fx">Decreases damage by 0.915x when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+          <tr class="curse-row"><td class="curse-name">Poison Buildup When Below Max HP</td><td class="col-fx">Inflicts 2 poison buildup per 0.22s when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Does not trigger Executor ability Tenacity until the status is recovered</td></tr>
+          <tr class="curse-row"><td class="curse-name">Rot Buildup When Below Max HP</td><td class="col-fx">Inflicts 2 rot buildup per 0.24s when HP is below 85%</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes">Does not trigger Executor ability Tenacity until the status is recovered</td></tr>
+          <tr class="curse-row"><td class="curse-name">Near Death Reduces Max HP</td><td class="col-fx">Reduces maximum HP by 0.75x for 60 seconds after being downed</td><td class="col-stack"><span class="stack-yes">Yes</span></td><td class="col-notes"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- /curses section -->
+
 
 
 </div><!-- /wrap -->
@@ -4045,6 +4261,8 @@ const SECTIONS = [
   ['dormantToggle',    'dormantWrap'],
   ['legendaryToggle',  'legendaryWrap'],
   ['relicCatToggle',   'relicCatWrap'],
+  ['deepnightToggle',  'deepnightWrap'],
+  ['cursesToggle',     'cursesWrap'],
   ['runeToggle',       'runeWrap'],
   ['invToggle',        'invWrap'],
 ];
