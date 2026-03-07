@@ -3351,6 +3351,75 @@
     </div>
   </div><!-- /curses section -->
 
+  <!-- ══════════════════════════════════════════════════════════
+       CONSUMABLE ITEMS
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="consumablesToggle">
+      <span>🧪 &nbsp;Consumable Items</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="consumablesWrap">
+      <div class="relic-system">
+        Consumable items used during expeditions. <strong>Crystal Tears / Bubbletears / Hardtears</strong> are mixed into your flask before the run.
+        <strong>Greases, Aromatics, Stones, and Foods</strong> are activated mid-run. Durations are active time after use.
+      </div>
+
+      <table class="dn-table">
+        <thead>
+          <tr>
+            <th style="width:24%">Name</th>
+            <th style="width:26%">In-Game Description</th>
+            <th>Exact Effect</th>
+            <th style="width:8%">Duration</th>
+            <th style="width:17%">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="col-name">Acid Spraymist</td><td class="col-fx">Releases acidic mist and lowers attack</td><td class="col-fx">Decreases enemy physical damage dealt by 0.85x</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">All Boluses</td><td class="col-fx">Alleviates "x" status and cures "x"</td><td class="col-fx">Sets buildup to 0 and permanently increases status resist by 3 (sleep, madness, death) / 4 (poison, blood loss, frost). Recovers [MaxHP × 0.005] + 1 HP/s for 20 seconds</td><td class="col-stack" style="color:#a78bfa;">Infinite</td><td class="col-notes">Resistance buff caps at 10 usages</td></tr>
+          <tr><td class="col-name">Bloodboil Aromatic</td><td class="col-fx">Raises attack but also damage received</td><td class="col-fx">Increases physical damage by 1.35x and maximum stamina by 1.2x, but lowers damage negation by 35%</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Boiled Crab</td><td class="col-fx">Greatly boosts physical damage negation</td><td class="col-fx">Increases physical damage negation by 20%</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Boiled Prawn</td><td class="col-fx">Boosts physical damage negation</td><td class="col-fx">Increases physical damage negation by 15%</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Cerulean Crystal Tear</td><td class="col-fx">Greatly restores FP</td><td class="col-fx">Restores all FP</td><td class="col-stack" style="color:#60a5fa;">Instant</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Cerulean Hidden Tear</td><td class="col-fx">Eliminates all FP consumption</td><td class="col-fx">Zero FP cost for all abilities</td><td class="col-stack" style="color:#94a3b8;">15s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Crimson Bubbletear</td><td class="col-fx">Automatically heals HP when HP is low</td><td class="col-fx">Restores [MaxHP × 0.3] HP when HP is below 21%, once</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Crimson Crystal Tear</td><td class="col-fx">Greatly restores HP</td><td class="col-fx">Restores [MaxHP × 0.7] HP</td><td class="col-stack" style="color:#60a5fa;">Instant</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Crimsonburst Crystal Tear</td><td class="col-fx">Gradually restores HP for a limited time</td><td class="col-fx">Increases HP recovery by 7/s</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Crimsonspill Crystal Tear</td><td class="col-fx">Temporarily raises maximum HP</td><td class="col-fx">Increases maximum HP by 1.2x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Crimsonwhorl Bubbletear</td><td class="col-fx">Converts incoming damage into recovered HP</td><td class="col-fx">Restores [MaxHP × 0.05] HP when hit</td><td class="col-stack" style="color:#94a3b8;">15s</td><td class="col-notes">Only converts elemental damage; physical is unaffected</td></tr>
+          <tr><td class="col-name">Dragonwound Grease</td><td class="col-fx">Boosts anti-dragon and physical attack</td><td class="col-fx">Physical damage +1.1x; damage vs Ancient Draconic enemies +1.2x and Draconic enemies +1.1x</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Exalted Flesh</td><td class="col-fx">Temporarily boosts physical attack</td><td class="col-fx">Increases physical damage by 1.2x</td><td class="col-stack" style="color:#94a3b8;">30s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Flame-Shrouding Cracked Tear</td><td class="col-fx">Temporarily boosts fire attacks</td><td class="col-fx">Increases fire damage by 1.2x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Freezing / Soporific / Poison / Blood / Rot Grease</td><td class="col-fx">Coats armament, inflicting "x" status</td><td class="col-fx">Adds 30 status buildup to the weapon</td><td class="col-stack" style="color:#94a3b8;">30s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Gold-Pickled Fowl Foot</td><td class="col-fx">Boosts rune acquisition</td><td class="col-fx">Increases rune gain by 1.1x</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Greenburst Crystal Tear</td><td class="col-fx">Temporarily boosts stamina recovery speed</td><td class="col-fx">Increases stamina recovery by 15/s</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Greenspill Crystal Tear</td><td class="col-fx">Temporarily raises maximum stamina</td><td class="col-fx">Increases maximum stamina by 1.15x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Holy-Shrouding Cracked Tear</td><td class="col-fx">Temporarily boosts holy attacks</td><td class="col-fx">Increases holy damage by 1.2x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Ironjar Aromatic</td><td class="col-fx">Raises defense but lowers mobility</td><td class="col-fx">Physical negation +20% (lightning −60%); all resistances +45; defFlickPower +90 (some attacks bounce); prevents stagger from Damage Levels 0, 1, 2, 3, 5, 8, 11; reduced stagger from Levels 4, 6, 7, 9</td><td class="col-stack" style="color:#94a3b8;">40s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Leaden Hardtear</td><td class="col-fx">Temporarily boosts poise</td><td class="col-fx">Prevents stagger from Damage Levels 1, 2, 3, 5, and 8</td><td class="col-stack" style="color:#94a3b8;">10s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Lightning-Shrouding Cracked Tear</td><td class="col-fx">Temporarily boosts lightning attacks</td><td class="col-fx">Increases lightning damage by 1.2x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Magic-Shrouding Cracked Tear</td><td class="col-fx">Temporarily boosts magic attacks</td><td class="col-fx">Increases magic damage by 1.2x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Magic / Fire / Lightning / Holy Grease</td><td class="col-fx">Coats armament, inflicting "x" damage</td><td class="col-fx">Adds 35 magic / fire / lightning / holy AP to the weapon</td><td class="col-stack" style="color:#94a3b8;">30s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Opaline Bubbletear</td><td class="col-fx">Provides significant damage negation</td><td class="col-fx">Increases damage negation by 90% until hit or duration expires</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Opaline Hardtear</td><td class="col-fx">Temporarily boosts all damage negation</td><td class="col-fx">Increases all damage negation by 15%</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Pickled Turtle Neck</td><td class="col-fx">Temporarily boosts stamina recovery</td><td class="col-fx">Increases stamina recovery by 10/s</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Shield Grease</td><td class="col-fx">Boosts guarding ability and all damage negation</td><td class="col-fx">Increases damage negation by 20% and reduces stamina damage by 0.87x when blocking</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Silver-Pickled Fowl Foot</td><td class="col-fx">Temporarily boosts item discovery</td><td class="col-fx">Increases discovery by 30</td><td class="col-stack" style="color:#94a3b8;">60s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Speckled Hardtear</td><td class="col-fx">Raises all resistances and heals all status effects</td><td class="col-fx">Increases status resist by 90 and sets all buildup to 0</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Spiked Crystal Tear</td><td class="col-fx">Increases the power of charged attacks</td><td class="col-fx">Increases charged heavy damage by 1.15x</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Starlight Shards</td><td class="col-fx">Restores FP</td><td class="col-fx">Recovers [MaxFP × 0.6] FP</td><td class="col-stack" style="color:#60a5fa;">Instant</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Stonebarb Cracked Tear</td><td class="col-fx">Makes attacks more likely to break enemy stances</td><td class="col-fx">Increases poise damage by 1.3x</td><td class="col-stack" style="color:#94a3b8;">30s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Thorny Cracked Tear</td><td class="col-fx">Makes consecutive attacks grow stronger</td><td class="col-fx">Increases damage by 1.09x / 1.23x / 1.48x / 1.48x with continuous attacks</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Twiggy Cracked Tear</td><td class="col-fx">Prevents runes from being lost upon death</td><td class="col-fx">Self-explanatory</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Uplifting Aromatic</td><td class="col-fx">Boosts attack power and reduces incoming damage once</td><td class="col-fx">Increases physical damage by 1.1x and damage negation by 90% until hit or duration expires</td><td class="col-stack" style="color:#94a3b8;">40s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Warming Stone</td><td class="col-fx">Continuously heal yourself and allies</td><td class="col-fx">Recovers 25 HP/s</td><td class="col-stack" style="color:#94a3b8;">30s</td><td class="col-notes"></td></tr>
+          <tr><td class="col-name">Windy Crystal Tear</td><td class="col-fx">Increases the effectiveness of dodge rolls</td><td class="col-fx">Adds 3 iframes (30fps) to roll; decreases damage negation by 10%</td><td class="col-stack" style="color:#94a3b8;">120s</td><td class="col-notes">Doesn't stack with Crucible Feather Talisman</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- /consumables section -->
+
 
 
 </div><!-- /wrap -->
@@ -4263,6 +4332,7 @@ const SECTIONS = [
   ['relicCatToggle',   'relicCatWrap'],
   ['deepnightToggle',  'deepnightWrap'],
   ['cursesToggle',     'cursesWrap'],
+  ['consumablesToggle','consumablesWrap'],
   ['runeToggle',       'runeWrap'],
   ['invToggle',        'invWrap'],
 ];
