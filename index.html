@@ -1528,14 +1528,6 @@
     </div>
   </div>
 
-  <!-- Search bar -->
-  <div class="search-bar">
-    <span class="search-icon">🔍</span>
-    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
-    <button class="search-clear" id="searchClear">✕ Clear</button>
-  </div>
-  <div class="search-result-count" id="searchCount"></div>
-
   <!-- Header -->
   <div class="header">
     <div class="title">NIGHTREIGN</div>
@@ -1596,6 +1588,14 @@
 
   </div><!-- /card -->
 
+  <!-- Search bar -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="searchInput" placeholder="Search bosses, relics, passives, effects…" autocomplete="off" />
+    <button class="search-clear" id="searchClear">✕ Clear</button>
+  </div>
+  <div class="search-result-count" id="searchCount"></div>
+
   <!-- Boss reference -->
   <div class="boss-section">
     <button class="boss-toggle" id="bossToggle">
@@ -1619,7 +1619,7 @@
           <div class="boss-icon">🦷</div>
           <div class="boss-name js-boss-name">Adel, Baron of Night</div>
           <div class="boss-expedition js-boss-exp">Regular — Standard Expedition</div>
-          <span class="boss-weak weak-poison"><span class="el-icon el-rot" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✾</span> Rot / Bleed / Frost</span>
+          <span class="boss-weak weak-poison"><span class="el-icon el-poison" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">☠</span> Poison / Rot / Frost</span>
           <div class="boss-tip js-boss-tip">Weak to Poison, Rot, and Frost (all 154). Resists Bleed (541). Kite his charges and avoid standing in front.</div>
         </div>
 
@@ -1647,6 +1647,8 @@
           <div class="boss-name js-boss-name">Libra, Creature of Night</div>
           <div class="boss-expedition js-boss-exp">Regular — Standard Expedition</div>
           <span class="boss-weak weak-madness"><span class="el-icon el-madness" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">◎</span> Madness</span>
+          <span class="boss-weak weak-holy"><span class="el-icon el-holy" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">✦</span> Holy</span>
+          <span class="boss-weak weak-fire"><span class="el-icon el-fire" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">♨</span> Fire</span>
           <div class="boss-tip js-boss-tip">Destroy light symbols to remove orb shield — reflected projectiles can down you. Immune to Sleep. Madness procs easily (154).</div>
         </div>
 
@@ -1691,6 +1693,9 @@
           <div class="boss-name js-boss-name">Weapon Bequeathed Harmonia</div>
           <div class="boss-expedition js-boss-exp">Regular — DLC Expedition · Unlock: beat Tricephalos + 1 other, unlock Scholar &amp; Undertaker</div>
           <span class="boss-weak" style="background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.3)"><span class="el-icon el-sleep" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">◗</span> Sleep</span>
+          <span class="boss-weak weak-poison"><span class="el-icon el-poison" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">☠</span> Poison</span>
+          <span class="boss-weak" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)"><span class="el-icon el-bleed" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">♦</span> Bleed</span>
+          <span class="boss-weak" style="background:rgba(147,197,253,.15);color:#93c5fd;border:1px solid rgba(147,197,253,.3)"><span class="el-icon el-frost" style="width:14px;height:14px;font-size:9px;border-radius:3px;vertical-align:middle;margin-right:2px;">❄</span> Frost</span>
           <div class="boss-tip js-boss-tip">7 valkyrie-style enemies. Sleep procs instantly (84 resist!) — crit sleeping enemies. Most attacks parryable; one parry staggers. Kill all before Night ends or lose all Healing Flasks.</div>
         </div>
 
@@ -1706,6 +1711,71 @@
       </div><!-- /boss-grid -->
     </div><!-- /boss-grid-wrap -->
   </div><!-- /boss-section -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       RUNE COST TO LEVEL UP
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-section">
+    <button class="info-toggle" id="runeToggle">
+      <span>💰 &nbsp;Rune Cost to Level Up</span>
+      <em class="chevron">▼</em>
+    </button>
+    <div class="info-wrap" id="runeWrap">
+      <div style="padding:12px 4px;">
+
+        <!-- Quick Reference: Approximate Costs -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:.75rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Quick Reference — Approximate</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 1→2 ≈ 4,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 2→3 ≈ 8,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 3→4 ≈ 13,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 4→5 ≈ 17,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 5→6 ≈ 22,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 6→7 ≈ 27,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 7→8 ≈ 33,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 8→9 ≈ 38,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 9→10 ≈ 44,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 10→11 ≈ 50,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 11→12 ≈ 56,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 12→13 ≈ 62,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 13→14 ≈ 69,000</span>
+            <span style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fde68a;border-radius:6px;padding:4px 10px;font-size:.8rem;">Lv 14→15 ≈ 76,000</span>
+          </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div style="font-size:.75rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Exact Values</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+          <thead>
+            <tr style="color:#94a3b8;text-align:right;border-bottom:1px solid rgba(255,255,255,.1);">
+              <th style="text-align:left;padding:5px 8px;font-weight:500;">Level</th>
+              <th style="padding:5px 8px;font-weight:500;">Cost to Next</th>
+              <th style="padding:5px 8px;font-weight:500;">Cumulative Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">1</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">3,698</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">3,698</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">2</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">7,922</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">11,620</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">3</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">12,348</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">23,968</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">4</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">16,978</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">40,946</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">5</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">21,818</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">62,764</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">6</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">26,869</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">89,633</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">7</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">32,137</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">121,770</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">8</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">37,624</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">159,394</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">9</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">43,335</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">202,729</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">10</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">49,271</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">252,000</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">11</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">55,439</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">307,439</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">12</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">61,840</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">369,279</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">13</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">68,479</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">437,758</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05);"><td style="padding:5px 8px;color:#e2e8f0;">14</td><td style="padding:5px 8px;text-align:right;color:#fde68a;">75,358</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">513,116</td></tr>
+            <tr><td style="padding:5px 8px;color:#e2e8f0;">15</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">—</td><td style="padding:5px 8px;text-align:right;color:#94a3b8;">513,116</td></tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════════════
        INVASION / RAID EVENT BUFFS
@@ -3975,6 +4045,7 @@ const SECTIONS = [
   ['dormantToggle',    'dormantWrap'],
   ['legendaryToggle',  'legendaryWrap'],
   ['relicCatToggle',   'relicCatWrap'],
+  ['runeToggle',       'runeWrap'],
   ['invToggle',        'invWrap'],
 ];
 SECTIONS.forEach(([btnId, wrapId]) => {
